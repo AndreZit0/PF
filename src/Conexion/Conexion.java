@@ -7,11 +7,11 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         Connection con = null;
 
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aprendices", "root", "root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aprendices", "root", "");
 
         }catch(SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos"+e.toString());
