@@ -2,7 +2,6 @@ package Clase;
 
 public class Evaluador {
 
-
     int id_NumeroAprendices;
     int id_Usuarios;
     int id_Fichas;
@@ -54,6 +53,5 @@ public class Evaluador {
     public void setId_Empresas(int id_Empresas) {
         this.id_Empresas = id_Empresas;
     }
-
-
 }
+
