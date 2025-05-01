@@ -70,7 +70,7 @@ public class GUIEvaluador {
         Connection con = Conexion.getConnection();
 
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT evaluador FROM asignacion WHERE evaluador LIKE ?");
+            PreparedStatement ps = con.prepareStatement("SELECT nombre FROM evaluadores WHERE nombre LIKE ?");
             ps.setString(1, "%" + nombre + "%"); // búsqueda flexible
             ResultSet rs = ps.executeQuery();
 
@@ -185,6 +185,7 @@ public class GUIEvaluador {
         frame.setSize(450, 400);
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.setLocation(50, 50);
     }
 
 

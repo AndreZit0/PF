@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class AsignacionGUI {
@@ -30,7 +31,7 @@ public class AsignacionGUI {
      * @param frame
      */
     public AsignacionGUI(JFrame frame) {
-        showdata();
+        //showdata();
 
         this.frame = frame;
         this.parentFrame = parentFrame;
@@ -196,7 +197,19 @@ public class AsignacionGUI {
 
         try {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT nombre, documento, ficha, programa, evaluador, fecha_inicial, fecha_fin FROM asignacion");
+            ResultSet rs = stmt.executeQuery("SELECT \n" +
+                    "  a.ID_numeroAprendices,\n" +
+                    "  u.nombres AS nombre_aprendiz,\n" +
+                    "  f.numero_ficha,\n" +
+                    "  e.nombre_empresa,\n" +
+                    "  i.nombres AS nombre_instructor,\n" +
+                    "  m.modalidad\n" +
+                    "FROM aprendices a\n" +
+                    "JOIN usuarios u ON a.ID_usuarios = u.ID_usuarios\n" +
+                    "JOIN fichas f ON a.ID_Fichas = f.ID_fichas\n" +
+                    "JOIN empresas e ON a.ID_empresas = e.ID_empresas\n" +
+                    "JOIN usuarios i ON a.ID_instructor = i.ID_usuarios\n" +
+                    "JOIN modalidad m ON a.ID_modalidad = m.ID_modalidad;");
 
             while (rs.next()) {
                 dato[0] = rs.getString(1);
@@ -231,81 +244,108 @@ public class AsignacionGUI {
 
     /************************************************************************************************************/
 
-    public java.util.List<Asignacion> buscarAprendiz(String terminoBusqueda) throws SQLException {
-
+    /**
+     * /*
+     * buscarAprendiz
+     * se busca aprendiz por documento y se muestra la sigueinte informacion: numero (cedula), nombres, ficha, programa.
+     * es una busqueda parcial
+     *
+     */
+    public List<Asignacion> buscarAprendiz(String terminoBusqueda) throws SQLException {
         PreparedStatement consulta = null;
         ResultSet resultado = null;
-        java.util.List<Asignacion> asignacion = new ArrayList<>();
+        List<Asignacion> asignacion = new ArrayList<>();
 
         try {
             Connection con = conexion.getConnection();
-            String sql = "SELECT * FROM asignacion WHERE documento LIKE ?";
+            String sql = "SELECT u.tipo_dc, u.numero, CONCAT(u.nombres, ' ', u.apellidos) AS nombre_completo, " +
+                    "f.codigo AS ficha, p.nombre_programa " +
+                    "FROM aprendices a " +
+                    "JOIN usuarios u ON a.ID_usuarios = u.ID_usuarios " +
+                    "JOIN fichas f ON a.ID_Fichas = f.ID_Fichas " +
+                    "JOIN programas p ON f.ID_programas = p.ID_programas " +
+                    "WHERE u.numero LIKE ?";
+
+            consulta = con.prepareStatement(sql);
+            consulta.setString(1, "%" + terminoBusqueda + "%");
+            resultado = consulta.executeQuery();
+
+            while (resultado.next()) {
+                Asignacion asg = new Asignacion();
+                asg.setDocumento(resultado.getString("numero"));
+                asg.setNombre(resultado.getString("nombre_completo"));
+                asg.setFicha(resultado.getString("ficha"));
+                asg.setPrograma(resultado.getString("nombre_programa"));
+
+                asignacion.add(asg);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (resultado != null) resultado.close();
+            if (consulta != null) consulta.close();
+        }
+        return asignacion;
+    }
+
+
+    /**
+     * Búsqueda para ficha.
+     * se buscan varios aprendices por ficha y se muestra la sigueinte informacion: numero (cedula), nombres, ficha (importante) y programa.
+     *
+     */
+    public List<Asignacion> buscarFicha(String terminoBusqueda) throws SQLException {
+        PreparedStatement consulta = null;
+        ResultSet resultado = null;
+        List<Asignacion> asignacion = new ArrayList<>();
+
+        try {
+            Connection con = conexion.getConnection();
+            String sql = "SELECT u.tipo_dc, u.numero, CONCAT(u.nombres, ' ', u.apellidos) AS nombre_completo, " +
+                    "f.codigo AS ficha, p.nombre_programa " +
+                    "FROM aprendices a " +
+                    "JOIN usuarios u ON a.ID_usuarios = u.ID_usuarios " +
+                    "JOIN fichas f ON a.ID_Fichas = f.ID_Fichas " +
+                    "JOIN programas p ON f.ID_programas = p.ID_programas " +
+                    "WHERE f.codigo LIKE ?";
+
             consulta = con.prepareStatement(sql);
             consulta.setString(1, "%" + terminoBusqueda + "%"); // Búsqueda parcial
             resultado = consulta.executeQuery();
 
             while (resultado.next()) {
                 Asignacion asg = new Asignacion();
-                asg.setId_asignacion(resultado.getInt("id_asignacion"));
-                asg.setNombre(resultado.getString("nombre"));
-                asg.setDocumento(resultado.getString("documento"));
+                asg.setDocumento(resultado.getString("numero"));
+                asg.setNombre(resultado.getString("nombre_completo"));
                 asg.setFicha(resultado.getString("ficha"));
-                asg.setPrograma(resultado.getString("programa"));
-                asg.setEvaluador(resultado.getString("evaluador"));
-                asg.setFecha_inicial(resultado.getString("fecha_inicial"));
-                asg.setFecha_final(resultado.getString("fecha_final"));
-
+                asg.setPrograma(resultado.getString("nombre_programa"));
+                // Si deseas, puedes establecer campos vacíos o nulos para otros atributos
                 asignacion.add(asg);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (resultado != null) resultado.close();
+            if (consulta != null) consulta.close();
         }
+
         return asignacion;
     }
 
 
-    public java.util.List<Asignacion> buscarFicha(String terminoBusqueda) throws SQLException {
-        PreparedStatement consulta = null;
-        ResultSet resultado = null;
-        java.util.List<Asignacion> asignacion = new ArrayList<>();
-
-        try {
-            Connection con = conexion.getConnection();
-            String sql = "SELECT * FROM asignacion WHERE ficha LIKE ?";
-            consulta = con.prepareStatement(sql);
-            consulta.setString(1, "%" + terminoBusqueda + "%"); // Búsqueda parcial
-            resultado = consulta.executeQuery();
-
-            while (resultado.next()) {
-                Asignacion asg = new Asignacion();
-                asg.setId_asignacion(resultado.getInt("id_asignacion"));
-                asg.setNombre(resultado.getString("nombre"));
-                asg.setDocumento(resultado.getString("documento"));
-                asg.setFicha(resultado.getString("ficha"));
-                asg.setPrograma(resultado.getString("programa"));
-                asg.setEvaluador(resultado.getString("evaluador"));
-                asg.setFecha_inicial(resultado.getString("fecha_inicial"));
-                asg.setFecha_final(resultado.getString("fecha_final"));
-
-                asignacion.add(asg);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return asignacion;
-    }
-
-
-    public void actualizarTabla(java.util.List<Asignacion> asignacion) {
+    /**
+     * Se actualiza el modelo de la tabla al realizar la búsqueda
+     * funciona para documento y ficha
+     */
+    public void actualizarTabla(List<Asignacion> asignacion) {
         DefaultTableModel modelo = new DefaultTableModel();
 
         modelo.addColumn("Nombre");
         modelo.addColumn("Documento");
         modelo.addColumn("Ficha");
         modelo.addColumn("Programa");
-        modelo.addColumn("Evaluador");
-        modelo.addColumn("Fecha Inicial");
-        modelo.addColumn("Fecha Final");
+        modelo.addColumn("Evaluador"); // Agregamos la columna que tendrá el botón
 
         for (Asignacion asignacion1 : asignacion) {
             modelo.addRow(new Object[]{
@@ -313,16 +353,15 @@ public class AsignacionGUI {
                     asignacion1.getDocumento(),
                     asignacion1.getFicha(),
                     asignacion1.getPrograma(),
-                    "➕",
-                    asignacion1.getFecha_inicial(),
-                    asignacion1.getFecha_final()
+                    "➕" // Acción
             });
         }
 
         table1.setModel(modelo);
-        table1.getColumn("Acción").setCellRenderer(new ButtonRenderer());
-        table1.getColumn("Acción").setCellEditor(new ButtonEditor(new JCheckBox()));
+        table1.getColumn("Evaluador").setCellRenderer(new ButtonRenderer());
+        table1.getColumn("Evaluador").setCellEditor(new ButtonEditor(new JCheckBox()));
     }
+
 
 
 
