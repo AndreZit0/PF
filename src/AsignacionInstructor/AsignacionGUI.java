@@ -178,6 +178,8 @@ public class AsignacionGUI {
             button.setOpaque(true);
             button.setBackground(new Color(0x39A900));
 
+
+
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     fireEditingStopped();
@@ -268,7 +270,6 @@ public class AsignacionGUI {
             return column == 5;
         }
     }
-
     /**
      * Busca aprendices por número de documento.
      *

@@ -332,9 +332,7 @@ public class GUIEvaluador {
             table1.getColumnModel().getColumn(2).setWidth(0);
 
 
-            table1.getColumnModel().getColumn(4).setMinWidth(0);
-            table1.getColumnModel().getColumn(4).setMaxWidth(0);
-            table1.getColumnModel().getColumn(4).setWidth(0);
+
 
             table1.getColumnModel().getColumn(5).setMinWidth(0);
             table1.getColumnModel().getColumn(5).setMaxWidth(0);
@@ -439,7 +437,7 @@ public class GUIEvaluador {
         frame.setSize(450, 400);
         frame.setResizable(false);
         frame.setVisible(true);
-        frame.setLocation(50, 50);
+        frame.setLocationRelativeTo(null);
 
         URL iconoURL = AsignacionGUI.class.getClassLoader().getResource("imagenes/sena.jpeg");
         if (iconoURL != null) {
@@ -447,4 +445,5 @@ public class GUIEvaluador {
         }
 
     }
+
 }
