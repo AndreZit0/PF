@@ -1,17 +1,14 @@
 package AsignacionInstructor;
 
 import Conexion.Conexion;
-
+import javax.swing.table.TableRowSorter;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,6 +27,8 @@ public class AsignacionGUI {
     private JFrame frame;
     private JFrame parentFrame;
     private Conexion conexion = new Conexion();
+    private TableRowSorter<DefaultTableModel> sorter;
+    private DefaultTableModel modelo;
 
     String terminoBusqueda;
     String tipoBusqueda;
@@ -43,6 +42,11 @@ public class AsignacionGUI {
 
         this.frame = frame;
         this.parentFrame = parentFrame;
+
+        sorter = new TableRowSorter<>(modelo);
+        table1.setRowSorter(sorter);
+
+
 
         main.setBackground(Color.decode("#F6F6F6"));
         frame.setContentPane(main);
@@ -61,7 +65,33 @@ public class AsignacionGUI {
         Color colorBase2 = new Color(0x007AFF);
         aplicarEfectoHover(button1, color1, colorBase2);
 
+        campoBusqueda.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String searchText = campoBusqueda.getText().trim().toLowerCase();
+
+                if (sorter != null) {
+                    // Filtro que busca en todas las columnas
+                    RowFilter<DefaultTableModel, Object> filter = new RowFilter<DefaultTableModel, Object>() {
+                        @Override
+                        public boolean include(Entry<? extends DefaultTableModel, ? extends Object> entry) {
+                            for (int i = 0; i < entry.getValueCount(); i++) {
+                                if (entry.getStringValue(i).toLowerCase().contains(searchText)) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }
+                    };
+
+                    sorter.setRowFilter(filter);
+                }
+            }
+        });
+
+
         button1.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (campoBusqueda.getText().equals("")) {
@@ -402,6 +432,10 @@ public class AsignacionGUI {
      */
     public void actualizarTabla(List<Asignacion> asignacion) {
 
+        if (sorter != null) {
+            table1.setRowSorter(null);
+
+        }
         DefaultTableModel modelo = new DefaultTableModel();
 
         modelo.addColumn("ID");
@@ -411,6 +445,14 @@ public class AsignacionGUI {
         modelo.addColumn("Programa");
         modelo.addColumn("Evaluador");
         modelo.addColumn("Asignar");
+
+        sorter = new TableRowSorter<>(modelo);
+        table1.setRowSorter(sorter);
+
+        // Restablecer el filtro de búsqueda si hay texto
+        if (!campoBusqueda.getText().trim().isEmpty()) {
+            campoBusqueda.setText(campoBusqueda.getText());
+        }
 
         for (Asignacion asignacion1 : asignacion) {
 
