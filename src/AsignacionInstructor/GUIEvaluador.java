@@ -3,6 +3,8 @@ package AsignacionInstructor;
 import Conexion.Conexion;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
@@ -16,6 +18,7 @@ import java.sql.*;
 /**
  * Clase GUIEvaluador que permite la asignación y eliminación de instructores (evaluadores) a aprendices.
  * Muestra una lista de evaluadores disponibles y permite seleccionar uno para asignarlo a un aprendiz específico.
+ * Incluye una funcionalidad de autobúsqueda para filtrar instructores mientras se escribe.
  */
 public class GUIEvaluador {
 
@@ -29,6 +32,8 @@ public class GUIEvaluador {
     private AsignacionGUI asignacionGUI;
     private int idEvaluadorActual;
     int filas;
+    // Añadimos un temporizador para la autobúsqueda
+    private Timer timerBusqueda;
 
     /**
      * Constructor de la clase GUIEvaluador.
@@ -47,30 +52,6 @@ public class GUIEvaluador {
 
         listaContacto();
 
-
-//        table1.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                super.mouseClicked(e);
-//
-//
-//                int selectFilas = table1.getSelectedRow();
-//                int columnas = table1.getColumnCount();
-//
-//                if (selectFilas >= 0) {
-//                    if (columnas == 1) {
-//                        // Cuando estás viendo solo el nombre del evaluador
-//                        textField2.setText((String) table1.getValueAt(selectFilas, 0));
-//                    } else {
-//                        // Cuando estás viendo toda la tabla completa
-//                        textField2.setText((String) table1.getValueAt(selectFilas, 3));
-//                    }
-//
-//                    filas = selectFilas;
-//                }
-//            }
-//        });
-
         main.setBackground(Color.decode("#F6F6F6"));
 
         JTableHeader header = table1.getTableHeader();
@@ -86,7 +67,6 @@ public class GUIEvaluador {
         Color colorBase = new Color(57, 169, 0);
         aplicarEfectoHover(asignarButton, colorHover, colorBase);
 
-
         Color color1 = new Color(0xCC2F26);
         Color colorBase2 = new Color(0xFF3B30);
         aplicarEfectoHover(eliminarButton, color1, colorBase2);
@@ -97,6 +77,8 @@ public class GUIEvaluador {
         Color colorBase4 = new Color(0x007AFF);
         aplicarEfectoHover(button1, color3, colorBase4);
 
+        // Implementar autobúsqueda en el campo de texto
+        configurarAutobusqueda();
 
         button1.addActionListener(new ActionListener() {
             /**
@@ -115,7 +97,6 @@ public class GUIEvaluador {
                 }
             }
         });
-
 
         asignarButton.addActionListener(new ActionListener() {
             /**
@@ -156,7 +137,6 @@ public class GUIEvaluador {
                 } else {
                     JOptionPane.showMessageDialog(null, "Debes seleccionar un instructor.");
                 }
-
             }
         });
 
@@ -169,7 +149,6 @@ public class GUIEvaluador {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 if (idEvaluadorActual != -1) {
                     int confirmacion = JOptionPane.showConfirmDialog(
                             null,
@@ -182,7 +161,6 @@ public class GUIEvaluador {
                         eliminarEvaluador(idEvaluadorActual);
                     }
                 } else {
-
                     int filaSeleccionada = table1.getSelectedRow();
                     if (filaSeleccionada >= 0) {
                         int idEvaluador = Integer.parseInt(table1.getValueAt(filaSeleccionada, 0).toString());
@@ -191,7 +169,62 @@ public class GUIEvaluador {
                 }
             }
         });
+    }
 
+    /**
+     * Configura la funcionalidad de autobúsqueda en el campo de texto.
+     * Agrega un DocumentListener que actualiza la tabla mientras el usuario escribe.
+     */
+    private void configurarAutobusqueda() {
+        // Inicializar el temporizador pero no iniciarlo todavía
+        timerBusqueda = new Timer(300, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actualizarBusqueda();
+            }
+        });
+        timerBusqueda.setRepeats(false);
+
+        // Agregar el DocumentListener al campo de texto
+        textField1.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                reiniciarTimer();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                reiniciarTimer();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                reiniciarTimer();
+            }
+        });
+    }
+
+    /**
+     * Reinicia el temporizador de autobúsqueda para evitar múltiples consultas durante la escritura rápida.
+     */
+    private void reiniciarTimer() {
+        if (timerBusqueda.isRunning()) {
+            timerBusqueda.stop();
+        }
+        timerBusqueda.start();
+    }
+
+    /**
+     * Actualiza los resultados de búsqueda basados en el texto actual del campo de búsqueda.
+     * Busca tanto en nombres como en apellidos de los evaluadores.
+     */
+    private void actualizarBusqueda() {
+        String texto = textField1.getText().trim();
+        if (texto.isEmpty()) {
+            listaContacto(); // Mostrar todos los evaluadores
+        } else {
+            buscarPorNombre(texto); // Buscar por el texto ingresado (ahora busca en nombre y apellido)
+        }
     }
 
     /**
@@ -249,26 +282,31 @@ public class GUIEvaluador {
     }
 
     /**
-     * Busca evaluadores por nombre en la base de datos y actualiza la tabla con los resultados.
+     * Busca evaluadores por nombre o apellido en la base de datos y actualiza la tabla con los resultados.
+     * Muestra tanto el nombre como el apellido en la tabla de resultados.
      *
-     * @param nombre Nombre o parte del nombre del evaluador a buscar.
+     * @param texto Texto a buscar (puede ser parte del nombre o apellido).
      */
-    public void buscarPorNombre(String nombre) {
+    public void buscarPorNombre(String texto) {
         NonEditableTableModel model = new NonEditableTableModel();
-        // Columnas: ID (oculto) + Nombre (visible)
-        model.addColumn("ID");  // Columna 0 (oculta)
-        model.addColumn("Nombre"); // Columna 1 (visible)
+
+        model.addColumn("ID");       // Columna 0 (oculta)
+        model.addColumn("Nombre");   // Columna 1 (visible)
+        model.addColumn("Apellidos"); // Columna 2 (visible)
 
         try (Connection con = conexion.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT ID_usuarios, nombres FROM usuarios WHERE nombres LIKE ? AND ID_rol = 2");
-            ps.setString(1, "%" + nombre + "%");
+                    "SELECT ID_usuarios, nombres, apellidos FROM usuarios " +
+                            "WHERE (nombres LIKE ? OR apellidos LIKE ?) AND ID_rol = 2");
+            ps.setString(1, "%" + texto + "%");
+            ps.setString(2, "%" + texto + "%");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 model.addRow(new Object[]{
-                        rs.getInt("ID_usuarios"), // Columna 0 (ID)
-                        rs.getString("nombres")  // Columna 1 (Nombre)
+                        rs.getInt("ID_usuarios"),    // Columna 0 (ID)
+                        rs.getString("nombres"),     // Columna 1 (Nombre)
+                        rs.getString("apellidos")    // Columna 2 (Apellido)
                 });
             }
 
@@ -290,7 +328,6 @@ public class GUIEvaluador {
         NonEditableTableModel modeloa = new NonEditableTableModel();
         table1.setDefaultEditor(Object.class, null);
 
-
         modeloa.addColumn("ID_usuarios"); // la vamos a ocultar
         modeloa.addColumn("tipo_dc");
         modeloa.addColumn("numero");
@@ -307,8 +344,6 @@ public class GUIEvaluador {
         if (idEvaluadorActual != -1) {
             seleccionarEvaluadorActual(idEvaluadorActual);
         }
-
-
 
         table1.setModel(modeloa);
         table1.setRowHeight(30); // Altura de las filas
@@ -331,14 +366,9 @@ public class GUIEvaluador {
             table1.getColumnModel().getColumn(2).setMaxWidth(0);
             table1.getColumnModel().getColumn(2).setWidth(0);
 
-
-
-
             table1.getColumnModel().getColumn(5).setMinWidth(0);
             table1.getColumnModel().getColumn(5).setMaxWidth(0);
             table1.getColumnModel().getColumn(5).setWidth(0);
-
-
 
             table1.getColumnModel().getColumn(6).setMinWidth(0);
             table1.getColumnModel().getColumn(6).setMaxWidth(0);
@@ -364,14 +394,11 @@ public class GUIEvaluador {
             table1.getColumnModel().getColumn(11).setMaxWidth(0);
             table1.getColumnModel().getColumn(11).setWidth(0);
 
-
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios WHERE ID_rol = 2  ");
-
+            ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios WHERE ID_rol = 2");
 
             while (rs.next())
             {
-
                 dato[0] = rs.getString(1);
                 dato[1] = rs.getString(2);
                 dato[2] = rs.getString(3);
@@ -392,20 +419,31 @@ public class GUIEvaluador {
 
     /**
      * Selecciona y hace visible en la tabla el evaluador actualmente asignado al aprendiz.
+     * Adaptado para funcionar tanto con la tabla completa como con la tabla de resultados de búsqueda.
      *
      * @param idEvaluadorActual Identificador del evaluador actualmente asignado.
      */
     public void seleccionarEvaluadorActual(int idEvaluadorActual) {
+        // Comprobar si hay filas en la tabla
+        if (table1.getRowCount() <= 0) {
+            return;
+        }
+
+
         for (int i = 0; i < table1.getRowCount(); i++) {
-            int idEnTabla = Integer.parseInt(table1.getValueAt(i, 0).toString());
-            if (idEnTabla == this.idEvaluadorActual) {
-                table1.setRowSelectionInterval(i, i); // Seleccionar la fila
-                table1.scrollRectToVisible(table1.getCellRect(i, 0, true)); // Hacer scroll
-                break;
+            try {
+                int idEnTabla = Integer.parseInt(table1.getValueAt(i, 0).toString());
+                if (idEnTabla == this.idEvaluadorActual) {
+                    table1.setRowSelectionInterval(i, i); // Seleccionar la fila
+                    table1.scrollRectToVisible(table1.getCellRect(i, 0, true)); // Hacer scroll
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                // Ignorar errores de formato en caso de que alguna celda no contenga un número válido
+                continue;
             }
         }
     }
-
 
     /**
      * Clase interna que extiende DefaultTableModel para crear una tabla no editable.
@@ -424,12 +462,10 @@ public class GUIEvaluador {
         }
     }
 
-
     /**
      * Método para ejecutar y mostrar la interfaz gráfica del evaluador.
      */
-    public  void ejecutar() {
-
+    public void ejecutar() {
         JFrame frame = new JFrame("Evaluador");
         frame.setContentPane(this.main);
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -443,7 +479,5 @@ public class GUIEvaluador {
         if (iconoURL != null) {
             frame.setIconImage(new ImageIcon(iconoURL).getImage());
         }
-
     }
-
 }
