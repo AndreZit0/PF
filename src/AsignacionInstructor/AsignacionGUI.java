@@ -1,12 +1,9 @@
 package AsignacionInstructor;
 
 import Conexion.Conexion;
-import javax.swing.table.TableRowSorter;
+
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
@@ -22,16 +19,12 @@ public class AsignacionGUI {
     private JPanel main;
     private JTable table1;
     private JTextField campoBusqueda;
-    private JComboBox comboBox1;
-    private JButton button1;
     private JFrame frame;
     private JFrame parentFrame;
     private Conexion conexion = new Conexion();
     private TableRowSorter<DefaultTableModel> sorter;
-    private DefaultTableModel modelo;
+    private  NonEditableTableModel modelo;
 
-    String terminoBusqueda;
-    String tipoBusqueda;
 
     /**
      * Constructor de la clase AsignacionGUI.
@@ -43,10 +36,10 @@ public class AsignacionGUI {
         this.frame = frame;
         this.parentFrame = parentFrame;
 
+        modelo = new NonEditableTableModel();
         sorter = new TableRowSorter<>(modelo);
+        table1.setModel(modelo);
         table1.setRowSorter(sorter);
-
-
 
         main.setBackground(Color.decode("#F6F6F6"));
         frame.setContentPane(main);
@@ -60,103 +53,81 @@ public class AsignacionGUI {
         header.setForeground(Color.WHITE);
         header.setFont(new Font("Calibri", Font.BOLD, 15));
 
-        button1.setBackground(new Color(0x007AFF));
-        Color color1 = new Color(0x0051B8);
-        Color colorBase2 = new Color(0x007AFF);
-        aplicarEfectoHover(button1, color1, colorBase2);
+
+
 
         campoBusqueda.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 String searchText = campoBusqueda.getText().trim().toLowerCase();
-
-                if (sorter != null) {
-                    // Filtro que busca en todas las columnas
-                    RowFilter<DefaultTableModel, Object> filter = new RowFilter<DefaultTableModel, Object>() {
-                        @Override
-                        public boolean include(Entry<? extends DefaultTableModel, ? extends Object> entry) {
-                            for (int i = 0; i < entry.getValueCount(); i++) {
-                                if (entry.getStringValue(i).toLowerCase().contains(searchText)) {
-                                    return true;
-                                }
-                            }
-                            return false;
-                        }
-                    };
-
-                    sorter.setRowFilter(filter);
+                try {
+                    List<Asignacion> asignaciones = buscarGeneral(searchText);
+                    actualizarTabla(asignaciones);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al buscar: " + ex.getMessage());
                 }
             }
         });
 
 
-        button1.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (campoBusqueda.getText().equals("")) {
-                    campoBusqueda.requestFocus();
-                }
-                if (comboBox1.getSelectedItem().toString().equals("No. Documento")) {
-                    tipoBusqueda = "documento";
-                    terminoBusqueda = campoBusqueda.getText();
-                    try {
-                        List<Asignacion> asignacion = buscarAprendiz(terminoBusqueda);
-                        actualizarTabla(asignacion);
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Error al buscar aprendices");
-                    }
-                } else {
-                    tipoBusqueda = "ficha";
-                    terminoBusqueda = campoBusqueda.getText();
-                    try {
-                        List<Asignacion> asignacion = buscarFicha(terminoBusqueda);
-                        actualizarTabla(asignacion);
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Error al buscar ficha");
-                    }
-                }
-            }
-        });
-
-        comboBox1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                if (comboBox1.getSelectedItem().toString().equals("Ficha")) {
-                    JOptionPane.showMessageDialog(null, "Se ha activado la búsqueda por ficha");
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "Se ha activado la búsqueda por número de documento");
-                }
-            }
-        });
 
     }
 
     /**
-     * Aplica un efecto visual de cambio de color al pasar el cursor sobre el botón.
-     *
-     * @param boton      Botón al cual aplicar el efecto.
-     * @param colorHover Color al hacer hover.
-     * @param colorBase  Color base del botón.
+     * Realiza una búsqueda general de aprendices en la base de datos utilizando un término de búsqueda
+     * que puede coincidir con el documento, ficha o nombre completo del aprendiz.
      */
-    public void aplicarEfectoHover(JButton boton, Color colorHover, Color colorBase) {
 
-        boton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                boton.setBackground(colorHover);
+    public List<Asignacion> buscarGeneral(String terminoBusqueda) throws SQLException {
+        PreparedStatement consulta = null;
+        ResultSet resultado = null;
+        List<Asignacion> asignacion = new ArrayList<>();
+
+        try {
+            Connection con = conexion.getConnection();
+
+            String sql = "SELECT a.ID_numeroAprendices, ua.numero, " +
+                    "CONCAT(ua.nombres, ' ', ua.apellidos) AS nombre_aprendiz, " +
+                    "f.codigo AS ficha, p.nombre_programa, " +
+                    "CONCAT(ui.nombres, ' ', ui.apellidos) AS nombre_instructor " +
+                    "FROM aprendices a " +
+                    "JOIN usuarios ua ON a.ID_usuarios = ua.ID_usuarios " +
+                    "LEFT JOIN usuarios ui ON a.ID_instructor = ui.ID_usuarios " +
+                    "JOIN fichas f ON a.ID_Fichas = f.ID_Fichas " +
+                    "JOIN programas p ON f.ID_programas = p.ID_programas " +
+                    "WHERE ua.ID_rol = 1 AND (" +
+                    "LOWER(ua.numero) LIKE ? OR " +
+                    "LOWER(f.codigo) LIKE ? OR " +
+                    "LOWER(CONCAT(ua.nombres, ' ', ua.apellidos)) LIKE ?)";
+
+            consulta = con.prepareStatement(sql);
+            for (int i = 1; i <= 3; i++) {
+                consulta.setString(i, "%" + terminoBusqueda + "%");
+            }
+            resultado = consulta.executeQuery();
+
+            while (resultado.next()) {
+                Asignacion asg = new Asignacion();
+                asg.setID_numeroAprendices(resultado.getInt("ID_numeroAprendices"));
+                asg.setDocumento(resultado.getString("numero"));
+                asg.setNombre(resultado.getString("nombre_aprendiz"));
+                asg.setFicha(resultado.getString("ficha"));
+                asg.setPrograma(resultado.getString("nombre_programa"));
+                asg.setNombre_instructor(resultado.getString("nombre_instructor"));
+
+                asignacion.add(asg);
             }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                boton.setBackground(colorBase);
-            }
-        });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (resultado != null) resultado.close();
+            if (consulta != null) consulta.close();
+        }
+        return asignacion;
     }
+
+
 
     /**
      * Clase interna que define el renderizador de botones para la tabla.
@@ -172,14 +143,18 @@ public class AsignacionGUI {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value,
-                                                       boolean isSelected, boolean hasFocus, int row, int column) {
+                                                       boolean isSelected, boolean hasFocus,
+                                                       int row, int column) {
             setText((value == null) ? "" : value.toString());
+
+            // Establecer color del texto (foreground)
+            setForeground(Color.WHITE);  // Texto blanco
 
             if (isSelected) {
                 setForeground(table.getSelectionForeground());
                 setBackground(table.getSelectionBackground());
             } else {
-                setBackground(new Color(0x39A900));
+                setBackground(new Color(0x39A900));  // Fondo verde original
             }
 
             return this;
@@ -196,6 +171,8 @@ public class AsignacionGUI {
         private boolean isPushed;
         private int selectedRow;
 
+
+
         /**
          * Constructor del editor de botones.
          *
@@ -207,7 +184,7 @@ public class AsignacionGUI {
             button = new JButton();
             button.setOpaque(true);
             button.setBackground(new Color(0x39A900));
-
+            button.setForeground(Color.WHITE);
 
 
             button.addActionListener(new ActionListener() {
@@ -297,131 +274,22 @@ public class AsignacionGUI {
 
         @Override
         public boolean isCellEditable(int row, int column) {
-            return column == 5;
+            return column ==6;
         }
     }
-    /**
-     * Busca aprendices por número de documento.
-     *
-     * @param terminoBusqueda texto ingresado para la búsqueda.
-     * @return lista de asignaciones encontradas.
-     * @throws SQLException si ocurre un error en la consulta.
-     */
-    public List<Asignacion> buscarAprendiz(String terminoBusqueda) throws SQLException {
 
-        PreparedStatement consulta = null;
-        ResultSet resultado = null;
-        List<Asignacion> asignacion = new ArrayList<>();
 
-        try {
-            Connection con = conexion.getConnection();
-
-            String sql = "SELECT a.ID_numeroAprendices, a.ID_instructor, ua.tipo_dc, ua.numero, " +
-                    "CONCAT(ui.nombres, ' ', ui.apellidos) AS nombre_instructor, " +
-                    "f.codigo AS ficha, p.nombre_programa, " +
-                    "CONCAT(ua.nombres, ' ', ua.apellidos) AS nombre_aprendiz " +
-                    "FROM aprendices a " +
-                    "JOIN usuarios ua ON a.ID_usuarios = ua.ID_usuarios " +
-                    "LEFT JOIN usuarios ui ON a.ID_instructor = ui.ID_usuarios " +
-                    "JOIN fichas f ON a.ID_Fichas = f.ID_Fichas " +
-                    "JOIN programas p ON f.ID_programas = p.ID_programas " +
-                    "WHERE ua.numero LIKE ? AND ua.ID_rol = 1";
-
-            consulta = con.prepareStatement(sql);
-            consulta.setString(1, "%" + terminoBusqueda + "%");
-            resultado = consulta.executeQuery();
-
-            while (resultado.next()) {
-                Asignacion asg = new Asignacion();
-                asg.setID_numeroAprendices(resultado.getInt("ID_numeroAprendices"));
-                asg.setDocumento(resultado.getString("numero"));
-                asg.setNombre(resultado.getString("nombre_aprendiz"));
-                asg.setFicha(resultado.getString("ficha"));
-                asg.setPrograma(resultado.getString("nombre_programa"));
-                asg.setNombre_instructor(resultado.getString("nombre_instructor"));
-
-                asignacion.add(asg);
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (resultado != null) resultado.close();
-            if (consulta != null) consulta.close();
-        }
-        return asignacion;
-    }
-
-    /**
-     * Busca aprendices por código de ficha.
-     *
-     * @param terminoBusqueda código de ficha a buscar.
-     * @return lista de asignaciones encontradas.
-     * @throws SQLException si ocurre un error en la consulta.
-     */
-    public List<Asignacion> buscarFicha(String terminoBusqueda) throws SQLException {
-
-        PreparedStatement consulta = null;
-        ResultSet resultado = null;
-        List<Asignacion> asignacion = new ArrayList<>();
-
-        try {
-            Connection con = conexion.getConnection();
-
-            String sql = "SELECT a.ID_numeroAprendices, ua.tipo_dc, ua.numero, " +
-                    "CONCAT(ua.nombres, ' ', ua.apellidos) AS nombre_aprendiz, " +
-                    "f.codigo AS ficha, p.nombre_programa, " +
-                    "CONCAT(ui.nombres, ' ', ui.apellidos) AS nombre_instructor " +
-                    "FROM aprendices a " +
-                    "JOIN usuarios ua ON a.ID_usuarios = ua.ID_usuarios " +
-                    "LEFT JOIN usuarios ui ON a.ID_instructor = ui.ID_usuarios " +
-                    "JOIN fichas f ON a.ID_Fichas = f.ID_Fichas " +
-                    "JOIN programas p ON f.ID_programas = p.ID_programas " +
-                    "WHERE f.codigo  LIKE ?  AND ua.ID_rol = 1";
-
-            consulta = con.prepareStatement(sql);
-            consulta.setString(1, "%" + terminoBusqueda + "%");
-            resultado = consulta.executeQuery();
-
-            while (resultado.next()) {
-                Asignacion asg = new Asignacion();
-                asg.setID_numeroAprendices(resultado.getInt("ID_numeroAprendices"));
-                asg.setDocumento(resultado.getString("numero"));
-                asg.setNombre(resultado.getString("nombre_aprendiz"));
-                asg.setFicha(resultado.getString("ficha"));
-                asg.setPrograma(resultado.getString("nombre_programa"));
-                asg.setNombre_instructor(resultado.getString("nombre_instructor"));
-
-                asignacion.add(asg);
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (resultado != null) resultado.close();
-            if (consulta != null) consulta.close();
-        }
-        return asignacion;
-    }
 
     /**
      * Refresca los datos de la tabla repitiendo la última búsqueda realizada.
      */
     public void refrescarBusqueda() {
-        if (terminoBusqueda != null && !terminoBusqueda.isEmpty() && tipoBusqueda != null) {
-            try {
-                List<Asignacion> asignacion;
-                if (tipoBusqueda.equals("documento")) {
-                    asignacion = buscarAprendiz(terminoBusqueda);
-                } else {
-                    asignacion = buscarFicha(terminoBusqueda);
-                }
-                actualizarTabla(asignacion);
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al actualizar: " + ex.getMessage());
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Realiza una búsqueda primero");
+        String terminoActual = campoBusqueda.getText().trim();
+        try {
+            List<Asignacion> resultados = buscarGeneral(terminoActual);
+            actualizarTabla(resultados);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar: " + ex.getMessage());
         }
     }
 
@@ -431,10 +299,9 @@ public class AsignacionGUI {
      * @param asignacion lista de asignaciones a mostrar.
      */
     public void actualizarTabla(List<Asignacion> asignacion) {
-
+        modelo.setRowCount(0);
         if (sorter != null) {
             table1.setRowSorter(null);
-
         }
         DefaultTableModel modelo = new DefaultTableModel();
 
@@ -445,14 +312,14 @@ public class AsignacionGUI {
         modelo.addColumn("Programa");
         modelo.addColumn("Evaluador");
         modelo.addColumn("Asignar");
-
         sorter = new TableRowSorter<>(modelo);
         table1.setRowSorter(sorter);
 
-        // Restablecer el filtro de búsqueda si hay texto
+
         if (!campoBusqueda.getText().trim().isEmpty()) {
             campoBusqueda.setText(campoBusqueda.getText());
         }
+
 
         for (Asignacion asignacion1 : asignacion) {
 
@@ -469,6 +336,10 @@ public class AsignacionGUI {
         table1.setModel(modelo);
         table1.getColumn("Asignar").setCellRenderer(new ButtonRenderer());
         table1.getColumn("Asignar").setCellEditor(new ButtonEditor(new JCheckBox()));
+        table1.revalidate();
+        table1.repaint();
+
+        table1.setRowSorter(sorter);
         table1.revalidate();
         table1.repaint();
     }
