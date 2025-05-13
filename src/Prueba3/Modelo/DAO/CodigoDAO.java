@@ -14,23 +14,30 @@ import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+/**
+ * Clase DAO (Data Access Object) para gestionar operaciones CRUD de códigos en la base de datos.
+ * Proporciona métodos para insertar, listar, eliminar y buscar códigos.
+ */
 public class CodigoDAO {
     private static final String INSERTAR = "INSERT INTO seguimiento (tipo_formato, fecha, archivo, observaciones, nombre_archivo, ID_usuarios, ID_aprendices) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String LISTAR = "SELECT * FROM seguimiento ORDER BY fecha DESC";
     private static final String ELIMINAR = "DELETE FROM seguimiento WHERE ID_seguimiento = ?";
     private static final String OBTENER_POR_ID = "SELECT * FROM seguimiento WHERE ID_seguimiento = ?";
 
+    /**
+     * Inserta un nuevo código en la base de datos.
+     *
+     * @param archivo El objeto Codigo a insertar
+     * @return true si la inserción fue exitosa, false en caso contrario
+     */
     public boolean insertar(Codigo archivo) {
         String sql = "INSERT INTO seguimiento (tipo_formato, fecha, archivo, observaciones, nombre_archivo, ID_usuarios, ID_aprendices) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection con = Conexion.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Verificar tamaño del archivo antes de insertar
-            if (archivo.getArchivo() != null && archivo.getArchivo().length > 16777215) { // 16MB
-                // Opción 1: Guardar solo la ruta
-                stmt.setString(3, archivo.getRutaArchivo()); // Guardamos la ruta en lugar del contenido
+            if (archivo.getArchivo() != null && archivo.getArchivo().length > 16777215) {
+                stmt.setString(3, archivo.getRutaArchivo());
             } else {
-                // Opción 2: Guardar el contenido si es pequeño
                 stmt.setBytes(3, archivo.getArchivo());
             }
 
@@ -52,12 +59,17 @@ public class CodigoDAO {
             }
         } catch (SQLException e) {
             System.err.println("Error al insertar archivo: " + e.getMessage());
-            // Intentar guardar solo la ruta si falla
             return insertarSoloRuta(archivo);
         }
         return false;
     }
 
+    /**
+     * Inserta solo la ruta del archivo cuando falla la inserción completa.
+     *
+     * @param archivo El objeto Codigo con la ruta a insertar
+     * @return true si la inserción fue exitosa, false en caso contrario
+     */
     private boolean insertarSoloRuta(Codigo archivo) {
         String sql = "INSERT INTO seguimiento (tipo_formato, fecha, archivo, observaciones, nombre_archivo, ID_usuarios, ID_aprendices) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection con = Conexion.getConnection();
@@ -65,7 +77,7 @@ public class CodigoDAO {
 
             stmt.setString(1, archivo.getTipoFormato());
             stmt.setTimestamp(2, new Timestamp(archivo.getFecha().getTime()));
-            stmt.setString(3, "RUTA:" + archivo.getRutaArchivo()); // Guardamos solo la ruta
+            stmt.setString(3, "RUTA:" + archivo.getRutaArchivo());
             stmt.setString(4, archivo.getObservaciones());
             stmt.setString(5, archivo.getNombreArchivo());
             stmt.setInt(6, archivo.getIdUsuario());
@@ -78,6 +90,11 @@ public class CodigoDAO {
         }
     }
 
+    /**
+     * Obtiene una lista de todos los códigos en la base de datos.
+     *
+     * @return Lista de objetos Codigo
+     */
     public List<Codigo> listarTodos() {
         List<Codigo> archivos = new ArrayList<>();
         try (Connection con = Conexion.getConnection();
@@ -94,6 +111,13 @@ public class CodigoDAO {
         return archivos;
     }
 
+    /**
+     * Mapea un ResultSet a un objeto Codigo.
+     *
+     * @param rs ResultSet con los datos del código
+     * @return Objeto Codigo mapeado
+     * @throws SQLException Si ocurre un error al acceder a los datos del ResultSet
+     */
     private Codigo mapearResultSetACodigo(ResultSet rs) throws SQLException {
         Codigo archivo = new Codigo();
         archivo.setIdSeguimiento(rs.getInt("ID_seguimiento"));
@@ -122,6 +146,12 @@ public class CodigoDAO {
         return archivo;
     }
 
+    /**
+     * Obtiene un código por su ID.
+     *
+     * @param id ID del código a buscar
+     * @return Objeto Codigo encontrado o null si no existe
+     */
     public Codigo obtenerPorId(int id) {
         try (Connection con = Conexion.getConnection();
              PreparedStatement stmt = con.prepareStatement(OBTENER_POR_ID)) {
@@ -138,6 +168,12 @@ public class CodigoDAO {
         return null;
     }
 
+    /**
+     * Elimina un código de la base de datos.
+     *
+     * @param id ID del código a eliminar
+     * @return true si la eliminación fue exitosa, false en caso contrario
+     */
     public boolean eliminar(int id) {
         try (Connection con = Conexion.getConnection();
              PreparedStatement stmt = con.prepareStatement(ELIMINAR)) {
@@ -150,6 +186,12 @@ public class CodigoDAO {
         }
     }
 
+    /**
+     * Verifica si existe un aprendiz con la cédula especificada.
+     *
+     * @param cedula Cédula del aprendiz a verificar
+     * @return true si el aprendiz existe, false en caso contrario
+     */
     public boolean existeAprendiz(int cedula) {
         String sql = "SELECT COUNT(*) FROM usuarios WHERE numero = ? AND ID_rol = 1";
         try (Connection con = Conexion.getConnection();
@@ -163,6 +205,12 @@ public class CodigoDAO {
         }
     }
 
+    /**
+     * Obtiene información completa de un aprendiz por su cédula.
+     *
+     * @param cedula Cédula del aprendiz
+     * @return Mapa con la información del aprendiz (id, nombre, cedula)
+     */
     public Map<String, String> obtenerInfoCompletaAprendizPorCedula(int cedula) {
         Map<String, String> info = new HashMap<>();
         String sql = "SELECT ID_usuarios, nombres, apellidos, numero FROM usuarios WHERE numero = ? AND ID_rol = 1";
@@ -181,6 +229,12 @@ public class CodigoDAO {
         return info;
     }
 
+    /**
+     * Obtiene información completa de un aprendiz por su ID.
+     *
+     * @param idAprendiz ID del aprendiz
+     * @return Mapa con la información del aprendiz (nombre, cedula)
+     */
     private Map<String, String> obtenerInfoCompletaAprendiz(int idAprendiz) {
         Map<String, String> info = new HashMap<>();
         String sql = "SELECT nombres, apellidos, numero FROM usuarios WHERE ID_usuarios = ?";
@@ -201,24 +255,4 @@ public class CodigoDAO {
         return info;
     }
 
-    private byte[] comprimirArchivo(byte[] datos) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try (GZIPOutputStream gzip = new GZIPOutputStream(baos)) {
-            gzip.write(datos);
-        }
-        return baos.toByteArray();
-    }
-
-    private byte[] descomprimirArchivo(byte[] datosComprimidos) throws IOException {
-        ByteArrayInputStream bais = new ByteArrayInputStream(datosComprimidos);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try (GZIPInputStream gzip = new GZIPInputStream(bais)) {
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = gzip.read(buffer)) > 0) {
-                baos.write(buffer, 0, len);
-            }
-        }
-        return baos.toByteArray();
-    }
 }

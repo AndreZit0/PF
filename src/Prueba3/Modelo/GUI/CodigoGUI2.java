@@ -25,7 +25,7 @@ import java.util.zip.GZIPOutputStream;
  * Interfaz gráfica para la gestión de archivos PDF (Formato 023).
  * Permite subir, visualizar, buscar y eliminar archivos PDF asociados a aprendices.
  */
-public class CodigoGUI extends JFrame {
+public class CodigoGUI2 extends JFrame {
     private JPanel panelPrincipal;
     private JButton btnSubir;
     private JPanel panelArchivos;
@@ -51,7 +51,7 @@ public class CodigoGUI extends JFrame {
      * Constructor de la clase CodigoGUI.
      * Inicializa los componentes y configura la ventana.
      */
-    public CodigoGUI() {
+    public CodigoGUI2() {
         archivoDAO = new CodigoDAO();
         listaArchivosCompleta = new ArrayList<>();
 
@@ -446,6 +446,6 @@ public class CodigoGUI extends JFrame {
      * @param args Argumentos de línea de comandos
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new CodigoGUI().setVisible(true));
+        SwingUtilities.invokeLater(() -> new CodigoGUI2().setVisible(true));
     }
 }
