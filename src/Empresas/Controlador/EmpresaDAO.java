@@ -47,7 +47,7 @@ public class EmpresaDAO {
      * @return {@code true} si la operación fue exitosa, de lo contrario {@code false}.
      */
     public boolean agregarEmpresa(Empresa empresa) {
-        String query = "INSERT INTO empresas (nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO empresas (nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad, ID_usuarios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = connectionDB.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
@@ -60,6 +60,7 @@ public class EmpresaDAO {
             pst.setString(6, empresa.getEmail());
             pst.setString(7, empresa.getDepartamento());
             pst.setString(8, empresa.getCiudad());
+            pst.setInt(9, empresa.getID_usuarios());
 
             int resultado = pst.executeUpdate();
             return resultado > 0;
@@ -134,7 +135,7 @@ public class EmpresaDAO {
      * @return {@code true} si la actualización fue exitosa, de lo contrario {@code false}.
      */
     public boolean actualizarEmpresa(Empresa empresa) {
-        String query = "UPDATE empresas SET nit = ?, nombre_empresa = ?, direccion = ?, area = ?, contacto = ?, email = ?, departamento = ?, ciudad = ? WHERE ID_empresas = ?";
+        String query = "UPDATE empresas SET nit = ?, nombre_empresa = ?, direccion = ?, area = ?, contacto = ?, email = ?, departamento = ?, ciudad = ?, ID_usuarios = ? WHERE ID_empresas = ?";
 
         try (Connection con = connectionDB.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
@@ -147,12 +148,15 @@ public class EmpresaDAO {
             pst.setString(6, empresa.getEmail());
             pst.setString(7, empresa.getDepartamento());
             pst.setString(8, empresa.getCiudad());
-            pst.setInt(9, empresa.getID_empresas());
+            pst.setInt(9, empresa.getID_usuarios()); // Aquí se asegura de pasar el ID del coevaluador seleccionado
+            pst.setInt(10, empresa.getID_empresas()); // ID de la empresa a actualizar
 
-            return pst.executeUpdate() > 0;
+            // Ejecutar la actualización
+            int rowsUpdated = pst.executeUpdate();
+            return rowsUpdated > 0; // Si actualizó, devuelve true
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return false; // Si hay error, devuelve false
         }
     }
 }

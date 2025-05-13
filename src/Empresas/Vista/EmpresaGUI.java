@@ -15,6 +15,7 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -22,11 +23,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.List;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 /**
  * Clase que representa la interfaz gráfica para gestionar empresas.
  */
 public class EmpresaGUI {
+
     private JTabbedPane tabbedPane1;
     private JTextField Nit;
     private JTextField Email;
@@ -44,6 +47,7 @@ public class EmpresaGUI {
     private JComboBox comboBox1;
     private JButton pdfButton;
     private JTextField Ciudad;
+    private JComboBox combo1;
     private EmpresaDAO empresaDAO = new EmpresaDAO();
     private ConnectionDB connectionDB = new ConnectionDB();
 
@@ -52,7 +56,7 @@ public class EmpresaGUI {
      * Inicializa los componentes de la interfaz y configura los bordes y estilos visuales.
      */
     public EmpresaGUI() {
-
+        tabbedPane1.setUI(new CustomTabbedPaneUI());
         // Configura el borde inferior de los campos de texto
         Border bottom = BorderFactory.createMatteBorder(0,0,2,0, Color.decode("#39A900"));
 
@@ -64,11 +68,10 @@ public class EmpresaGUI {
         Direccion.setBorder(bottom);
         Email.setBorder(bottom);
         comboBox1.setBorder(bottom);
+        combo1.setBorder(bottom);
         Ciudad.setBorder(bottom);
-
-        // Desmarca la selección inicial del comboBox
         comboBox1.setSelectedIndex(-1); // Para que no haya selección al principio
-
+        combo1.setSelectedIndex(-1); // Para que no haya selección al principio
         // Configura los oyentes de eventos
         setupListeners();
 
@@ -91,6 +94,7 @@ public class EmpresaGUI {
 
         // Configura nuevamente los oyentes de eventos
         setupListeners();
+        cargarUsuariosEnComboBox();
 
         // Configura el evento de clic en el botón 'confirmar'
         confirmarButton.addActionListener(new ActionListener() {
@@ -179,11 +183,11 @@ public class EmpresaGUI {
                     tabla.setSpacingBefore(10f);
                     tabla.setSpacingAfter(10f);
 
-                    String[] headers = {"ID", "NIT", "Nombre", "Direccion", "Area", "Contacto", "Correo", "Departamento", "Ciudad"};
+                    String[] headers = {"ID", "NIT", "Nombre", "Dir", "Area", "Contacto", "Correo", "Depto", "Ciudad"};
 
                     for (String header : headers) {
                         PdfPCell cell = new PdfPCell(new Phrase(header,
-                                FontFactory.getFont("Tahoma", 12, Font.BOLD, BaseColor.WHITE)));
+                                FontFactory.getFont("Calibri", 12, Font.BOLD, BaseColor.WHITE)));
                         cell.setBackgroundColor(verdeSena);
                         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                         tabla.addCell(cell);
@@ -257,10 +261,29 @@ public class EmpresaGUI {
 
             Empresa empresa = empresaDAO.buscarEmpresa(nit);
 
+            // Obtener el ID del coevaluador
+            int idUsuario = empresa.getID_usuarios(); // Suponiendo que tienes este método en tu clase Empresa
+            String nombreCoevaluador = "";
+
+            // Obtener el nombre y apellido del coevaluador desde la base de datos
+            try (Connection con = new ConnectionDB().getConnection();
+                 PreparedStatement ps = con.prepareStatement("SELECT nombres, apellidos FROM usuarios WHERE ID_usuarios = ?")) {
+                ps.setInt(1, idUsuario);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        nombreCoevaluador = rs.getString("nombres") + " " + rs.getString("apellidos");
+                    }
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al obtener el nombre del coevaluador.");
+            }
+
             String mensaje = "NIT: " + empresa.getNit() + "\n"
                     + "Nombre: " + empresa.getNombre_empresa() + "\n"
                     + "Dirección: " + empresa.getDireccion() + "\n"
                     + "Área: " + empresa.getArea() + "\n"
+                    + "Coevaluador: " + nombreCoevaluador + "\n"
                     + "Contacto: " + empresa.getContacto() + "\n"
                     + "Email: " + empresa.getEmail() + "\n"
                     + "Departamento: " + empresa.getDepartamento() + "\n"
@@ -285,13 +308,21 @@ public class EmpresaGUI {
         String contacto = Contacto.getText().trim();
         String email = Email.getText().trim();
         String departamento = comboBox1.getSelectedItem() != null ? comboBox1.getSelectedItem().toString().trim() : "";
+        String usuarios = combo1.getSelectedItem() != null ? combo1.getSelectedItem().toString().trim() : "";
         String ciudad = Ciudad.getText().trim();
 
-
-
         if (nit.isEmpty() || nombre.isEmpty() || direccion.isEmpty() || area.isEmpty() ||
-                contacto.isEmpty() || email.isEmpty() || departamento.isEmpty() || ciudad.isEmpty()) {
+                contacto.isEmpty() || email.isEmpty() || departamento.isEmpty() || ciudad.isEmpty() || usuarios.isEmpty()) {
             JOptionPane.showMessageDialog(main, "Por favor, completa todos los campos antes de continuar.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        // Extraer ID de usuario desde combo1
+        int idUsuario = 0;
+        try {
+            String[] partes = usuarios.split(" - ");
+            idUsuario = Integer.parseInt(partes[0]);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(main, "Error al procesar el ID del usuario.");
             return;
         }
 
@@ -307,11 +338,9 @@ public class EmpresaGUI {
             return; // Si el usuario selecciona NO, se cancela
         }
 
-
-        Empresa empresa = new Empresa(0, 0, nit, nombre, direccion, area, contacto, email, departamento, ciudad);
+        Empresa empresa = new Empresa(0, idUsuario, nit, nombre, direccion, area, contacto, email, departamento, ciudad);
         if (empresaDAO.agregarEmpresa(empresa)) {
             JOptionPane.showMessageDialog(main, "Empresa agregada exitosamente.");
-
             // Limpiar los campos
             Nit.setText("");
             Nombre.setText("");
@@ -321,6 +350,7 @@ public class EmpresaGUI {
             Email.setText("");
             comboBox1.setSelectedIndex(-1);
             Ciudad.setText("");
+            combo1.setSelectedIndex(-1);
 
         } else {
             JOptionPane.showMessageDialog(main, "Error al agregar la empresa.");
@@ -362,7 +392,7 @@ public class EmpresaGUI {
      */
     public void cargarEmpresas(List<Empresa> listaEmpresas) {
         DefaultTableModel model = new DefaultTableModel() {
-            // para ninguna celda sea editable
+            // para que ninguna celda sea editable
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; // Ninguna celda será editable
@@ -380,7 +410,6 @@ public class EmpresaGUI {
                     empresa.getContacto()
             });
         }
-
         table1.setModel(model);
     }
 
@@ -410,13 +439,61 @@ public class EmpresaGUI {
         Direccion.setBorder(bottom);
         Email.setBorder(bottom);
         table1.setRowHeight(25);
+    }
 
+    //Cambiar color de las ventanas administrar y crear
+    /**
+     * Clase personalizada para modificar el comportamiento de la apariencia de las pestañas de un {@link JTabbedPane}.
+     * Cambia el color de las pestañas según su estado (seleccionada o no seleccionada).
+     */
+    public class CustomTabbedPaneUI extends BasicTabbedPaneUI {
+
+        @Override
+        protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex,
+                                          int x, int y, int w, int h, boolean isSelected) {
+            if (isSelected) {
+                g.setColor(new Color(57, 169, 0)); // Verde cuando está seleccionado
+            } else {
+                g.setColor(new Color(119, 119, 119)); // Verde también cuando no está seleccionado
+            }
+            g.fillRect(x, y, w, h);
+        }
+
+        @Override
+        protected void paintFocusIndicator(Graphics g, int tabPlacement,
+                                           Rectangle[] rects, int tabIndex,
+                                           Rectangle iconRect, Rectangle textRect, boolean isSelected) {
+        }
+
+        @Override
+        protected void paintContentBorder(Graphics g, int tabPlacement,
+                                          int selectedIndex) {
+            super.paintContentBorder(g, tabPlacement, selectedIndex);
+        }
     }
 
     /**
-     * Método principal que inicializa la interfaz gráfica de la aplicación.
-     * Crea un nuevo objeto de `EmpresaGUI`, configura el marco de la ventana y la hace visible.
+     * Carga los usuarios con rol de "Coevaluador" desde la base de datos y los agrega a un {@link JComboBox}.
+     * Cada ítem es el ID del usuario seguido de su nombre y apellido.
      */
+    public void cargarUsuariosEnComboBox() {
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT u.ID_usuarios, u.nombres, u.apellidos FROM usuarios u JOIN rol r ON u.ID_rol = r.ID_rol WHERE r.rol = 'Coevaluador'");
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("ID_usuarios");
+                String nombre = rs.getString("nombres");
+                String apellido = rs.getString("apellidos");
+                combo1.addItem(id + " - " + nombre + " " + apellido);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al cargar los ID de usuarios.");
+        }
+    }
+
     public static void main(String[] args) {
         EmpresaGUI empresaGUI = new EmpresaGUI();
         JFrame frame = new JFrame("EMPRESA");
