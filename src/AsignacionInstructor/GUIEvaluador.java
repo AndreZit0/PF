@@ -415,6 +415,7 @@ public class GUIEvaluador {
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setLocation(50, 50);
+        frame.setLocationRelativeTo(null);
 
         URL iconoURL = AsignacionGUI.class.getClassLoader().getResource("imagenes/sena.jpeg");
         if (iconoURL != null) {
