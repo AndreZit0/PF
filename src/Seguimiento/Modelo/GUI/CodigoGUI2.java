@@ -40,6 +40,7 @@ public class CodigoGUI2 extends JFrame {
     private List<Codigo> listaArchivosCompleta;
 
     String email;
+    private int idUsuario;
 
     private JLabel progressImageLabel;
 
@@ -58,12 +59,16 @@ public class CodigoGUI2 extends JFrame {
      */
     public CodigoGUI2(String email) {
         this.email = email;
-        this.archivoDAO = new CodigoDAO(); // Inicializar DAO primero
+        this.archivoDAO = new CodigoDAO();
+
+        Map<String, String> infoUsuario = archivoDAO.obtenerInfoCompletaAprendiz(email);
+        this.idUsuario = Integer.parseInt(infoUsuario.get("id_usuario"));
 
         configurarVentana();
         configurarComponentes();
         cargarArchivos();
     }
+
 
     private CodigoGUI2() {
         this(""); // Solo para compatibilidad si es necesario
@@ -90,31 +95,25 @@ public class CodigoGUI2 extends JFrame {
         JScrollPane scrollPane = new JScrollPane(panelArchivos);
         panelPrincipal.add(scrollPane, BorderLayout.CENTER);
 
-        panelBusqueda = new JPanel(new BorderLayout());
+
 
         ImageIcon icono = cargarImagen("C:\\Users\\Famil\\IdeaProjects\\Seguimiento\\src\\Prueba3\\Modelo\\Imagenes\\Grafico.png");
         JLabel lblImagen = new JLabel(icono);
         lblImagen.setHorizontalAlignment(JLabel.LEFT);
         JPanel panelImagen = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelImagen.add(lblImagen);
-        panelBusqueda.add(panelImagen, BorderLayout.WEST);
+
 
         JPanel panelControles = new JPanel();
         panelControles.setLayout(new BoxLayout(panelControles, BoxLayout.Y_AXIS));
 
-        JPanel panelBuscar = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
         txtBuscarAprendiz = new JTextField(20);
         btnBuscar = new JButton("Buscar Aprendiz");
         estilizarBoton(btnBuscar, azul);
         btnBuscar.addActionListener(e -> filtrarArchivosPorAprendiz(txtBuscarAprendiz.getText().trim()));
-        panelBuscar.add(new JLabel("Buscar por Cédula/Nombre:"));
-        panelBuscar.add(txtBuscarAprendiz);
-        panelBuscar.add(btnBuscar);
 
-        panelControles.add(panelBuscar);
-        panelBusqueda.add(panelControles, BorderLayout.CENTER);
 
-        panelPrincipal.add(panelBusqueda, BorderLayout.NORTH);
 
         JPanel panelSubir = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         btnSubir = new JButton("Subir PDF");
@@ -165,15 +164,13 @@ public class CodigoGUI2 extends JFrame {
             return;
         }
 
-        String tipoFormato = "023";
-        if (tipoFormato == null) return;
-
+        String tipoFormato = "147";
 
         try {
             Map<String, String> infoAprendiz = archivoDAO.obtenerInfoCompletaAprendiz(this.email);
 
             if (infoAprendiz.get("id") == null) {
-                JOptionPane.showMessageDialog(this, "No se encontró un aprendiz con esa cédula", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se encontró información del usuario", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -191,7 +188,7 @@ public class CodigoGUI2 extends JFrame {
 
             Codigo archivo = crearObjetoArchivo(
                     archivoSeleccionado, destino, tipoFormato, observaciones,
-                    nombreAprendiz, numeroDocumento, idAprendiz
+                    nombreAprendiz, numeroDocumento, this.idUsuario, idAprendiz
             );
 
             if (archivoDAO.insertar(archivo)) {
@@ -203,8 +200,7 @@ public class CodigoGUI2 extends JFrame {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -248,7 +244,7 @@ public class CodigoGUI2 extends JFrame {
      */
     private Codigo crearObjetoArchivo(File archivoSeleccionado, File destino, String tipoFormato,
                                       String observaciones, String nombreAprendiz,
-                                      String cedulaAprendiz, int idAprendiz) throws IOException {
+                                      String cedulaAprendiz, int idUsuario,int idAprendiz) throws IOException {
         Codigo archivo = new Codigo();
         archivo.setNombreArchivo(archivoSeleccionado.getName());
         archivo.setRutaArchivo(destino.getAbsolutePath());
@@ -264,8 +260,8 @@ public class CodigoGUI2 extends JFrame {
         archivo.setFecha(new Date());
         archivo.setNombreAprendiz(nombreAprendiz);
         archivo.setCedulaAprendiz(cedulaAprendiz);
+        archivo.setIdUsuario(idUsuario);
         archivo.setIdAprendiz(idAprendiz);
-        archivo.setIdUsuario(obtenerIdUsuarioActual());
         return archivo;
     }
 
@@ -287,21 +283,14 @@ public class CodigoGUI2 extends JFrame {
     }
 
     /**
-     * Obtiene el ID del usuario actual (simulado).
-     *
-     * @return ID del usuario actual (valor temporal)
-     */
-    private int obtenerIdUsuarioActual() {
-        return 1;
-    }
-
-    /**
      * Carga los archivos desde la base de datos y los muestra en la interfaz.
      */
+    // Modificar el método cargarArchivos para filtrar por usuario
     private void cargarArchivos() {
-        listaArchivosCompleta = archivoDAO.listarTodos();
+        listaArchivosCompleta = archivoDAO.listarPorUsuarioYTipo(this.idUsuario, "147");
         mostrarArchivos(listaArchivosCompleta);
     }
+
 
     /**
      * Muestra la lista de archivos en el panel principal.

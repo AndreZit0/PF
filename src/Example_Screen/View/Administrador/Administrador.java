@@ -5,7 +5,8 @@ import Empresas.Vista.EmpresaGUI;
 import Example_Screen.View.Aprendiz.AprendizGUI;
 import Example_Screen.View.Login.LoginGUI;
 import Example_Screen.View.Usuarios_Registrados.VerUsuariosRegistrados;
-import Prueba3.Modelo.GUI.CodigoGUI;
+import Seguimiento.Modelo.GUI.CodigoGUI;
+import Seguimiento.Modelo.GUI.CodigoGUI2;
 
 import static Example_Screen.View.Login.LoginGUI.cofigBotonInicioSegunRol;
 
@@ -360,7 +361,7 @@ public class Administrador {
      */
     public void mostrarPanelSeguimiento() {
         String usuario = LoginGUI.getUsuarioActual(); // Obtener usuario logueado
-        CodigoGUI codigoGUI = new CodigoGUI(usuario); // Pasar al constructor
+        CodigoGUI2 codigoGUI = new CodigoGUI2(usuario); // Pasar al constructor
 
         contenidoPanel.removeAll();
         contenidoPanel.setLayout(new BorderLayout());

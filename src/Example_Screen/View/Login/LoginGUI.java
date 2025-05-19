@@ -13,7 +13,7 @@ import java.sql.*;
 import java.util.Properties;
 import Example_Screen.View.Administrador.*;
 import Example_Screen.View.Aprendiz.AprendizGUI;
-import Prueba3.Modelo.GUI.CodigoGUI;
+import Seguimiento.Modelo.GUI.CodigoGUI;
 //import Example_Screen.View.Aprendiz.*;
 
 public class LoginGUI {
@@ -26,6 +26,7 @@ public class LoginGUI {
     public static String cofigBotonInicioSegunRol= null;
 
     private static String usuarioActual;
+    private static int idUsuarioActual;
     String usuario;
 
     public LoginGUI(String usuario) {
@@ -68,7 +69,7 @@ public class LoginGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 usuario = TexfUsuario.getText().trim();
-                usuarioActual = usuario; // Almacenar el usuario logueado
+                usuarioActual = usuario;
                 String contraseña = new String(TexfContraseña.getPassword());
 
                 if (usuario.isEmpty() || contraseña.isEmpty()) {
@@ -85,10 +86,15 @@ public class LoginGUI {
                     stmt.setString(2, contraseña);
                     ResultSet rs = stmt.executeQuery();
 
+
                     if (rs.next()) {
+                        // Aquí obtenemos el ID del usuario de la base de datos
+                        idUsuarioActual = rs.getInt("ID_usuarios");
+
+                        // El resto del código de login permanece igual
                         Usuario user = new Usuario(
                                 rs.getString("nombres"),
-                                cofigBotonInicioSegunRol= rs.getString("id_rol")
+                                cofigBotonInicioSegunRol = rs.getString("id_rol")
                         );
 
 

@@ -19,8 +19,8 @@ import java.util.zip.GZIPOutputStream;
  * Proporciona métodos para insertar, listar, eliminar y buscar códigos.
  */
 public class CodigoDAO {
-    private static final String INSERTAR = "INSERT INTO seguimiento (tipo_formato, fecha, archivo, observaciones, nombre_archivo, ID_usuarios, ID_aprendices) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private static final String LISTAR = "SELECT * FROM seguimiento ORDER BY fecha DESC";
+    private static final String LISTAR = "SELECT * FROM seguimiento WHERE tipo_formato = 147 ORDER BY fecha DESC";
+    private static final String LISTAR2 = "SELECT * FROM seguimiento WHERE tipo_formato = 023 ORDER BY fecha DESC";
     private static final String ELIMINAR = "DELETE FROM seguimiento WHERE ID_seguimiento = ?";
     private static final String OBTENER_POR_ID = "SELECT * FROM seguimiento WHERE ID_seguimiento = ?";
 
@@ -91,27 +91,6 @@ public class CodigoDAO {
     }
 
     /**
-     * Obtiene una lista de todos los códigos en la base de datos.
-     *
-     * @return Lista de objetos Codigo
-     */
-    public List<Codigo> listarTodos() {
-        List<Codigo> archivos = new ArrayList<>();
-        try (Connection con = Conexion.getConnection();
-             PreparedStatement stmt = con.prepareStatement(LISTAR);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Codigo archivo = mapearResultSetACodigo(rs);
-                archivos.add(archivo);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al listar archivos: " + e.getMessage());
-        }
-        return archivos;
-    }
-
-    /**
      * Mapea un ResultSet a un objeto Codigo.
      *
      * @param rs ResultSet con los datos del código
@@ -146,27 +125,7 @@ public class CodigoDAO {
         return archivo;
     }
 
-    /**
-     * Obtiene un código por su ID.
-     *
-     * @param id ID del código a buscar
-     * @return Objeto Codigo encontrado o null si no existe
-     */
-    public Codigo obtenerPorId(int id) {
-        try (Connection con = Conexion.getConnection();
-             PreparedStatement stmt = con.prepareStatement(OBTENER_POR_ID)) {
 
-            stmt.setInt(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return mapearResultSetACodigo(rs);
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener archivo por ID: " + e.getMessage());
-        }
-        return null;
-    }
 
     /**
      * Elimina un código de la base de datos.
@@ -186,34 +145,32 @@ public class CodigoDAO {
         }
     }
 
-    /**
-     * Verifica si existe un aprendiz con la cédula especificada.
-     *
-     * @param cedula Cédula del aprendiz a verificar
-     * @return true si el aprendiz existe, false en caso contrario
-     */
-    public boolean existeAprendiz(int cedula) {
-        String sql = "SELECT COUNT(*) FROM usuarios WHERE numero = ? AND ID_rol = 1";
+    // Agregar este nuevo método para listar archivos por usuario
+    public List<Codigo> listarPorUsuarioYTipo(int idUsuario, String tipoFormato) {
+        List<Codigo> archivos = new ArrayList<>();
+        String sql = "SELECT * FROM seguimiento WHERE ID_usuarios = ? AND tipo_formato = ? ORDER BY fecha DESC";
+
         try (Connection con = Conexion.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, cedula);
+
+            stmt.setInt(1, idUsuario);
+            stmt.setString(2, tipoFormato);
             ResultSet rs = stmt.executeQuery();
-            return rs.next() && rs.getInt(1) > 0;
+
+            while (rs.next()) {
+                Codigo archivo = mapearResultSetACodigo(rs);
+                archivos.add(archivo);
+            }
         } catch (SQLException e) {
-            System.err.println("Error al verificar aprendiz: " + e.getMessage());
-            return false;
+            System.err.println("Error al listar archivos por usuario y tipo: " + e.getMessage());
         }
+        return archivos;
     }
 
-    /**
-     * Obtiene información completa de un aprendiz por su cédula.
-     *
-     * @param email Cédula del aprendiz
-     * @return Mapa con la información del aprendiz (id, nombre, cedula)
-     */
+    // Modificar el método obtenerInfoCompletaAprendiz para devolver también el ID
     public Map<String, String> obtenerInfoCompletaAprendiz(String email) {
         Map<String, String> info = new HashMap<>();
-        String sql = "SELECT ID_usuarios, nombres, apellidos, numero FROM usuarios WHERE email = ? AND ID_rol = 1";
+        String sql = "SELECT ID_usuarios, nombres, apellidos, numero FROM usuarios WHERE email = ?";
         try (Connection con = Conexion.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, email);
@@ -222,6 +179,7 @@ public class CodigoDAO {
                 info.put("id", String.valueOf(rs.getInt("ID_usuarios")));
                 info.put("nombre", rs.getString("nombres") + " " + rs.getString("apellidos"));
                 info.put("cedula", rs.getString("numero"));
+                info.put("id_usuario", String.valueOf(rs.getInt("ID_usuarios"))); // Nuevo campo
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener info de aprendiz: " + e.getMessage());
@@ -254,5 +212,7 @@ public class CodigoDAO {
         }
         return info;
     }
+
+
 
 }
