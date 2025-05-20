@@ -11,7 +11,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,9 +40,26 @@ public class VerUsuariosRegistrados {
         return panelVerUsuario;
     }
 
+    public void mostrarRol(String texto) {
+        tipoUsuario.setText(texto);
+    }
+
+    public TableCellRenderer getButtonRenderer() {
+        return new ButtonRenderer();
+    }
+
+    public DefaultCellEditor getButtonEditor() {
+        return new ButtonEditor(new JCheckBox());
+    }
+
+
 
     // Declarar sorter como atributo de clase
-    private TableRowSorter<TableModel> sorter;
+    private TableRowSorter<DefaultTableModel> sorter;
+
+    public void setSorter(TableRowSorter<DefaultTableModel> sorter) {
+        this.sorter = sorter;
+    }
 
     public void inicializarFiltro(JTextField busqueda, JTable table1) {
         busqueda.getDocument().addDocumentListener(new DocumentListener() {
@@ -207,8 +223,6 @@ public class VerUsuariosRegistrados {
         table1.setRowHeight(25);
 
         table1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14)); // Encabezado
-
-
 
         scroll.getViewport().setBackground(Color.decode("#e8e6e8"));
         scroll.getViewport().setBackground(Color.decode("#e8e6e8"));

@@ -31,7 +31,9 @@ public class CodigoDAO {
      * @return true si la inserción fue exitosa, false en caso contrario
      */
     public boolean insertar(Codigo archivo) {
-        String sql = "INSERT INTO seguimiento (tipo_formato, fecha, archivo, observaciones, nombre_archivo, ID_usuarios, ID_aprendices) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO seguimiento (tipo_formato, fecha, archivo, observaciones, " +
+                "nombre_archivo, ID_usuarios, ID_aprendices, val1, val2, val3) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection con = Conexion.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -47,6 +49,9 @@ public class CodigoDAO {
             stmt.setString(5, archivo.getNombreArchivo());
             stmt.setInt(6, archivo.getIdUsuario());
             stmt.setInt(7, archivo.getIdAprendiz());
+            stmt.setString(8, archivo.getVal1()); // Agregar val1
+            stmt.setString(9, archivo.getVal2()); // Agregar val2
+            stmt.setString(10, archivo.getVal3()); // Agregar val3
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows > 0) {
@@ -71,7 +76,9 @@ public class CodigoDAO {
      * @return true si la inserción fue exitosa, false en caso contrario
      */
     private boolean insertarSoloRuta(Codigo archivo) {
-        String sql = "INSERT INTO seguimiento (tipo_formato, fecha, archivo, observaciones, nombre_archivo, ID_usuarios, ID_aprendices) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO seguimiento (tipo_formato, fecha, archivo, observaciones, " +
+                "nombre_archivo, ID_usuarios, ID_aprendices, val1, val2, val3) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection con = Conexion.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -82,6 +89,9 @@ public class CodigoDAO {
             stmt.setString(5, archivo.getNombreArchivo());
             stmt.setInt(6, archivo.getIdUsuario());
             stmt.setInt(7, archivo.getIdAprendiz());
+            stmt.setString(8, archivo.getVal1()); // Agregar val1
+            stmt.setString(9, archivo.getVal2()); // Agregar val2
+            stmt.setString(10, archivo.getVal3()); // Agregar val3
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -121,6 +131,10 @@ public class CodigoDAO {
         Map<String, String> infoAprendiz = obtenerInfoCompletaAprendiz(archivo.getIdAprendiz());
         archivo.setNombreAprendiz(infoAprendiz.get("nombre"));
         archivo.setCedulaAprendiz(infoAprendiz.get("cedula"));
+
+        archivo.setVal1(rs.getString("val1"));
+        archivo.setVal2(rs.getString("val2"));
+        archivo.setVal3(rs.getString("val3"));
 
         return archivo;
     }
@@ -211,6 +225,21 @@ public class CodigoDAO {
             System.err.println("Error al obtener info de aprendiz por ID: " + e.getMessage());
         }
         return info;
+    }
+
+    public boolean validarArchivo(int idSeguimiento, String campoValidacion) {
+        String sql = "UPDATE seguimiento SET " + campoValidacion + " = 'Aprobado' WHERE ID_seguimiento = ?";
+
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setInt(1, idSeguimiento);
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al validar archivo: " + e.getMessage());
+            return false;
+        }
     }
 
 

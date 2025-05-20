@@ -12,19 +12,23 @@ public class Usuario {
     private String nombres;
     private String apellidos;
     private String email;
+    private int id_usuario;
     /**
      * Constructor para crear un usuario.
+     *
      * @param nombre Nombre de usuario.
-     * @param rol Rol asignado.
+     * @param rol    Rol asignado.
      */
     public Usuario(String nombre, String rol) {
         this.nombre = nombre;
         this.rol = rol;
         this.tipo_dc = tipo_dc;
         this.numero = numero;
-        this.nombres = nombres;
+        this.nombres = this.nombres;
         this.apellidos = apellidos;
         this.email = email;
+        this.id_usuario = id_usuario;
+
     }
 
     public String getNombre() {
@@ -81,5 +85,13 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(String email) {
+        this.id_usuario = id_usuario;
     }
 }

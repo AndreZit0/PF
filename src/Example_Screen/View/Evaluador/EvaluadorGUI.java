@@ -1,4 +1,4 @@
-package Example_Screen.View.Aprendiz;
+package Example_Screen.View.Evaluador;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -7,16 +7,16 @@ import java.awt.event.WindowEvent;
 import static Example_Screen.View.Administrador.Administrador.setFrameIcon;
 import static Example_Screen.View.Login.LoginGUI.cofigBotonInicioSegunRol;
 
-public class AprendizGUI {
-    private JPanel panelAprendiz;
+public class EvaluadorGUI {
+    private JPanel panelEvaluador;
 
     public JPanel getPanel() {
-        return panelAprendiz;
+        return panelEvaluador;
     }
 
     public void moduloAprendiz() {
         JFrame frame = new JFrame("SAEP");
-        frame.setContentPane(this.panelAprendiz);
+        frame.setContentPane(this.panelEvaluador);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         //frame.setUndecorated(true);

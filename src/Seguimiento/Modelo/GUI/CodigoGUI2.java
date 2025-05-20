@@ -67,6 +67,8 @@ public class CodigoGUI2 extends JFrame {
         configurarVentana();
         configurarComponentes();
         cargarArchivos();
+        btnSubir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
     }
 
 
@@ -190,6 +192,11 @@ public class CodigoGUI2 extends JFrame {
                     archivoSeleccionado, destino, tipoFormato, observaciones,
                     nombreAprendiz, numeroDocumento, this.idUsuario, idAprendiz
             );
+
+            // Inicializar los campos de validación
+            archivo.setVal1("No Aprobado");
+            archivo.setVal2("No Aprobado");
+            archivo.setVal3("No Aprobado");
 
             if (archivoDAO.insertar(archivo)) {
                 JOptionPane.showMessageDialog(this, "Archivo subido con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -316,6 +323,7 @@ public class CodigoGUI2 extends JFrame {
         panelArchivo.setBorder(BorderFactory.createEtchedBorder());
         panelArchivo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
 
+
         JLabel lblNombre = new JLabel("Nombre: " + archivo.getNombreArchivo());
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         JLabel lblFecha = new JLabel("Subido el: " + sdf.format(archivo.getFecha()));
@@ -323,13 +331,14 @@ public class CodigoGUI2 extends JFrame {
                 " (Cédula: " + archivo.getCedulaAprendiz() + ")");
         JLabel lblObservacion = new JLabel("Observaciones: " + archivo.getObservaciones());
 
+
         JPanel panelInfo = new JPanel(new GridLayout(4, 1));
         panelInfo.add(lblNombre);
         panelInfo.add(lblFecha);
         panelInfo.add(lblAprendiz);
         panelInfo.add(lblObservacion);
 
-        JButton btnVer = new JButton("Previsualizar");
+        JButton btnVer = new JButton("Visualizar");
         estilizarBoton(btnVer, naranja);
         btnVer.addActionListener(e -> previsualizarArchivo(archivo));
 
@@ -337,14 +346,43 @@ public class CodigoGUI2 extends JFrame {
         estilizarBoton(btnEliminar, rojo);
         btnEliminar.addActionListener(e -> eliminarArchivo(archivo, panelArchivo));
 
-        JPanel panelBotones = new JPanel(new GridLayout(2, 1));
+        // Botón de validación
+        JButton btnValidar = new JButton("Validar");
+        estilizarBoton(btnValidar, Color.BLUE);
+        btnValidar.addActionListener(e -> validarArchivo(archivo, btnValidar));
+
+        // Verificar si ya está validado por los 2 roles requeridos (Aprendiz y Evaluador)
+        boolean validadoCompletamente = archivo.getVal1().equals("Aprobado") &&
+                archivo.getVal2().equals("Aprobado");
+
+        // Deshabilitar botón de eliminar si está completamente validado
+        if (validadoCompletamente) {
+            btnEliminar.setEnabled(false);
+            btnValidar.setEnabled(false);
+            btnValidar.setText("Validado");
+        } else {
+            // Verificar si el rol actual ya validó
+            String rolActual = obtenerRolUsuario();
+            boolean yaValidado = (rolActual.equals("1") && archivo.getVal1().equals("Aprobado")) ||
+                    (rolActual.equals("2") && archivo.getVal2().equals("Aprobado"));
+
+            if (yaValidado) {
+                btnValidar.setEnabled(false);
+                btnValidar.setText("Validado");
+            }
+        }
+
+        JPanel panelBotones = new JPanel(new GridLayout(3, 1));
         panelBotones.add(btnVer);
         panelBotones.add(btnEliminar);
+        panelBotones.add(btnValidar);
 
         panelArchivo.add(panelInfo, BorderLayout.CENTER);
         panelArchivo.add(panelBotones, BorderLayout.EAST);
 
         panelArchivos.add(panelArchivo);
+        btnVer.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     /**
@@ -429,6 +467,76 @@ public class CodigoGUI2 extends JFrame {
             return null;
         }
     }
+
+    private void validarArchivo(Codigo archivo, JButton btnValidar) {
+        String rolActual = obtenerRolUsuario();
+        String campoAValidar = "";
+
+        switch(rolActual) {
+            case "1": // Aprendiz
+                campoAValidar = "val1";
+                break;
+            case "2": // Evaluador
+                campoAValidar = "val2";
+                break;
+            default:
+                JOptionPane.showMessageDialog(this,
+                        "Su rol no tiene permisos para validar bitácoras",
+                        "Error de permisos", JOptionPane.ERROR_MESSAGE);
+                return;
+        }
+
+        if (archivoDAO.validarArchivo(archivo.getIdSeguimiento(), campoAValidar)) {
+            JOptionPane.showMessageDialog(this,
+                    "Bitácora validada exitosamente",
+                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            // Actualizar estado local
+            switch(rolActual) {
+                case "1": archivo.setVal1("Aprobado"); break;
+                case "2": archivo.setVal2("Aprobado"); break;
+            }
+
+            btnValidar.setEnabled(false);
+            btnValidar.setText("Validado");
+
+            // Verificar si ambos roles han validado (Aprendiz y Evaluador)
+            if (archivo.getVal1().equals("Aprobado") &&
+                    archivo.getVal2().equals("Aprobado")) {
+
+                JOptionPane.showMessageDialog(this,
+                        "¡Bitácora validada por Aprendiz y Evaluador!",
+                        "Validación completa", JOptionPane.INFORMATION_MESSAGE);
+
+                // Deshabilitar eliminación
+                Component[] components = panelArchivos.getComponents();
+                for (Component comp : components) {
+                    if (comp instanceof JPanel) {
+                        JPanel panel = (JPanel) comp;
+                        Component[] subComponents = panel.getComponents();
+                        for (Component subComp : subComponents) {
+                            if (subComp instanceof JButton &&
+                                    ((JButton)subComp).getText().equals("Eliminar")) {
+                                subComp.setEnabled(false);
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Error al validar la bitácora",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+    private String obtenerRolUsuario() {
+        // Implementa este método para obtener el rol del usuario actual
+        // Puedes obtenerlo del LoginGUI o de la sesión
+        return LoginGUI.cofigBotonInicioSegunRol;
+    }
+
 
     /**
      * Método principal para ejecutar la aplicación.

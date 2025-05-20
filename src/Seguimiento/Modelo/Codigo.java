@@ -14,7 +14,10 @@ public class Codigo {
     private int idUsuario;
     private int idAprendiz;
     private String nombreAprendiz;
-    private String cedulaAprendiz; // Nuevo campo para almacenar la cédula
+    private String cedulaAprendiz;
+    private String val1;
+    private String val2;
+    private String val3;// Nuevo campo para almacenar la cédula
 
     public Codigo(int idSeguimiento, String tipoFormato, Date fecha, byte[] archivo, String rutaArchivo, String observaciones, String nombreArchivo, int idUsuario, int idAprendiz, String nombreAprendiz) {
         this.idSeguimiento = idSeguimiento;
@@ -125,5 +128,29 @@ public class Codigo {
 
     public void setNombreArchivo(String nombreArchivo) {
         this.nombreArchivo = nombreArchivo;
+    }
+
+    public String getVal1() {
+        return val1;
+    }
+
+    public void setVal1(String val1) {
+        this.val1 = val1;
+    }
+
+    public String getVal2() {
+        return val2;
+    }
+
+    public void setVal2(String val2) {
+        this.val2 = val2;
+    }
+
+    public String getVal3() {
+        return val3;
+    }
+
+    public void setVal3(String val3) {
+        this.val3 = val3;
     }
 }
