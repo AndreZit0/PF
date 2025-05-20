@@ -1,5 +1,6 @@
 package Empresas.Controlador;
 
+import Empresas.Controlador.EmpresaDAO;
 import Empresas.Modelo.Empresa;
 import Empresas.ConexionBD.ConnectionDB;
 
