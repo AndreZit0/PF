@@ -146,7 +146,7 @@ public class AsignacionGUI {
                         tabla.addCell(cell);
                     }
 
-                    try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "root");
+                    try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "");
                          PreparedStatement pst = cn.prepareStatement("SELECT a.ID_numeroAprendices, ua.numero, " +
                                  "CONCAT(ua.nombres, ' ', ua.apellidos) AS nombre_aprendiz, " +
                                          "f.codigo AS ficha, p.nombre_programa, " +
