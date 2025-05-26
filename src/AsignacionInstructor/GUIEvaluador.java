@@ -3,6 +3,7 @@ package AsignacionInstructor;
 import Example_Screen.Connection.DBConnection;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -196,7 +197,6 @@ public class GUIEvaluador {
             if (filasActualizadas > 0) {
                 JOptionPane.showMessageDialog(null, "Evaluador eliminado del aprendiz.");
                 asignacionGUI.refrescarBusqueda();
-                SwingUtilities.getWindowAncestor(main).dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo eliminar el evaluador.");
             }
@@ -297,6 +297,8 @@ public class GUIEvaluador {
      * Carga la lista de todos los evaluadores desde la base de datos y los muestra en la tabla.
      */
     public void listaContacto() {
+        Border bottom = BorderFactory.createMatteBorder(0,0,2,0, Color.decode("#39A900"));
+        textField1.setBorder(bottom);
         NonEditableTableModel modeloa = new NonEditableTableModel();
         table1.setDefaultEditor(Object.class, null);
 
@@ -407,7 +409,7 @@ public class GUIEvaluador {
         frame.setContentPane(this.main);
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(450, 400);
+        frame.setSize(450, 500);
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
