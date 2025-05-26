@@ -62,7 +62,9 @@ public class AsignacionGUI {
         header.setBackground(Color.decode("#39A900"));
         header.setForeground(Color.WHITE);
         header.setFont(new Font("Calibri", Font.BOLD, 15));
-        //hola
+
+        table1.setRowHeight(28);
+        generarPDFButton.setPreferredSize(new Dimension(8, 20));
 
 
 
