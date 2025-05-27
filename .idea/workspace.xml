@@ -4,10 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modulo_Perfiles.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PF.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminModalidadGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminModalidadGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AprendizGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AprendizGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearSedesGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearSedesGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearSedesGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearSedesGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearUsuarioGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearUsuarioGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearUsuarioGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearUsuarioGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/UsuariosDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/UsuariosDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="miguel" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -28,12 +41,12 @@
     &quot;assignee&quot;: &quot;AndreZit0&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Miguelml1219/Modulo_Perfiles.git",
-    "accountId": "2669e2aa-ce14-47d7-878f-92b28afebe6f"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AndreZit0/PF.git&quot;,
+    &quot;accountId&quot;: &quot;2669e2aa-ce14-47d7-878f-92b28afebe6f&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -50,7 +63,8 @@
     "Application.LoginGUI.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "248",
+    "git-widget-placeholder": "branch__andres",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2"
@@ -84,6 +98,15 @@
       <option name="presentableId" value="Default" />
       <updated>1748124734085</updated>
     </task>
+    <task id="LOCAL-00001" summary="...">
+      <option name="closed" value="true" />
+      <created>1748127776124</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748127776124</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -96,5 +119,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="..." />
+    <option name="LAST_COMMIT_MESSAGE" value="..." />
   </component>
 </project>

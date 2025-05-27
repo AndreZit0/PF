@@ -83,24 +83,6 @@ public class CrearUsuarioGUI {
                 }
             }
         });
-
-        cancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                num_doc.setText("");
-                nombre.setText("");
-                apellido.setText("");
-                email.setText("");
-                email_insti.setText("");
-                direccion.setText("");
-                contacto1.setText("");
-                contacto2.setText("");
-                clave.setText("");
-                rol.setSelectedIndex(0);
-                tipo_doc.setSelectedIndex(0);
-                estado.setSelectedIndex(0);
-            }
-        });
     }
 
 

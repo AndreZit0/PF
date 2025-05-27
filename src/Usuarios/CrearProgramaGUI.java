@@ -39,13 +39,6 @@ public class CrearProgramaGUI {
                 }
             }
         });
-        cancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                nombre.setText("");
-                estado.setSelectedIndex(0);
-            }
-        });
     }
 
     public static void main(String[] args) {

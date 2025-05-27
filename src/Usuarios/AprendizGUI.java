@@ -146,7 +146,7 @@ public class AprendizGUI {
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT codigo FROM fichas")) {
+             ResultSet rs = stmt.executeQuery("SELECT codigo FROM fichas WHERE estado = 'activa'")) {
 
             DefaultComboBoxModel<String> modeloFichas = new DefaultComboBoxModel<>();
             while (rs.next()) {

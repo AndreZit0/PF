@@ -51,15 +51,6 @@ public class CrearSedesGUI {
                 }
             }
         });
-
-        cancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                nombre.setText("");
-                direc.setText("");
-                estado.setSelectedIndex(0);
-            }
-        });
     }
 
 
