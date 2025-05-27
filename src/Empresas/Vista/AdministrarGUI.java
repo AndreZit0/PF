@@ -321,7 +321,6 @@ public class AdministrarGUI {
         table1.setModel(model);
     }
 
-
     public static void main(String[] args) {
         AdministrarGUI administrarGUI = new AdministrarGUI();
         JFrame frame = new JFrame("EMPRESA");
