@@ -90,13 +90,6 @@ public class CrearFichasGUI {
                 }
             }
         });
-
-        cancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Aquí puedes limpiar los campos si deseas
-            }
-        });
     }
 
     private void cargarSedes() {

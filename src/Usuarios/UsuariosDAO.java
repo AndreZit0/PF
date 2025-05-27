@@ -240,7 +240,7 @@ public class UsuariosDAO {
     private boolean validarUsuario(Usuarios_getset usuario, boolean esActualizacion) {
         if (usuario.getDocumento().isEmpty() || usuario.getNombres().isEmpty() || usuario.getApellidos().isEmpty()
                 || usuario.getEmail().isEmpty() || usuario.getEmail_insti().isEmpty() || usuario.getDireccion().isEmpty()
-                || usuario.getContacto1().isEmpty() || usuario.getClave().isEmpty()) {
+                || usuario.getContacto1().isEmpty() || usuario.getContacto2().isEmpty() || usuario.getClave().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Todos los campos obligatorios deben estar llenos.");
             return false;
         }
