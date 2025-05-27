@@ -98,9 +98,9 @@ public class AdministrarGUI {
                 // Verificar si hay una fila seleccionada
                 int selectedRow = table1.getSelectedRow();
                 if (selectedRow == -1) {
-                    // mostrar mensaje
+
                     JOptionPane.showMessageDialog(null, "Seleccione una empresa primero.");
-                    return; // Salir
+                    return;
                 }
 
                 //colores
@@ -108,9 +108,9 @@ public class AdministrarGUI {
                 Document documento = new Document(PageSize.A4);
 
                 try {
-                    String ruta = System.getProperty("user.home") + "/Downloads/empresas.pdf";
-                    File pdfFile = new File(ruta);
-                    PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(ruta));
+                    File tempFile = File.createTempFile("empresas_", ".pdf");
+                    tempFile.deleteOnExit(); // Se elimina automáticamente cuando finalice el programa
+                    PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(tempFile));
 
                     documento.open();
 
@@ -173,7 +173,7 @@ public class AdministrarGUI {
                     documento.add(tabla);
                     documento.close();
                     if (Desktop.isDesktopSupported()) {
-                        Desktop.getDesktop().open(pdfFile);
+                        Desktop.getDesktop().open(tempFile);
                     } else {
                         JOptionPane.showMessageDialog(null, "La apertura automática no es compatible en este sistema.");
                     }
