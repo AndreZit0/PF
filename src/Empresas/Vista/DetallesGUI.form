@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Empresas.Vista.DetallesGUI">
+  <grid id="27dc6" binding="main" layout-manager="GridLayoutManager" row-count="10" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="20" left="20" bottom="20" right="20"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="429"/>
+    </constraints>
+    <properties>
+      <background color="-592138"/>
+      <foreground color="-592138"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="48fe2" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16644608"/>
+          <text value="NIT:"/>
+        </properties>
+      </component>
+      <component id="4f0f6" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16644608"/>
+          <text value="Nombre:"/>
+        </properties>
+      </component>
+      <component id="702e7" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16644608"/>
+          <text value="Dirección:"/>
+        </properties>
+      </component>
+      <component id="c91a" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16644608"/>
+          <text value="Área:"/>
+        </properties>
+      </component>
+      <component id="cac57" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16644608"/>
+          <text value="Coevaluador:"/>
+        </properties>
+      </component>
+      <component id="52408" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16644608"/>
+          <text value="Contacto:"/>
+        </properties>
+      </component>
+      <component id="dcc74" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16644608"/>
+          <text value="Email:"/>
+        </properties>
+      </component>
+      <component id="b48a8" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16644608"/>
+          <text value="Departamento:"/>
+        </properties>
+      </component>
+      <component id="20127" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16644608"/>
+          <text value="Ciudad:"/>
+        </properties>
+      </component>
+      <component id="5f1df" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-592138"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Calibri" size="16" style="1"/>
+        </properties>
+      </component>
+      <component id="c90c7" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-592138"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Calibri" size="16" style="1"/>
+        </properties>
+      </component>
+      <component id="cddaf" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-592138"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Calibri" size="16" style="1"/>
+        </properties>
+      </component>
+      <component id="8ffae" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-592138"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Calibri" size="16" style="1"/>
+        </properties>
+      </component>
+      <component id="5d372" class="javax.swing.JTextField" binding="textField5" default-binding="true">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-592138"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Calibri" size="16" style="1"/>
+        </properties>
+      </component>
+      <component id="406a0" class="javax.swing.JTextField" binding="textField6" default-binding="true">
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-592138"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Calibri" size="16" style="1"/>
+        </properties>
+      </component>
+      <component id="f81d8" class="javax.swing.JTextField" binding="textField7" default-binding="true">
+        <constraints>
+          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-592138"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Calibri" size="16" style="1"/>
+        </properties>
+      </component>
+      <component id="ee716" class="javax.swing.JTextField" binding="textField8" default-binding="true">
+        <constraints>
+          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-592138"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Calibri" size="16" style="1"/>
+        </properties>
+      </component>
+      <component id="b37d2" class="javax.swing.JTextField" binding="textField9" default-binding="true">
+        <constraints>
+          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-592138"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Calibri" size="16" style="1"/>
+        </properties>
+      </component>
+      <component id="1a651" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16644608"/>
+          <text value="Estado:"/>
+        </properties>
+      </component>
+      <component id="df968" class="javax.swing.JTextField" binding="textField10">
+        <constraints>
+          <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-592138"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Calibri" size="16" style="1"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

@@ -1,9 +1,7 @@
 package Empresas.Vista;
 import Empresas.ConexionBD.ConnectionDB;
-import Empresas.Controlador.ActualizarEmpresaDialog;
 import Empresas.Controlador.EmpresaDAO;
 import Empresas.Modelo.Empresa;
-import Empresas.Vista.*;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
@@ -45,7 +43,6 @@ public class AdministrarGUI {
         // Personalización visual de la JTable
         table1.setBackground(new Color(245, 245, 245));
         table1.setForeground(Color.BLACK);
-        table1.setSelectionBackground(new Color(119, 119, 119));
         table1.setSelectionForeground(Color.WHITE);
         table1.setGridColor(new Color(220, 220, 220));
         table1.setShowGrid(true);
@@ -61,11 +58,14 @@ public class AdministrarGUI {
         table1.setRowHeight(25);
 
         // Configura el evento de clic en el botón 'eliminar'
+        /*
         eliminarButton.addActionListener(e -> {
             eliminarEmpresa();
             List<Empresa> empresas = empresaDAO.obtenerEmpresa();
             cargarEmpresas(empresas);
         });
+
+         */
 
         // Configura el evento de clic en el botón 'observar'
         observarButton.addActionListener(new ActionListener() {
@@ -109,6 +109,7 @@ public class AdministrarGUI {
 
                 try {
                     String ruta = System.getProperty("user.home") + "/Downloads/empresas.pdf";
+                    File pdfFile = new File(ruta);
                     PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(ruta));
 
                     documento.open();
@@ -138,11 +139,11 @@ public class AdministrarGUI {
                     documento.add(new Paragraph("\n\n"));
 
                     PdfPTable tabla = new PdfPTable(9);
-                    tabla.setWidthPercentage(100);
+                    tabla.setWidthPercentage(110);
                     tabla.setSpacingBefore(10f);
                     tabla.setSpacingAfter(10f);
 
-                    String[] headers = {"ID", "NIT", "Nombre", "Dir", "Area", "Contacto", "Correo", "Depto", "Ciudad"};
+                    String[] headers = {"NIT", "Nombre", "Dir", "Area", "Contacto", "Correo", "Depto", "Ciudad", "Estado"};
 
                     for (String header : headers) {
                         PdfPCell cell = new PdfPCell(new Phrase(header,
@@ -153,7 +154,7 @@ public class AdministrarGUI {
                     }
 
                     try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "");
-                         PreparedStatement pst = cn.prepareStatement("SELECT ID_empresas, nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad FROM empresas;");
+                         PreparedStatement pst = cn.prepareStatement("SELECT nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad, estado FROM empresas;");
                          ResultSet rs = pst.executeQuery()) {
 
                         if (!rs.isBeforeFirst()) {
@@ -171,8 +172,11 @@ public class AdministrarGUI {
 
                     documento.add(tabla);
                     documento.close();
-
-                    JOptionPane.showMessageDialog(null, "PDF generado correctamente en descargas.");
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().open(pdfFile);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "La apertura automática no es compatible en este sistema.");
+                    }
 
                 } catch (DocumentException | IOException ex) {
                     JOptionPane.showMessageDialog(null, "Error al generar el PDF: " + ex.getMessage());
@@ -194,16 +198,42 @@ public class AdministrarGUI {
         }
 
         String nit = table1.getValueAt(selectedRow, 0).toString();
+
         Empresa empresa = empresaDAO.buscarEmpresa(nit);
 
         if (empresa != null) {
-            new ActualizarEmpresaDialog(null, empresa, empresaDAO, () -> {
-                List<Empresa> empresas = empresaDAO.obtenerEmpresa();
-                cargarEmpresas(empresas);
-            }).setVisible(true);
+            ActualizarGUI dialog = new ActualizarGUI(
+                    null, empresa, empresaDAO, () -> cargarEmpresasEnTabla()
+            );
+            dialog.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "No se pudo encontrar la empresa.");
+            JOptionPane.showMessageDialog(null, "Empresa no encontrada.");
         }
+    }
+
+    public void cargarEmpresasEnTabla() {
+        DefaultTableModel model = new DefaultTableModel(
+                new Object[]{"NIT", "Nombre", "Teléfono", "Coevaluador", "Estado"}, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        List<Empresa> empresas = empresaDAO.obtenerEmpresa();
+
+        for (Empresa emp : empresas) {
+            model.addRow(new Object[]{
+                    emp.getNit(),
+                    emp.getNombre_empresa(),
+                    emp.getContacto(),
+                    emp.getNombreCoevaluador(),
+                    emp.getEstado()
+            });
+        }
+
+        table1.setModel(model);
     }
 
     /**
@@ -213,41 +243,15 @@ public class AdministrarGUI {
     public void empresaDetalle() {
         int selectedRow = table1.getSelectedRow();
         if (selectedRow != -1) {
-            String nit = table1.getValueAt(selectedRow, 0).toString();
-            String nombre = table1.getValueAt(selectedRow, 1).toString();
-            String telefono = table1.getValueAt(selectedRow, 2).toString();
+            String nitSeleccionado = table1.getValueAt(selectedRow, 0).toString();
+            DetallesGUI detalles = new DetallesGUI(nitSeleccionado);
+            JFrame frame = new JFrame("Detalles de la Empresa");
+            frame.setContentPane(detalles.getMainPanel());
+            frame.setSize(400, 500);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setVisible(true);
 
-            Empresa empresa = empresaDAO.buscarEmpresa(nit);
-
-            // Obtener el ID del coevaluador
-            int idUsuario = empresa.getID_usuarios(); // Suponiendo que tienes este método en tu clase Empresa
-            String nombreCoevaluador = "";
-
-            // Obtener el nombre y apellido del coevaluador desde la base de datos
-            try (Connection con = new ConnectionDB().getConnection();
-                 PreparedStatement ps = con.prepareStatement("SELECT nombres, apellidos FROM usuarios WHERE ID_usuarios = ?")) {
-                ps.setInt(1, idUsuario);
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        nombreCoevaluador = rs.getString("nombres") + " " + rs.getString("apellidos");
-                    }
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Error al obtener el nombre del coevaluador.");
-            }
-
-            String mensaje = "NIT: " + empresa.getNit() + "\n"
-                    + "Nombre: " + empresa.getNombre_empresa() + "\n"
-                    + "Dirección: " + empresa.getDireccion() + "\n"
-                    + "Área: " + empresa.getArea() + "\n"
-                    + "Coevaluador: " + nombreCoevaluador + "\n"
-                    + "Contacto: " + empresa.getContacto() + "\n"
-                    + "Email: " + empresa.getEmail() + "\n"
-                    + "Departamento: " + empresa.getDepartamento() + "\n"
-                    + "Ciudad: " + empresa.getCiudad();
-
-            JOptionPane.showMessageDialog(null, mensaje, "Detalles de la empresa", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione una empresa primero.");
         }
@@ -258,6 +262,8 @@ public class AdministrarGUI {
      * Si no hay ninguna fila seleccionada, muestra un mensaje solicitando que se seleccione una empresa.
      * Luego solicita confirmación antes de eliminar la empresa.
      */
+
+    /*
     public void eliminarEmpresa() {
         int selectedRow = table1.getSelectedRow();
         if (selectedRow == -1) {
@@ -282,6 +288,8 @@ public class AdministrarGUI {
         }
     }
 
+     */
+
     /**
      * Carga y muestra las empresas en la tabla.
      * Configura un modelo para la tabla y agrega las empresas a la vista.
@@ -291,23 +299,28 @@ public class AdministrarGUI {
             // para que ninguna celda sea editable
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Ninguna celda será editable
+                return false;
             }
         };
 
         model.addColumn("NIT");
         model.addColumn("Nombre");
         model.addColumn("Teléfono");
+        model.addColumn("Coevaluador");
+        model.addColumn("Estado");
 
         for (Empresa empresa : listaEmpresas) {
             model.addRow(new Object[]{
                     empresa.getNit(),
                     empresa.getNombre_empresa(),
-                    empresa.getContacto()
+                    empresa.getContacto(),
+                    empresa.getNombreCoevaluador(),
+                    empresa.getEstado()
             });
         }
         table1.setModel(model);
     }
+
 
     public static void main(String[] args) {
         AdministrarGUI administrarGUI = new AdministrarGUI();
