@@ -123,7 +123,7 @@ public class CodigoGUI extends JFrame {
 
         JPanel panelSubir = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         btnSubir = new JButton("Subir PDF");
-        estilizarBoton(btnSubir, verde);
+        estilizarBotonPDF(btnSubir, verde);
         fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("Archivo PDF", "pdf"));
         btnSubir.addActionListener(e -> {
@@ -141,11 +141,56 @@ public class CodigoGUI extends JFrame {
      * @param boton Componente JButton a estilizar
      * @param colorFondo Color de fondo para el botón
      */
+
     private void estilizarBoton(JButton boton, Color colorFondo) {
         boton.setBackground(colorFondo);
         boton.setForeground(blanco);
-        boton.setFont(fuenteCalibri);
+        boton.setFont(new Font("Calibri", Font.PLAIN, 16));
+
+        // Margen interno para centrar el texto
+        boton.setMargin(new Insets(2, 5, 2, 5));
+
+        // Centrar texto horizontalmente
+        boton.setHorizontalAlignment(SwingConstants.CENTER);
+        boton.setVerticalAlignment(SwingConstants.CENTER);
+
+
+        // Efecto hover con transición suave
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton.setBackground(new Color(
+                        Math.max(0, colorFondo.getRed() - 50),
+                        Math.max(0, colorFondo.getGreen() - 50),
+                        Math.max(0, colorFondo.getBlue() - 50)
+                ));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton.setBackground(colorFondo);
+            }
+        });
     }
+    private void estilizarBotonPDF(JButton boton, Color colorFondo) {
+        boton.setBackground(colorFondo);
+        boton.setForeground(blanco);
+        boton.setFont(fuenteCalibri);
+
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                // Oscurece el color original en un 20%
+                boton.setBackground(new Color(
+                        Math.max(0, colorFondo.getRed() - 50),
+                        Math.max(0, colorFondo.getGreen() - 50),
+                        Math.max(0, colorFondo.getBlue() - 50)
+                ));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton.setBackground(colorFondo);
+            }
+        });
+    }
+
 
     /**
      * Muestra un mensaje indicando que se debe esperar antes de subir otro archivo.
@@ -379,7 +424,9 @@ public class CodigoGUI extends JFrame {
             }
         }
 
-        JPanel panelBotones = new JPanel(new GridLayout(3, 1));
+        JPanel panelBotones = new JPanel(new GridLayout(3, 1, 0, 8)); // 8px de espacio vertical
+        panelBotones.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Márgenes interno: arriba, izquierda, abajo, derecha
+
         panelBotones.add(btnVer);
         panelBotones.add(btnEliminar);
         panelBotones.add(btnValidar);
