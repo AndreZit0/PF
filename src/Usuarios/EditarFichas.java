@@ -23,6 +23,7 @@ public class EditarFichas {
     private JComboBox<String> estado;
     private JButton confirmarButton;
     private JButton cancelar;
+    private JComboBox<String> tipo_oferta;
 
     private FichasDAO dao = new FichasDAO(ConexionBD.getConnection());
     private Fichas_setget fichaActual;
@@ -96,6 +97,7 @@ public class EditarFichas {
         modalidad.setModel(new DefaultComboBoxModel<>(new String[]{"Presencial", "Virtual"}));
         jornada.setModel(new DefaultComboBoxModel<>(new String[]{"Diurna", "Nocturna", "Mixta"}));
         nivelformacion.setModel(new DefaultComboBoxModel<>(new String[]{"Técnico", "Tecnólogo"}));
+        tipo_oferta.setModel(new DefaultComboBoxModel<>(new String[]{"Abierta", "Cerrada"}));
         estado.setModel(new DefaultComboBoxModel<>(new String[]{"Activa", "Inactiva"}));
     }
 
@@ -128,6 +130,9 @@ public class EditarFichas {
         }
         if (fichaActual.getNivel_formacion() != null) {
             nivelformacion.setSelectedItem(fichaActual.getNivel_formacion());
+        }
+        if (fichaActual.getNivel_formacion() != null) {
+            tipo_oferta.setSelectedItem(fichaActual.getTipo_oferta());
         }
         if (fichaActual.getEstado() != null) {
             estado.setSelectedItem(fichaActual.getEstado());
@@ -181,6 +186,7 @@ public class EditarFichas {
             fichaActual.setJornada((String) jornada.getSelectedItem());
             fichaActual.setNivel_formacion((String) nivelformacion.getSelectedItem());
             fichaActual.setEstado((String) estado.getSelectedItem());
+            fichaActual.setTipo_oferta((String) tipo_oferta.getSelectedItem());
 
             boolean actualizado = dao.actualizarFicha(fichaActual);
 

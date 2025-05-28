@@ -9,12 +9,13 @@ public class ProgramasDAO {
 
     // Agregar programa
     public boolean agregarPrograma(Programas_getset programa) {
-        String query = "INSERT INTO programas (nombre_programa, estado) VALUES (?, ?)";
+        String query = "INSERT INTO programas (nombre_programa,version_programa, estado) VALUES (?, ?, ?)";
         try (Connection con = conexion.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
 
             pst.setString(1, programa.getNombre_programa());
             pst.setString(2, programa.getEstado());
+            pst.setString(3, programa.getVersion_programa());
 
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -26,13 +27,14 @@ public class ProgramasDAO {
 
     // Actualizar programa
     public boolean actualizarPrograma(Programas_getset programa) {
-        String query = "UPDATE programas SET nombre_programa = ?, estado = ? WHERE ID_programas = ?";
+        String query = "UPDATE programas SET nombre_programa = ?, estado = ?, version_programa = ? WHERE ID_programas = ?";
         try (Connection con = conexion.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
 
             pst.setString(1, programa.getNombre_programa());
+            pst.setString(3, programa.getVersion_programa());
             pst.setString(2, programa.getEstado());
-            pst.setInt(3, programa.getID_programas());
+            pst.setInt(4, programa.getID_programas());
 
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -58,25 +60,25 @@ public class ProgramasDAO {
     }
 
     // Ver programa por ID
-    public Programas_getset verPrograma(int id_programas) {
-        String query = "SELECT * FROM programas WHERE ID_programas = ?";
-        try (Connection con = conexion.getConnection();
-             PreparedStatement pst = con.prepareStatement(query)) {
-
-            pst.setInt(1, id_programas);
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                return new Programas_getset(
-                        rs.getString("nombre_programa"),
-                        rs.getString("estado")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public Programas_getset verPrograma(int id_programas) {
+//        String query = "SELECT * FROM programas WHERE ID_programas = ?";
+//        try (Connection con = conexion.getConnection();
+//             PreparedStatement pst = con.prepareStatement(query)) {
+//
+//            pst.setInt(1, id_programas);
+//            ResultSet rs = pst.executeQuery();
+//
+//            if (rs.next()) {
+//                return new Programas_getset(
+//                        rs.getString("nombre_programa"),
+//                        rs.getString("estado")
+//                );
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     // Listar todos los programas
     public ArrayList<Programas_getset> listarProgramas() {
@@ -91,6 +93,7 @@ public class ProgramasDAO {
                 Programas_getset programa = new Programas_getset(
                         rs.getInt("ID_programas"),
                         rs.getString("nombre_programa"),
+                        rs.getString("version_programa"),
                         rs.getString("estado")
                 );
                 lista.add(programa);

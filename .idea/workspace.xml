@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+
     <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="...">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p__m___Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p_ m__[Changes]/shelved.patch" beforeDir="false" />
@@ -65,6 +66,7 @@
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2"
@@ -143,6 +145,7 @@
         <item itemvalue="Application.AdminSedesGUI" />
         <item itemvalue="Application.UsuariosGUI" />
         <item itemvalue="Application.LoginGUI" />
+        <item itemvalue="Application.LoginGUI" />
       </list>
     </recent_temporary>
   </component>
@@ -155,15 +158,6 @@
       <option name="presentableId" value="Default" />
       <updated>1748124734085</updated>
     </task>
-    <task id="LOCAL-00001" summary="...">
-      <option name="closed" value="true" />
-      <created>1748127776124</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1748127776124</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -182,9 +176,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="..." />
-    <option name="LAST_COMMIT_MESSAGE" value="..." />
   </component>
 </project>

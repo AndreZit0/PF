@@ -22,6 +22,7 @@ public class CrearFichasGUI {
     private JComboBox modalidad;
     private JComboBox jornada;
     private JComboBox nivelformacion;
+    private JComboBox tipo_deoferta;
 
     // Usamos HashMap para mapear nombre -> ID
     private HashMap<String, String> mapaSedes = new HashMap<>();
@@ -64,6 +65,7 @@ public class CrearFichasGUI {
                             fechaInicio,
                             fechaFinLectiva,
                             fechaFinal,
+                            tipo_deoferta.getSelectedItem().toString(),
                             estado.getSelectedItem().toString()
                     );
 

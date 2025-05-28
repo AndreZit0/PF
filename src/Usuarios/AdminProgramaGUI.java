@@ -115,7 +115,7 @@ public class AdminProgramaGUI {
 
     // Configura la estructura de la tabla
     private void configurarTabla() {
-        String[] columnas = {"ID", "Nombre", "Estado", "Acciones"};
+        String[] columnas = {"ID", "Nombre", "Version", "Estado", "Acciones"};
         DefaultTableModel modelo = new DefaultTableModel(null, columnas);
         tableprograma.setModel(modelo);
         sorter = new TableRowSorter<>(modelo);
@@ -142,7 +142,7 @@ public class AdminProgramaGUI {
         centrado.setHorizontalAlignment(SwingConstants.CENTER);
 
         for (int i = 0; i < tableprograma.getColumnCount(); i++) {
-            if (i != 3) {
+            if (i != 4) {
                 tableprograma.getColumnModel().getColumn(i).setCellRenderer(centrado);
             }
         }
@@ -158,9 +158,9 @@ public class AdminProgramaGUI {
 
     // Configura la columna de acciones con botón "Editar"
     private void configurarColumnaAcciones() {
-        tableprograma.getColumnModel().getColumn(3).setPreferredWidth(100);
-        tableprograma.getColumnModel().getColumn(3).setCellRenderer(new BotonRenderer());
-        tableprograma.getColumnModel().getColumn(3).setCellEditor(new BotonEditor(tableprograma, id -> {
+        tableprograma.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tableprograma.getColumnModel().getColumn(4).setCellRenderer(new BotonRenderer());
+        tableprograma.getColumnModel().getColumn(4).setCellEditor(new BotonEditor(tableprograma, id -> {
             Programas_getset programa = obtenerProgramaPorID(id);
             if (programa != null) {
                 mostrarVentanaEditarPrograma(programa);
@@ -202,6 +202,7 @@ public class AdminProgramaGUI {
             modelo.addRow(new Object[]{
                     programa.getID_programas(),
                     programa.getNombre_programa(),
+                    programa.getVersion_programa(),
                     programa.getEstado(),
                     null // Para el botón Editar
             });
