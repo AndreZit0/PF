@@ -11,6 +11,7 @@ public class EditarPrograma {
     private JTextField nombre;
     private JButton confirmarButton;
     private JButton cancelar;
+    private JTextField version;
 
     private ProgramasDAO dao = new ProgramasDAO();
     private Programas_getset programaActual;
@@ -41,10 +42,12 @@ public class EditarPrograma {
     }
     private void cargarDatosPrograma(){
         nombre.setText(programaActual.getNombre_programa());
+        version.setText(programaActual.getVersion_programa());
         estado.setSelectedItem(programaActual.getEstado());
     }
     private void guardarCambios(){
         programaActual.setNombre_programa(nombre.getText());
+        programaActual.setVersion_programa(version.getText());
         programaActual.setEstado((String) estado.getSelectedItem());
 
         if(dao.actualizarPrograma(programaActual)){

@@ -176,7 +176,7 @@
                           <iconTextGap value="14"/>
                           <margin top="0" left="0" bottom="0" right="0"/>
                           <requestFocusEnabled value="false"/>
-                          <text value="Crear "/>
+                          <text value="Administrar"/>
                         </properties>
                       </component>
                     </children>

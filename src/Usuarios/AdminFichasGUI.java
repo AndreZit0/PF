@@ -56,7 +56,7 @@ public class AdminFichasGUI {
     private void inicializarTabla() {
         String[] columnas = {
                 "ID Ficha", "Programa", "Sede", "Código", "Modalidad",
-                "Jornada", "Nivel Formación", "Fecha Inicio", "Fecha Fin Lectiva", "Fecha Final", "Estado", "Acciones"
+                "Jornada", "Nivel Formación", "Fecha Inicio", "Fecha Fin Lectiva", "Fecha Final","Tipo de oferta", "Estado", "Acciones"
         };
 
         DefaultTableModel modelo = new DefaultTableModel(null, columnas);
@@ -85,16 +85,16 @@ public class AdminFichasGUI {
         DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
         centrado.setHorizontalAlignment(SwingConstants.CENTER);
         for (int i = 0; i < tablefichas.getColumnCount(); i++) {
-            if (i != 11) { // No centramos la columna de botones
+            if (i != 12) { // No centramos la columna de botones
                 tablefichas.getColumnModel().getColumn(i).setCellRenderer(centrado);
             }
         }
 
         // Configurar la columna de los botones
         tablefichas.setRowHeight(30);
-        tablefichas.getColumnModel().getColumn(11).setPreferredWidth(100);
-        tablefichas.getColumnModel().getColumn(11).setCellRenderer(new BotonRenderer());
-        tablefichas.getColumnModel().getColumn(11).setCellEditor(
+        tablefichas.getColumnModel().getColumn(12).setPreferredWidth(100);
+        tablefichas.getColumnModel().getColumn(12).setCellRenderer(new BotonRenderer());
+        tablefichas.getColumnModel().getColumn(12).setCellEditor(
                 new BotonEditor(tablefichas, id -> {
                     FichasDAO dao = new FichasDAO(ConexionBD.getConnection());
                     Fichas_setget ficha = dao.obtenerFichaPorID(id);
@@ -133,6 +133,7 @@ public class AdminFichasGUI {
                     formatoFecha.format(f.getFecha_inicio()),
                     formatoFecha.format(f.getFecha_fin_lec()),
                     formatoFecha.format(f.getFecha_final()),
+                    f.getTipo_oferta(),
                     f.getEstado(),
                     null // El botón de editar se maneja con el editor
             });

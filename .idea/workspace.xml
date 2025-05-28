@@ -4,23 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="...">
+    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="se acomodo el campo para filtrar los datos a la derecha de las pantallas de fichas, programas y sedes, se puso el emoji de lupa en el lugar correspondiente, validacion para el campo contacto 2 hecho ahora no se creara un usuario si el campo se encuentra vacio y ajuste en las fichas que aparecen en el combobox de la pantalla modal de aprendiz ahora solo aparecen las fichas con estado activa">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p__m___Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p_ m__[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminModalidadGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminModalidadGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AprendizGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AprendizGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearSedesGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearSedesGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearSedesGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearSedesGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearUsuarioGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearUsuarioGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearUsuarioGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearUsuarioGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/UsuariosDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/UsuariosDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/EditarFichas.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/EditarFichas.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/EditarFichas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/EditarFichas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/EditarPrograma.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/EditarPrograma.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/EditarPrograma.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/EditarPrograma.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/FichasDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/FichasDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/Fichas_setget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/Fichas_setget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/ProgramasDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/ProgramasDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/Programas_getset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/Programas_getset.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,12 +43,12 @@
     &quot;assignee&quot;: &quot;AndreZit0&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AndreZit0/PF.git&quot;,
-    &quot;accountId&quot;: &quot;2669e2aa-ce14-47d7-878f-92b28afebe6f&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/AndreZit0/PF.git",
+    "accountId": "2669e2aa-ce14-47d7-878f-92b28afebe6f"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -63,7 +65,6 @@
     "Application.LoginGUI.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "248",
     "git-widget-placeholder": "branch__andres",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
@@ -87,6 +88,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.LoginGUI" />
+        <item itemvalue="Application.LoginGUI" />
       </list>
     </recent_temporary>
   </component>
@@ -98,15 +100,6 @@
       <option name="presentableId" value="Default" />
       <updated>1748124734085</updated>
     </task>
-    <task id="LOCAL-00001" summary="...">
-      <option name="closed" value="true" />
-      <created>1748127776124</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1748127776124</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -119,9 +112,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="..." />
-    <option name="LAST_COMMIT_MESSAGE" value="..." />
   </component>
 </project>

@@ -5,13 +5,13 @@ import java.util.Date;
 public class Fichas_setget {
     int ID_Fichas;
 
-    String codigo, modalidad, jornada, nivel_formacion, estado,nombre_programa,nombre_sede;
+    String codigo, modalidad, jornada, nivel_formacion, estado,nombre_programa,nombre_sede, tipo_oferta;
 
     Date fecha_inicio, fecha_fin_lec, fecha_final;
 
     public Fichas_setget(String nombre_programa, String nombre_sede, String codigo,
                          String modalidad, String jornada, String nivel_formacion,
-                         Date fecha_inicio, Date fecha_fin_lec, Date fecha_final, String estado) {
+                         Date fecha_inicio, Date fecha_fin_lec, Date fecha_final,String tipo_oferta, String estado) {
         // Elimina esta línea incorrecta:
         // this.ID_Fichas = ID_Fichas;
 
@@ -25,10 +25,19 @@ public class Fichas_setget {
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin_lec = fecha_fin_lec;
         this.fecha_final = fecha_final;
+        this.tipo_oferta = tipo_oferta;
     }
 
     public int getID_Fichas() {
         return ID_Fichas;
+    }
+
+    public String getTipo_oferta() {
+        return tipo_oferta;
+    }
+
+    public void setTipo_oferta(String tipo_oferta) {
+        this.tipo_oferta = tipo_oferta;
     }
 
     public void setID_Fichas(int ID_Fichas) {

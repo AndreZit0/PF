@@ -9,6 +9,7 @@ public class CrearProgramaGUI {
     private JComboBox estado;
     private JTextField nombre;
     private JButton confirmarButton;
+    private JTextField version;
     private JButton cancelar;
 
     public JPanel getPanel(){return pnlCrearPrograma;}
@@ -20,6 +21,7 @@ public class CrearProgramaGUI {
                 try{
                     Programas_getset programas = new Programas_getset(
                             nombre.getText(),
+                            version.getText(),
                             (String) estado.getSelectedItem()
                     );
                     ProgramasDAO dao = new ProgramasDAO();
@@ -28,6 +30,7 @@ public class CrearProgramaGUI {
 
                         // limpiar datos
                         nombre.setText("");
+                        version.setText("");
                         estado.setSelectedIndex(0);
                     }
                     else{
