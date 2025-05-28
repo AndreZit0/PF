@@ -1,12 +1,24 @@
 package Usuarios;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.*;
 import java.awt.*;
-import java.sql.Connection;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -14,6 +26,7 @@ public class AdminFichasGUI {
     private JPanel adminfichas;
     private JTable tablefichas;
     private JTextField textField1;
+    private JButton generarPDFButton;
 
     private TableRowSorter<TableModel> sorter;
 
@@ -23,6 +36,93 @@ public class AdminFichasGUI {
         inicializarFiltro();
         inicializarTabla();
         cargarTodasLasFichas(); // Carga las fichas en la tabla
+        generarPDFButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BaseColor verdeSena = new BaseColor(57, 169, 0);
+                Document documento = new Document(PageSize.A4.rotate()); // Orientación horizontal
+
+                try {
+                    String ruta = System.getProperty("user.home") + "/Downloads/fichas.pdf";
+                    PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(ruta));
+                    documento.open();
+
+                    // Fondo
+                    String imagePath = "src/Empresas/img/fondo.png";
+                    File imgFile = new File(imagePath);
+                    if (imgFile.exists()) {
+                        com.itextpdf.text.Image background = com.itextpdf.text.Image.getInstance(imagePath);
+                        background.scaleToFit(PageSize.A4.getHeight(), PageSize.A4.getWidth());
+                        background.setAbsolutePosition(0, 0);
+                        PdfContentByte canvas = writer.getDirectContentUnder();
+                        canvas.addImage(background);
+                    }
+
+                    documento.add(new Paragraph("\n\n\n\n"));
+                    Paragraph titulo = new Paragraph("Listado de Fichas",
+                            FontFactory.getFont("Tahoma", 22, Font.BOLD, verdeSena));
+                    titulo.setAlignment(Element.ALIGN_CENTER);
+                    documento.add(titulo);
+                    documento.add(new Paragraph("\n\n"));
+
+                    // Encabezados como en la imagen 1
+                    String[] headers = {
+                            "Programa", "Sede", "Código", "Modalidad", "Jornada",
+                            "Nivel Formación", "Fecha Inicio", "Fecha Fin Lectiva", "Fecha Final", "Estado"
+                    };
+
+                    PdfPTable tabla = new PdfPTable(headers.length);
+                    tabla.setWidthPercentage(100);
+                    tabla.setSpacingBefore(10f);
+                    tabla.setSpacingAfter(10f);
+
+                    for (String header : headers) {
+                        PdfPCell cell = new PdfPCell(new Phrase(header,
+                                FontFactory.getFont("Calibri", 12, Font.BOLD, BaseColor.WHITE)));
+                        cell.setBackgroundColor(verdeSena);
+                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        tabla.addCell(cell);
+                    }
+
+                    // Consultar la base de datos con JOIN para traer nombres de programa y sede
+                    try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "");
+                         PreparedStatement pst = cn.prepareStatement(
+                                 "SELECT f.codigo, f.modalidad, f.jornada, f.nivel_formacion, " +
+                                         "f.fecha_inicio, f.fecha_fin_lec, f.fecha_final, f.estado, " +
+                                         "p.nombre_programa, s.nombre_sede " +
+                                         "FROM fichas f " +
+                                         "JOIN programas p ON f.ID_programas = p.ID_programas " +
+                                         "JOIN sede s ON f.ID_sede = s.ID_sede");
+                         ResultSet rs = pst.executeQuery()) {
+
+                        while (rs.next()) {
+                            tabla.addCell(rs.getString("nombre_programa"));
+                            tabla.addCell(rs.getString("nombre_sede"));
+                            tabla.addCell(rs.getString("codigo"));
+                            tabla.addCell(rs.getString("modalidad"));
+                            tabla.addCell(rs.getString("jornada"));
+                            tabla.addCell(rs.getString("nivel_formacion"));
+                            tabla.addCell(rs.getString("fecha_inicio"));
+                            tabla.addCell(rs.getString("fecha_fin_lec"));
+                            tabla.addCell(rs.getString("fecha_final"));
+                            tabla.addCell(rs.getString("estado"));
+                        }
+
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Error al consultar la base de datos: " + ex.getMessage());
+                    }
+
+                    documento.add(tabla);
+                    documento.close();
+                    JOptionPane.showMessageDialog(null, "PDF generado correctamente como se ve en pantalla.");
+
+                } catch (DocumentException | IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al generar el PDF: " + ex.getMessage());
+                }
+            }
+        });
+
+
     }
 
     private void inicializarFiltro() {
@@ -139,8 +239,7 @@ public class AdminFichasGUI {
             });
         }
     }
-
-    public static void main() {
+    public static void main(String[] args) {
         JFrame frame = new JFrame("Administración de Fichas");
         frame.setContentPane(new AdminFichasGUI().adminfichas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

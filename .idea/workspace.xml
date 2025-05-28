@@ -4,25 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="se acomodo el campo para filtrar los datos a la derecha de las pantallas de fichas, programas y sedes, se puso el emoji de lupa en el lugar correspondiente, validacion para el campo contacto 2 hecho ahora no se creara un usuario si el campo se encuentra vacio y ajuste en las fichas que aparecen en el combobox de la pantalla modal de aprendiz ahora solo aparecen las fichas con estado activa">
+
+    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="...">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p__m___Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p_ m__[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/EditarFichas.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/EditarFichas.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/EditarFichas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/EditarFichas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/EditarPrograma.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/EditarPrograma.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/EditarPrograma.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/EditarPrograma.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/FichasDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/FichasDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/Fichas_setget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/Fichas_setget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/ProgramasDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/ProgramasDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/Programas_getset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/Programas_getset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +38,7 @@
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/AndreZit0/PF.git",
-    "accountId": "2669e2aa-ce14-47d7-878f-92b28afebe6f"
+    "accountId": "b0a66982-8d2c-4177-a680-744c39e570ea"
   }
 }]]></component>
   <component name="ProjectColorInfo">{
@@ -62,16 +54,64 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.AdminFichasGUI.executor": "Run",
+    "Application.AdminProgramaGUI.executor": "Run",
+    "Application.AdminSedesGUI.executor": "Run",
     "Application.LoginGUI.executor": "Run",
+    "Application.UsuariosGUI.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "branch__andres",
+    "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "false",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "248",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.AdminFichasGUI">
+    <configuration name="AdminFichasGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Usuarios.AdminFichasGUI" />
+      <module name="PF" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Usuarios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminProgramaGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Usuarios.AdminProgramaGUI" />
+      <module name="PF" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Usuarios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminSedesGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Usuarios.AdminSedesGUI" />
+      <module name="PF" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Usuarios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="LoginGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Example_Screen.View.Login.LoginGUI" />
       <module name="PF" />
@@ -85,13 +125,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UsuariosGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Usuarios.UsuariosGUI" />
+      <module name="PF" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Usuarios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AdminFichasGUI" />
+        <item itemvalue="Application.AdminProgramaGUI" />
+        <item itemvalue="Application.AdminSedesGUI" />
+        <item itemvalue="Application.UsuariosGUI" />
         <item itemvalue="Application.LoginGUI" />
         <item itemvalue="Application.LoginGUI" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="" />
@@ -107,7 +165,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
