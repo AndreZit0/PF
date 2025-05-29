@@ -9,6 +9,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="mysql.connector.java" level="project" />
     <orderEntry type="library" name="itextpdf" level="project" />
-    <orderEntry type="library" name="itext5-itextpdf-5.5.12" level="project" />
+
+
   </component>
 </module>
