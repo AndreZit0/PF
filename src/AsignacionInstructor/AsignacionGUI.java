@@ -143,7 +143,7 @@ public class AsignacionGUI {
                                 FontFactory.getFont("Calibri", 12, com.itextpdf.text.Font.BOLD, BaseColor.WHITE)));
                         cell.setBackgroundColor(verdeSena);
                         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                        tabla.addCell(cell);
+                        tabla.addCell(cell);//
                     }
 
                     try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "");
