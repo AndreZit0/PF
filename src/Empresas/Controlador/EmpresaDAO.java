@@ -21,10 +21,7 @@ public class EmpresaDAO {
      */
     public List<Empresa> obtenerEmpresa() {
         List<Empresa> empresas = new ArrayList<>();
-        String query = "SELECT e.*, CONCAT(u.nombres, ' ', u.apellidos) AS nombre_coevaluador " +
-                "FROM empresas e " +
-                "JOIN usuarios u ON e.ID_usuarios = u.ID_usuarios";
-
+        String query = "SELECT * FROM empresas";
 
         try (Connection con = connectionDB.getConnection();
              Statement stmt = con.createStatement();
@@ -34,11 +31,7 @@ public class EmpresaDAO {
                 Empresa empresa = new Empresa(rs.getInt("ID_empresas"), rs.getInt("ID_usuarios")
                         , rs.getString("nit"),
                         rs.getString("nombre_empresa"), rs.getString("direccion"), rs.getString("area"),
-
-                        rs.getString("contacto"), rs.getString("email"), rs.getString("departamento"), rs.getString("ciudad"), rs.getString("estado"));
-
-                empresa.setNombreCoevaluador(rs.getString("nombre_coevaluador"));
-
+                        rs.getString("contacto"), rs.getString("email"), rs.getString("departamento"), rs.getString("ciudad"));
                 empresas.add(empresa);
             }
         } catch (SQLException e) {
@@ -54,9 +47,7 @@ public class EmpresaDAO {
      * @return {@code true} si la operación fue exitosa, de lo contrario {@code false}.
      */
     public boolean agregarEmpresa(Empresa empresa) {
-
-        String query = "INSERT INTO empresas (nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad, ID_usuarios, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+        String query = "INSERT INTO empresas (nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad, ID_usuarios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = connectionDB.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
@@ -70,8 +61,6 @@ public class EmpresaDAO {
             pst.setString(7, empresa.getDepartamento());
             pst.setString(8, empresa.getCiudad());
             pst.setInt(9, empresa.getID_usuarios());
-            pst.setString(10, empresa.getEstado());
-
 
             int resultado = pst.executeUpdate();
             return resultado > 0;
@@ -87,8 +76,6 @@ public class EmpresaDAO {
      * @param id el ID único de la empresa a eliminar.
      * @return {@code true} si la eliminación fue exitosa, de lo contrario {@code false}.
      */
-    /*
-
     public boolean eliminarEmpresa(int id) {
         String query = "DELETE FROM empresas WHERE ID_empresas = ?";
         try (Connection con = connectionDB.getConnection();
@@ -106,9 +93,6 @@ public class EmpresaDAO {
             return false;
         }
     }
-
-     */
-
 
     /**
      * Busca una empresa en la base de datos según su NIT.
@@ -135,8 +119,7 @@ public class EmpresaDAO {
                         rs.getString("contacto"),
                         rs.getString("email"),
                         rs.getString("departamento"),
-                        rs.getString("ciudad"),
-                        rs.getString("estado")
+                        rs.getString("ciudad")
                 );
             }
         } catch (SQLException e) {
@@ -152,8 +135,7 @@ public class EmpresaDAO {
      * @return {@code true} si la actualización fue exitosa, de lo contrario {@code false}.
      */
     public boolean actualizarEmpresa(Empresa empresa) {
-        String query = "UPDATE empresas SET nit = ?, nombre_empresa = ?, direccion = ?, area = ?, contacto = ?, email = ?, departamento = ?, ciudad = ?, estado = ?, ID_usuarios = ? WHERE ID_empresas = ?";
-
+        String query = "UPDATE empresas SET nit = ?, nombre_empresa = ?, direccion = ?, area = ?, contacto = ?, email = ?, departamento = ?, ciudad = ?, ID_usuarios = ? WHERE ID_empresas = ?";
 
         try (Connection con = connectionDB.getConnection();
              PreparedStatement pst = con.prepareStatement(query)) {
@@ -166,17 +148,15 @@ public class EmpresaDAO {
             pst.setString(6, empresa.getEmail());
             pst.setString(7, empresa.getDepartamento());
             pst.setString(8, empresa.getCiudad());
+            pst.setInt(9, empresa.getID_usuarios()); // Aquí se asegura de pasar el ID del coevaluador seleccionado
+            pst.setInt(10, empresa.getID_empresas()); // ID de la empresa a actualizar
 
-            pst.setString(9, empresa.getEstado());
-            pst.setInt(10, empresa.getID_usuarios());
-            pst.setInt(11, empresa.getID_empresas());
-
+            // Ejecutar la actualización
             int rowsUpdated = pst.executeUpdate();
-            return rowsUpdated > 0;
+            return rowsUpdated > 0; // Si actualizó, devuelve true
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return false; // Si hay error, devuelve false
         }
     }
-
 }

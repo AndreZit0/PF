@@ -36,11 +36,6 @@ public class Empresa {
     /** Ciudad donde se encuentra la empresa */
     String ciudad;
 
-
-    String estado;
-
-    String nombreCoevaluador;
-
     /**
      * Constructor que inicializa los datos de la empresa.
      *
@@ -55,7 +50,7 @@ public class Empresa {
      * @param departamento El departamento donde se encuentra la empresa.
      * @param ciudad La ciudad donde se encuentra la empresa.
      */
-    public Empresa(int ID_empresas, int ID_usuarios, String nit, String nombre_empresa, String direccion, String area, String contacto, String email, String departamento, String ciudad, String estado) {
+    public Empresa(int ID_empresas, int ID_usuarios, String nit, String nombre_empresa, String direccion, String area, String contacto, String email, String departamento, String ciudad) {
         this.ID_empresas = ID_empresas;
         this.ID_usuarios = ID_usuarios;
         this.nit = nit;
@@ -66,9 +61,6 @@ public class Empresa {
         this.email = email;
         this.departamento = departamento;
         this.ciudad = ciudad;
-
-        this.estado = estado;
-
     }
 
     /**
@@ -250,22 +242,4 @@ public class Empresa {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
-
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getNombreCoevaluador() {
-        return nombreCoevaluador;
-    }
-
-    public void setNombreCoevaluador(String nombreCoevaluador) {
-        this.nombreCoevaluador = nombreCoevaluador;
-    }
-
 }

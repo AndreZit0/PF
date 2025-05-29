@@ -4,17 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-
-    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="...">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p__m___Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p_ m__[Changes]/shelved.patch" beforeDir="false" />
+    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PF.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PF.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Empresas/Controlador/EmpresaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Controlador/EmpresaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Empresas/Modelo/Empresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Modelo/Empresa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/ActualizarGUI.form" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/ActualizarGUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/DetallesGUI.form" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/DetallesGUI.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,12 +38,12 @@
     &quot;assignee&quot;: &quot;AndreZit0&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/AndreZit0/PF.git",
-    "accountId": "b0a66982-8d2c-4177-a680-744c39e570ea"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AndreZit0/PF.git&quot;,
+    &quot;accountId&quot;: &quot;b0a66982-8d2c-4177-a680-744c39e570ea&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -59,6 +62,10 @@
     "Application.AdminSedesGUI.executor": "Run",
     "Application.LoginGUI.executor": "Run",
     "Application.UsuariosGUI.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "false",
@@ -66,13 +73,12 @@
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-
     "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.AdminFichasGUI">
+  <component name="RunManager" selected="Application.LoginGUI">
     <configuration name="AdminFichasGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Usuarios.AdminFichasGUI" />
       <module name="PF" />
@@ -140,12 +146,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.LoginGUI" />
         <item itemvalue="Application.AdminFichasGUI" />
         <item itemvalue="Application.AdminProgramaGUI" />
         <item itemvalue="Application.AdminSedesGUI" />
         <item itemvalue="Application.UsuariosGUI" />
-        <item itemvalue="Application.LoginGUI" />
-        <item itemvalue="Application.LoginGUI" />
       </list>
     </recent_temporary>
   </component>
