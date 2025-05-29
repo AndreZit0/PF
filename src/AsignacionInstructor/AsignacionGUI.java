@@ -146,7 +146,7 @@ public class AsignacionGUI {
                         tabla.addCell(cell);
                     }
 
-                    try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "");
+                    try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "root");
                          PreparedStatement pst = cn.prepareStatement("SELECT a.ID_numeroAprendices, ua.numero, " +
                                  "CONCAT(ua.nombres, ' ', ua.apellidos) AS nombre_aprendiz, " +
                                          "f.codigo AS ficha, p.nombre_programa, " +
@@ -204,6 +204,18 @@ public class AsignacionGUI {
 
                     documento.add(tabla);
                     documento.close();
+                    try {
+                        File pdfFile = new File(ruta);
+                        if (pdfFile.exists()) {
+                            if (Desktop.isDesktopSupported()) {
+                                Desktop.getDesktop().open(pdfFile);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "No se pudo abrir el archivo automáticamente.");
+                            }
+                        }
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(null, "Error al intentar abrir el PDF: " + ex.getMessage());
+                    }
 
                     JOptionPane.showMessageDialog(null, "PDF generado correctamente en descargas.");
 
