@@ -1,3 +1,4 @@
+
 package Seguimiento.Modelo;
 
 import java.util.Arrays;

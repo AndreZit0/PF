@@ -1,0 +1,15 @@
+Index: config.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Thu May 08 17:53:53 COT 2025\r\nusuario=ana.martinez@email.com\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/config.properties b/config.properties
+--- a/config.properties	
++++ b/config.properties	
+@@ -1,2 +1,2 @@
+-#Thu May 08 17:53:53 COT 2025
+-usuario=ana.martinez@email.com
++#Sat May 10 18:31:50 COT 2025
++usuario=laura.fernandez@email.com

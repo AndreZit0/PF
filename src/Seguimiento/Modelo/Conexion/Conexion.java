@@ -1,3 +1,4 @@
+
 package Seguimiento.Modelo.Conexion;
 
 import java.sql.Connection;
