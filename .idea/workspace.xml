@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+
+    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="...">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p__m___Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p_ m__[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AndreZit0&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/AndreZit0/PF.git",
+    "accountId": "b0a66982-8d2c-4177-a680-744c39e570ea"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2xYpCXqVoZ6N8jrJIDpLsHAs1OE" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AdminFichasGUI.executor": "Run",
+    "Application.AdminProgramaGUI.executor": "Run",
+    "Application.AdminSedesGUI.executor": "Run",
+    "Application.LoginGUI.executor": "Run",
+    "Application.UsuariosGUI.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "false",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "248",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.AdminFichasGUI">
+    <configuration name="AdminFichasGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Usuarios.AdminFichasGUI" />
+      <module name="PF" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Usuarios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminProgramaGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Usuarios.AdminProgramaGUI" />
+      <module name="PF" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Usuarios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminSedesGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Usuarios.AdminSedesGUI" />
+      <module name="PF" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Usuarios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Example_Screen.View.Login.LoginGUI" />
+      <module name="PF" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Example_Screen.View.Login.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UsuariosGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Usuarios.UsuariosGUI" />
+      <module name="PF" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Usuarios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.AdminFichasGUI" />
+        <item itemvalue="Application.AdminProgramaGUI" />
+        <item itemvalue="Application.AdminSedesGUI" />
+        <item itemvalue="Application.UsuariosGUI" />
+        <item itemvalue="Application.LoginGUI" />
+        <item itemvalue="Application.LoginGUI" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="" />
+      <created>1748124734085</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748124734085</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

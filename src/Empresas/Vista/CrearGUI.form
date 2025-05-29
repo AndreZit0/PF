@@ -7,6 +7,7 @@
     </constraints>
     <properties>
       <background color="-592138"/>
+
     </properties>
     <border type="none"/>
     <children>
@@ -25,7 +26,9 @@
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+
           <font name="Calibri" size="18" style="1"/>
+
           <foreground color="-16644608"/>
           <text value="NIT:"/>
         </properties>
@@ -36,6 +39,7 @@
         </constraints>
         <properties>
           <font name="Calibri" size="18" style="1"/>
+
           <foreground color="-16644608"/>
           <text value="Contacto:"/>
         </properties>
@@ -64,7 +68,6 @@
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties>
           <font name="Calibri" size="18" style="1"/>
           <foreground color="-16644608"/>
           <text value="Area:"/>

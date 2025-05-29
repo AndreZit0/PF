@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Example_Screen.View.Administrador.PermisosPanel">
+  <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="700" height="500"/>
+    </constraints>
+    <properties>
+      <background color="-1"/>
+      <foreground color="-1"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="e9a9f" binding="rolePanel" layout-manager="FlowLayout" hgap="10" vgap="10" flow-align="1">
+        <constraints border-constraint="North"/>
+        <properties>
+          <background color="-12998400"/>
+          <foreground color="-12998400"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="6a8b5" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <font name="Calibri" size="20" style="1"/>
+              <foreground color="-1"/>
+              <text value="Seleccionar Rol:"/>
+            </properties>
+          </component>
+          <component id="f5a1e" class="javax.swing.JComboBox" binding="roleComboBox">
+            <constraints/>
+            <properties>
+              <font name="Calibri" size="16" style="1"/>
+              <model/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <scrollpane id="a1a1a" binding="scrollPane">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="b2b2b" binding="permissionsPanel" layout-manager="GridLayoutManager" row-count="14" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="5" vgap="5">
+            <margin top="35" left="35" bottom="35" right="35"/>
+            <constraints/>
+            <properties>
+              <background color="-592138"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="c3c3c" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="20" style="1"/>
+                  <text value="Permisos de Usuario:"/>
+                </properties>
+              </component>
+              <component id="d4d4d" class="javax.swing.JCheckBox" binding="crearUsuarioCheckBox">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="CREAR USUARIO"/>
+                </properties>
+              </component>
+              <component id="e5e5e" class="javax.swing.JCheckBox" binding="editarUsuarioCheckBox">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="EDITAR USUARIO"/>
+                </properties>
+              </component>
+              <component id="f6f6f" class="javax.swing.JCheckBox" binding="verUsuarioCheckBox">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="VER USUARIO"/>
+                </properties>
+              </component>
+              <component id="g7g7g" class="javax.swing.JCheckBox" binding="inhabilitarUsuarioCheckBox">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="INHABILITAR USUARIO"/>
+                </properties>
+              </component>
+              <component id="h8h8h" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="20" style="1"/>
+                  <text value="Permisos de Fichas:"/>
+                </properties>
+              </component>
+              <component id="i9i9i" class="javax.swing.JCheckBox" binding="crearFichaCheckBox">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="CREAR FICHA"/>
+                </properties>
+              </component>
+              <component id="j1j1j" class="javax.swing.JCheckBox" binding="editarFichaCheckBox">
+                <constraints>
+                  <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="EDITAR FICHA"/>
+                </properties>
+              </component>
+              <component id="k2k2k" class="javax.swing.JCheckBox" binding="verFichaCheckBox">
+                <constraints>
+                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="VER FICHA"/>
+                </properties>
+              </component>
+              <component id="l3l3l" class="javax.swing.JCheckBox" binding="inhabilitarFichaCheckBox">
+                <constraints>
+                  <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="INHABILITAR FICHA"/>
+                </properties>
+              </component>
+              <component id="m4m4m" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="9" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="20" style="1"/>
+                  <text value="Permisos de Seguimiento:"/>
+                </properties>
+              </component>
+              <component id="n5n5n" class="javax.swing.JCheckBox" binding="crearSeguimientoCheckBox">
+                <constraints>
+                  <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="CREAR SEGUIMIENTO"/>
+                </properties>
+              </component>
+              <component id="o6o6o" class="javax.swing.JCheckBox" binding="editarSeguimientoCheckBox">
+                <constraints>
+                  <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="EDITAR SEGUIMIENTO"/>
+                </properties>
+              </component>
+              <component id="p7p7p" class="javax.swing.JCheckBox" binding="eliminarSeguimientoCheckBox">
+                <constraints>
+                  <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="ELIMINAR SEGUIMIENTO"/>
+                </properties>
+              </component>
+              <component id="q8q8q" class="javax.swing.JCheckBox" binding="firmarSeguimientoCheckBox">
+                <constraints>
+                  <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="FIRMAR SEGUIMIENTO"/>
+                </properties>
+              </component>
+              <component id="r9r9r" class="javax.swing.JCheckBox" binding="verSeguimientoCheckBox">
+                <constraints>
+                  <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="16" style="1"/>
+                  <text value="VER SEGUIMIENTO"/>
+                </properties>
+              </component>
+              <component id="986c6" class="javax.swing.JSeparator">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-11184811"/>
+                  <foreground color="-1"/>
+                </properties>
+              </component>
+              <component id="e5697" class="javax.swing.JSeparator">
+                <constraints>
+                  <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-11184811"/>
+                  <foreground color="-1"/>
+                </properties>
+              </component>
+              <component id="15e4" class="javax.swing.JSeparator">
+                <constraints>
+                  <grid row="13" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-11184811"/>
+                  <foreground color="-1"/>
+                </properties>
+              </component>
+              <component id="f15e1" class="javax.swing.JSeparator">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-11184811"/>
+                  <foreground color="-1"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </scrollpane>
+      <grid id="s1s1s" binding="buttonPanel" layout-manager="FlowLayout" hgap="10" vgap="10" flow-align="1">
+        <constraints border-constraint="South"/>
+        <properties>
+          <background color="-592138"/>
+          <foreground color="-12998400"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="t2t2t" class="javax.swing.JButton" binding="guardarButton">
+            <constraints/>
+            <properties>
+              <background color="-812014"/>
+              <enabled value="true"/>
+              <font name="Calibri" size="20" style="1"/>
+              <foreground color="-1"/>
+              <horizontalTextPosition value="0"/>
+              <text value="Guardar Permisos"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <hspacer id="5e7d8">
+        <constraints border-constraint="West"/>
+      </hspacer>
+      <hspacer id="4a7aa">
+        <constraints border-constraint="East"/>
+      </hspacer>
+    </children>
+  </grid>
+</form>
