@@ -7,10 +7,10 @@
     <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/ActualizarGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Vista/ActualizarGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Empresas/Controlador/EmpresaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Controlador/EmpresaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/ActualizarGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Vista/ActualizarGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/CrearGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Vista/CrearGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/CrearGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Vista/CrearGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/DetallesGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Vista/DetallesGUI.form" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,27 +49,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.AdminFichasGUI.executor": "Run",
-    "Application.AdminProgramaGUI.executor": "Run",
-    "Application.AdminSedesGUI.executor": "Run",
-    "Application.AdministrarGUI.executor": "Run",
-    "Application.CrearGUI.executor": "Run",
-    "Application.LoginGUI.executor": "Run",
-    "Application.UsuariosGUI.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "true",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "248",
-    "git-widget-placeholder": "branch__martin",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.AdminFichasGUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AdminProgramaGUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AdminSedesGUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AdministrarGUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CrearGUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LoginGUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UsuariosGUI.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;248&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;branch__martin&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.LoginGUI">
     <configuration name="AdminFichasGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Usuarios.AdminFichasGUI" />
@@ -139,8 +139,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.LoginGUI" />
-        <item itemvalue="Application.UsuariosGUI" />
         <item itemvalue="Application.AdministrarGUI" />
+        <item itemvalue="Application.UsuariosGUI" />
         <item itemvalue="Application.CrearGUI" />
         <item itemvalue="Application.AdminFichasGUI" />
       </list>
@@ -163,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748536638037</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="...">
+      <option name="closed" value="true" />
+      <created>1748541893399</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748541893399</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

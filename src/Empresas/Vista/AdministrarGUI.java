@@ -1,4 +1,5 @@
 package Empresas.Vista;
+
 import Empresas.ConexionBD.ConnectionDB;
 import Empresas.Controlador.EmpresaDAO;
 import Empresas.Modelo.Empresa;
@@ -34,7 +35,6 @@ public class AdministrarGUI {
     private JButton actualizarButton;
     private JButton pdfButton;
     private JTextField busqueda;
-    private JButton eliminarButton;
     private EmpresaDAO empresaDAO = new EmpresaDAO();
     private ConnectionDB connectionDB = new ConnectionDB();
     private TableRowSorter<DefaultTableModel> sorter;
@@ -44,28 +44,13 @@ public class AdministrarGUI {
 
     /**
      * Constructor de la clase AdministrarGUI.
-     * Inicializa los componentes de la interfaz y configura los bordes y estilos visuales.
+     * Inicializa los componentes de la interfaz.
      */
     public AdministrarGUI() {
-        // Declarar sorter como atributo de clase
-
+        List<Empresa> empresas = empresaDAO.obtenerEmpresa();
+        cargarEmpresas(empresas);
         componentesPersonalizado();
 
-
-        // Deshabilita el reordenamiento de las columnas
-
-
-        // Configura el evento de clic en el botón 'eliminar'
-        /*
-        eliminarButton.addActionListener(e -> {
-            eliminarEmpresa();
-            List<Empresa> empresas = empresaDAO.obtenerEmpresa();
-            cargarEmpresas(empresas);
-        });
-
-         */
-
-        // Configura el evento de clic en el botón 'observar'
         observarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,16 +58,12 @@ public class AdministrarGUI {
             }
         });
 
-        // Configura el evento de clic en el botón 'actualizar'
         actualizarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 actualizarEmpresa();
             }
         });
-
-        List<Empresa> empresas = empresaDAO.obtenerEmpresa();
-        cargarEmpresas(empresas);
 
         busqueda.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -216,8 +197,6 @@ public class AdministrarGUI {
      * Si no hay ninguna fila seleccionada, muestra un mensaje solicitando que se seleccione una empresa.
      * Si se encuentra la empresa, abre un cuadro de diálogo para actualizarla.
      */
-
-
     public void actualizarEmpresa() {
         int selectedRow = table1.getSelectedRow();
         if (selectedRow == -1) {
@@ -226,44 +205,19 @@ public class AdministrarGUI {
         }
 
         String nit = table1.getValueAt(selectedRow, 0).toString();
-
         Empresa empresa = empresaDAO.buscarEmpresa(nit);
 
         if (empresa != null) {
             ActualizarGUI dialog = new ActualizarGUI(
-                    null, empresa, empresaDAO, () -> cargarEmpresasEnTabla()
+                    null,
+                    empresa,
+                    empresaDAO,
+                    () -> cargarEmpresas(empresaDAO.obtenerEmpresa())
             );
             dialog.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Empresa no encontrada.");
         }
-    }
-
-    public void cargarEmpresasEnTabla() {
-        DefaultTableModel model = new DefaultTableModel(
-                new Object[]{"NIT", "Nombre", "Teléfono", "Coevaluador", "Estado"}, 0
-        ) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        List<Empresa> empresas = empresaDAO.obtenerEmpresa();
-
-        for (Empresa emp : empresas) {
-            model.addRow(new Object[]{
-                    emp.getNit(),
-                    emp.getNombre_empresa(),
-                    emp.getContacto(),
-                    emp.getNombreCoevaluador(),
-                    emp.getEstado()
-            });
-        }
-
-        table1.setModel(model);
-        sorter = new TableRowSorter<>(model);
-        table1.setRowSorter(sorter);
     }
 
     /**
@@ -286,39 +240,6 @@ public class AdministrarGUI {
             JOptionPane.showMessageDialog(null, "Seleccione una empresa primero.");
         }
     }
-
-    /**
-     * Elimina la empresa seleccionada de la base de datos.
-     * Si no hay ninguna fila seleccionada, muestra un mensaje solicitando que se seleccione una empresa.
-     * Luego solicita confirmación antes de eliminar la empresa.
-     */
-
-    /*
-    public void eliminarEmpresa() {
-        int selectedRow = table1.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(null, "Seleccione una empresa primero.");
-            return;
-        }
-
-        int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar esta empresa?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-        if (confirm != JOptionPane.YES_OPTION) return;
-
-        try {
-            String nit = table1.getValueAt(selectedRow, 0).toString();
-            Empresa empresa = empresaDAO.buscarEmpresa(nit);
-            if (empresa != null) {
-                empresaDAO.eliminarEmpresa(empresa.getID_empresas());
-                JOptionPane.showMessageDialog(null, "Empresa eliminada correctamente.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Empresa no encontrada.");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar: " + e.getMessage());
-        }
-    }
-
-     */
 
     /**
      * Carga y muestra las empresas en la tabla.
@@ -347,26 +268,25 @@ public class AdministrarGUI {
                     empresa.getEstado()
             });
         }
-
         table1.setModel(model);
         sorter = new TableRowSorter<>(model);
         table1.setRowSorter(sorter);
     }
 
+    /**
+     * Aplica estilos personalizados a la tabla.
+     */
     public void componentesPersonalizado() {
         Border bottom = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#39A900"));
         busqueda.setBorder(bottom);
         table1.getTableHeader().setForeground(Color.decode("#ffffff")); // Color del texto
         table1.getTableHeader().setBackground(Color.decode("#39A900"));
-
         table1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13)); // Cuerpo de la tabla
         table1.setRowHeight(25);
-
         table1.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14)); // Encabezado
         table1.getTableHeader().setReorderingAllowed(false);
         table1.setRowHeight(25);
     }
-
 
     public static void main(String[] args) {
         AdministrarGUI administrarGUI = new AdministrarGUI();
@@ -377,6 +297,5 @@ public class AdministrarGUI {
         frame.setSize(800, 600);
         frame.setResizable(false);
         frame.setVisible(true);
-
     }
 }

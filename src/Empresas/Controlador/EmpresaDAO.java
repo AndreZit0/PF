@@ -2,7 +2,6 @@ package Empresas.Controlador;
 
 import Empresas.ConexionBD.ConnectionDB;
 import Empresas.Modelo.Empresa;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,33 +75,6 @@ public class EmpresaDAO {
     }
 
     /**
-     * Elimina una empresa de la base de datos según su ID.
-     *
-     * @param id el ID único de la empresa a eliminar.
-     * @return {@code true} si la eliminación fue exitosa, de lo contrario {@code false}.
-     */
-    /*
-    public boolean eliminarEmpresa(int id) {
-        String query = "DELETE FROM empresas WHERE ID_empresas = ?";
-        try (Connection con = connectionDB.getConnection();
-             PreparedStatement stmt = con.prepareStatement(query)) {
-
-            stmt.setInt(1, id);
-            int files = stmt.executeUpdate();
-            if (files > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-     */
-
-    /**
      * Busca una empresa en la base de datos según su NIT.
      *
      * @param nit el NIT de la empresa a buscar.
@@ -168,5 +140,4 @@ public class EmpresaDAO {
             return false;
         }
     }
-
 }

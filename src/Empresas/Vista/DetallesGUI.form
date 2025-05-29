@@ -112,6 +112,7 @@
           <editable value="false"/>
           <enabled value="true"/>
           <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="c90c7" class="javax.swing.JTextField" binding="textField2" default-binding="true">
@@ -125,6 +126,7 @@
           <editable value="false"/>
           <enabled value="true"/>
           <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="cddaf" class="javax.swing.JTextField" binding="textField3" default-binding="true">
@@ -138,6 +140,7 @@
           <editable value="false"/>
           <enabled value="true"/>
           <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="8ffae" class="javax.swing.JTextField" binding="textField4" default-binding="true">
@@ -151,6 +154,7 @@
           <editable value="false"/>
           <enabled value="true"/>
           <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="5d372" class="javax.swing.JTextField" binding="textField5" default-binding="true">
@@ -164,6 +168,7 @@
           <editable value="false"/>
           <enabled value="true"/>
           <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="406a0" class="javax.swing.JTextField" binding="textField6" default-binding="true">
@@ -177,6 +182,7 @@
           <editable value="false"/>
           <enabled value="true"/>
           <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="f81d8" class="javax.swing.JTextField" binding="textField7" default-binding="true">
@@ -190,6 +196,7 @@
           <editable value="false"/>
           <enabled value="true"/>
           <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="ee716" class="javax.swing.JTextField" binding="textField8" default-binding="true">
@@ -203,6 +210,7 @@
           <editable value="false"/>
           <enabled value="true"/>
           <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="b37d2" class="javax.swing.JTextField" binding="textField9" default-binding="true">
@@ -216,6 +224,7 @@
           <editable value="false"/>
           <enabled value="true"/>
           <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="1a651" class="javax.swing.JLabel">
@@ -239,6 +248,7 @@
           <editable value="false"/>
           <enabled value="true"/>
           <font name="Calibri" size="16" style="1"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
     </children>

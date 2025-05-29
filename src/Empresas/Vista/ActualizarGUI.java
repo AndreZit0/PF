@@ -3,11 +3,8 @@ package Empresas.Vista;
 import Empresas.ConexionBD.ConnectionDB;
 import Empresas.Controlador.EmpresaDAO;
 import Empresas.Modelo.Empresa;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +27,6 @@ public class ActualizarGUI extends JDialog {
     private JComboBox comboBoxest;
     public JComboBox comboBoxcoe;
     private JButton guardarCambiosButton;
-
     private Empresa empresa;
     private EmpresaDAO empresaDAO;
 
@@ -136,7 +132,5 @@ public class ActualizarGUI extends JDialog {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al cargar los coevaluadores.");
         }
-
     }
-
 }

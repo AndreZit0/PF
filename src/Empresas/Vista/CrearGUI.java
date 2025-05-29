@@ -1,8 +1,8 @@
 package Empresas.Vista;
+
 import Empresas.ConexionBD.ConnectionDB;
 import Empresas.Controlador.EmpresaDAO;
 import Empresas.Modelo.Empresa;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
