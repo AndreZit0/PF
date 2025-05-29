@@ -1,10 +1,9 @@
 package Example_Screen.View.Usuarios_Registrados;
 
 import Example_Screen.Connection.DBConnection;
-import Example_Screen.View.Login.LoginGUI;
 import Example_Screen.View.VisualizarPerfilGUI;
-import Seguimiento.Modelo.GUI.CodigoGUI;
-import Seguimiento.Modelo.GUI.CodigoGUI2;
+import Seguimiento.Modelo.GUI.CodigoGUI3;
+import Seguimiento.Modelo.GUI.CodigoGUI4;
 import Usuarios.EditarUsuario;
 import Usuarios.UsuariosDAO;
 import Usuarios.Usuarios_getset;
@@ -15,20 +14,13 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.table.*;
 
 import static Example_Screen.View.Administrador.Administrador.verUsuarioPorRol;
-import static Example_Screen.View.Login.LoginGUI.idUsuarioActual;
-import static Example_Screen.View.Login.LoginGUI.traerIDusuario;
 
 public class VerUsuariosRegistrados {
     private JTable table1;
@@ -326,7 +318,7 @@ public class VerUsuariosRegistrados {
 
                 if (email != null && !email.isEmpty()) {
                     SwingUtilities.invokeLater(() -> {
-                        CodigoGUI2 bitacorasGUI = new CodigoGUI2(email);
+                        CodigoGUI4 bitacorasGUI = new CodigoGUI4(email);
                         bitacorasGUI.setVisible(true);
                     });
                 } else {
@@ -346,7 +338,7 @@ public class VerUsuariosRegistrados {
 
                 if (email != null && !email.isEmpty()) {
                     SwingUtilities.invokeLater(() -> {
-                        CodigoGUI codigoGUI = new CodigoGUI(email);
+                        CodigoGUI3 codigoGUI = new CodigoGUI3(email);
                         codigoGUI.setVisible(true);
                     });
                 } else {

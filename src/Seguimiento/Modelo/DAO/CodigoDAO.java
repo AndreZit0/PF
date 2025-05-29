@@ -1,3 +1,4 @@
+
 package Seguimiento.Modelo.DAO;
 
 import Seguimiento.Modelo.Codigo;
@@ -241,7 +242,4 @@ public class CodigoDAO {
             return false;
         }
     }
-
-
-
 }
