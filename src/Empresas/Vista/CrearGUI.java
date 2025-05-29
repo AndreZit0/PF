@@ -1,9 +1,11 @@
+
 package Empresas.Vista;
 import Empresas.ConexionBD.ConnectionDB;
 import Empresas.Controlador.EmpresaDAO;
 import Empresas.Modelo.Empresa;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,12 +27,13 @@ public class CrearGUI {
     private JTextField Area;
     private JTextField Ciudad;
     private JComboBox combo1;
-    private JButton confirmarButton;
-    private JPanel main;
     private JButton cancelarButton;
-    private JComboBox comboEstado;
+    private JButton confirmarButton;
+    private JPanel pnlCrearEmpresa;
     private EmpresaDAO empresaDAO = new EmpresaDAO();
     private ConnectionDB connectionDB = new ConnectionDB();
+
+    public JPanel getPanel(){return pnlCrearEmpresa;}
 
     /**
      * Constructor de la clase CrearGUI.
@@ -39,11 +42,23 @@ public class CrearGUI {
     public CrearGUI () {
         // para cargar los coevaluadores
         cargarUsuariosEnComboBox();
+        // Configura el borde inferior de los campos de texto
+        Border bottom = BorderFactory.createMatteBorder(0,0,2,0, Color.decode("#39A900"));
 
+        // Aplica el borde a los campos de texto
+        Nit.setBorder(bottom);
+        Contacto.setBorder(bottom);
+        Nombre.setBorder(bottom);
+        Area.setBorder(bottom);
+        Direccion.setBorder(bottom);
+        Email.setBorder(bottom);
+        comboBox1.setBorder(bottom);
+        combo1.setBorder(bottom);
+        Ciudad.setBorder(bottom);
         comboBox1.setSelectedIndex(-1); // Para que no haya selección al principio
         combo1.setSelectedIndex(-1); // Para que no haya selección al principio
-        comboEstado.setSelectedIndex(-1); // Para que no haya selección al principio
 
+        // Configura el evento de clic en el botón 'confirmar'
         confirmarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,38 +82,36 @@ public class CrearGUI {
         String departamento = comboBox1.getSelectedItem() != null ? comboBox1.getSelectedItem().toString().trim() : "";
         String usuarios = combo1.getSelectedItem() != null ? combo1.getSelectedItem().toString().trim() : "";
         String ciudad = Ciudad.getText().trim();
-        String estado = comboEstado.getSelectedItem() != null ? comboEstado.getSelectedItem().toString().trim() : "";
-
 
         if (nit.isEmpty() || nombre.isEmpty() || direccion.isEmpty() || area.isEmpty() ||
-                contacto.isEmpty() || email.isEmpty() || departamento.isEmpty() || ciudad.isEmpty() || usuarios.isEmpty() || estado.isEmpty()) {
-            JOptionPane.showMessageDialog(main, "Por favor, completa todos los campos antes de continuar.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+                contacto.isEmpty() || email.isEmpty() || departamento.isEmpty() || ciudad.isEmpty() || usuarios.isEmpty()) {
+            JOptionPane.showMessageDialog(pnlCrearEmpresa, "Por favor, completa todos los campos antes de continuar.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        // Extraer ID de usuario desde combo1
         int idUsuario = 0;
         try {
             String[] partes = usuarios.split(" - ");
             idUsuario = Integer.parseInt(partes[0]);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(main, "Error al procesar el ID del usuario.");
+            JOptionPane.showMessageDialog(pnlCrearEmpresa, "Error al procesar el ID del usuario.");
             return;
         }
         // Validar formato de correo electrónico
         if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-            JOptionPane.showMessageDialog(main, "Por favor, ingresa un correo electrónico válido (@gmail.com).", "Correo inválido", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(pnlCrearEmpresa, "Por favor, ingresa un correo electrónico válido (@gmail.com).", "Correo inválido", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         // Confirmación antes de agregar la empresa
-        int confirmacion = JOptionPane.showConfirmDialog(main, "¿Estás seguro de que deseas agregar esta empresa?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        int confirmacion = JOptionPane.showConfirmDialog(pnlCrearEmpresa, "¿Estás seguro de que deseas agregar esta empresa?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.NO_OPTION) {
-            return;
+            return; // Si el usuario selecciona NO, se cancela
         }
 
-        Empresa empresa = new Empresa(0, idUsuario,  nit, nombre, direccion, area, contacto, email, departamento, ciudad, estado);
+        Empresa empresa = new Empresa(0, idUsuario, nit, nombre, direccion, area, contacto, email, departamento, ciudad);
         if (empresaDAO.agregarEmpresa(empresa)) {
-            JOptionPane.showMessageDialog(main, "Empresa agregada exitosamente.");
+            JOptionPane.showMessageDialog(pnlCrearEmpresa, "Empresa agregada exitosamente.");
             // Limpiar los campos
             Nit.setText("");
             Nombre.setText("");
@@ -109,10 +122,9 @@ public class CrearGUI {
             comboBox1.setSelectedIndex(-1);
             Ciudad.setText("");
             combo1.setSelectedIndex(-1);
-            comboEstado.setSelectedIndex(-1);
 
         } else {
-            JOptionPane.showMessageDialog(main, "Error al agregar la empresa.");
+            JOptionPane.showMessageDialog(pnlCrearEmpresa, "Error al agregar la empresa.");
         }
     }
 
@@ -141,7 +153,7 @@ public class CrearGUI {
     public static void main(String[] args) {
         CrearGUI crearGUI = new CrearGUI();
         JFrame frame = new JFrame("EMPRESA");
-        frame.setContentPane(new CrearGUI().main);
+        frame.setContentPane(new CrearGUI().pnlCrearEmpresa);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize(800, 600);
