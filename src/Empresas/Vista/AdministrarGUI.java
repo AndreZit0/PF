@@ -10,8 +10,11 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,9 +33,11 @@ public class AdministrarGUI {
     private JButton observarButton;
     private JButton actualizarButton;
     private JButton pdfButton;
+    private JTextField busqueda;
     private JButton eliminarButton;
     private EmpresaDAO empresaDAO = new EmpresaDAO();
     private ConnectionDB connectionDB = new ConnectionDB();
+    private TableRowSorter<DefaultTableModel> sorter;
     public JPanel getPanel() {
         return pnlAdministrar;
     }
@@ -42,23 +47,13 @@ public class AdministrarGUI {
      * Inicializa los componentes de la interfaz y configura los bordes y estilos visuales.
      */
     public AdministrarGUI() {
+        // Declarar sorter como atributo de clase
 
-        // Personalización visual de la JTable
-        table1.setBackground(new Color(245, 245, 245));
-        table1.setForeground(Color.BLACK);
-        table1.setSelectionForeground(Color.WHITE);
-        table1.setGridColor(new Color(220, 220, 220));
-        table1.setShowGrid(true);
+        componentesPersonalizado();
 
-        // Personaliza la cabecera de la tabla
-        JTableHeader header = table1.getTableHeader();
-        header.setBackground(new Color(57, 169, 0));
-        header.setForeground(Color.WHITE);
-        header.setFont(header.getFont().deriveFont(Font.BOLD));
 
         // Deshabilita el reordenamiento de las columnas
-        header.setReorderingAllowed(false);
-        table1.setRowHeight(25);
+
 
         // Configura el evento de clic en el botón 'eliminar'
         /*
@@ -88,6 +83,34 @@ public class AdministrarGUI {
 
         List<Empresa> empresas = empresaDAO.obtenerEmpresa();
         cargarEmpresas(empresas);
+
+        busqueda.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+
+            private void aplicarFiltro() {
+                String texto = busqueda.getText();
+                if (sorter != null) {
+                    if (texto.trim().length() == 0) {
+                        sorter.setRowFilter(null);
+                    } else {
+                        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+                    }
+                }
+            }
+        });
 
         /**
          * Configura el evento para generar un archivo PDF con la lista de empresas registradas.
@@ -193,6 +216,8 @@ public class AdministrarGUI {
      * Si no hay ninguna fila seleccionada, muestra un mensaje solicitando que se seleccione una empresa.
      * Si se encuentra la empresa, abre un cuadro de diálogo para actualizarla.
      */
+
+
     public void actualizarEmpresa() {
         int selectedRow = table1.getSelectedRow();
         if (selectedRow == -1) {
@@ -237,6 +262,8 @@ public class AdministrarGUI {
         }
 
         table1.setModel(model);
+        sorter = new TableRowSorter<>(model);
+        table1.setRowSorter(sorter);
     }
 
     /**
@@ -299,7 +326,6 @@ public class AdministrarGUI {
      */
     public void cargarEmpresas(List<Empresa> listaEmpresas) {
         DefaultTableModel model = new DefaultTableModel() {
-            // para que ninguna celda sea editable
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -321,7 +347,24 @@ public class AdministrarGUI {
                     empresa.getEstado()
             });
         }
+
         table1.setModel(model);
+        sorter = new TableRowSorter<>(model);
+        table1.setRowSorter(sorter);
+    }
+
+    public void componentesPersonalizado() {
+        Border bottom = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#39A900"));
+        busqueda.setBorder(bottom);
+        table1.getTableHeader().setForeground(Color.decode("#ffffff")); // Color del texto
+        table1.getTableHeader().setBackground(Color.decode("#39A900"));
+
+        table1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13)); // Cuerpo de la tabla
+        table1.setRowHeight(25);
+
+        table1.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14)); // Encabezado
+        table1.getTableHeader().setReorderingAllowed(false);
+        table1.setRowHeight(25);
     }
 
 
