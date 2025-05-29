@@ -2,14 +2,25 @@ package Example_Screen.View;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Este panel personalizado es el que dibuja un gráfico circular para mostrar el porcentaje de progreso del aprendiz.
+ */
 public class GraficoCircular extends JPanel {
     private int progreso;
 
+    /**
+     * Constructor que recibe el porcentaje de progreso a mostrar.
+     *
+     * @param progreso Porcentaje de progreso (0 a 100)
+     */
     public GraficoCircular(int progreso) {this.progreso = progreso;
         setPreferredSize(new Dimension(200, 200));
     }
-
+    /**
+     * Dibuja el gráfico circular con el progreso actual.
+     *
+     * @param g Objeto Graphics para dibujar en el panel
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

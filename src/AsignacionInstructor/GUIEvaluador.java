@@ -1,9 +1,9 @@
 package AsignacionInstructor;
 
-
-import AsignacionInstructor.Conexion.Conexion;
+import Example_Screen.Connection.DBConnection;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +27,7 @@ public class GUIEvaluador {
     private JTextField textField1;
     private JButton asignarButton;
     private JButton eliminarButton;
-    private Conexion conexion = new Conexion();
+    private DBConnection dbConnection = new DBConnection();
     private AsignacionGUI asignacionGUI;
     private int idEvaluadorActual;
     int filas;
@@ -53,8 +53,9 @@ public class GUIEvaluador {
 
         JTableHeader header = table1.getTableHeader();
         header.setBackground(Color.decode("#39A900"));
-        header.setForeground(Color.WHITE); // Texto blanco
+        header.setForeground(Color.WHITE);
         header.setFont(new Font("Calibri", Font.BOLD, 15));
+        header.setReorderingAllowed(false); // Nueva línea para evitar movimiento de columnas
 
         asignarButton.setBackground(new Color(0x39A900));
         eliminarButton.setBackground(new Color(0xFF3B30));
@@ -122,7 +123,7 @@ public class GUIEvaluador {
                     int idInstructor = Integer.parseInt(table1.getValueAt(filaSeleccionada, 0).toString());
                     int idAprendiz = idaprendiz;
 
-                    try (Connection con = conexion.getConnection()) {
+                    try (Connection con = dbConnection.getConnection()) {
                         String sql = "UPDATE aprendices " +
                                 "SET id_instructor = ?, estado = 'activo' " +
                                 "WHERE id_numeroAprendices = ?";
@@ -161,23 +162,19 @@ public class GUIEvaluador {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (idEvaluadorActual != -1) {
-                    int confirmacion = JOptionPane.showConfirmDialog(
-                            null,
-                            "¿Eliminar al evaluador actualmente asignado?",
-                            "Confirmar eliminación",
-                            JOptionPane.YES_NO_OPTION
+                if (idaprendiz != -1) {
+                    int confirmacion = JOptionPane.showConfirmDialog(null, "¿Eliminar al evaluador actualmente asignado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION
                     );
 
                     if (confirmacion == JOptionPane.YES_OPTION) {
-                        eliminarEvaluador(idEvaluadorActual);
+                        eliminarEvaluador(idaprendiz);
                     }
                 } else {
 
                     int filaSeleccionada = table1.getSelectedRow();
                     if (filaSeleccionada >= 0) {
-                        int idEvaluador = Integer.parseInt(table1.getValueAt(filaSeleccionada, 0).toString());
-                        eliminarEvaluador(idEvaluador);
+                        int idaprendiz = Integer.parseInt(table1.getValueAt(filaSeleccionada, 0).toString());
+                        eliminarEvaluador(idaprendiz);
                     }
                 }
             }
@@ -188,21 +185,22 @@ public class GUIEvaluador {
     /**
      * Elimina un instructor de la base de datos y actualiza la tabla de aprendices removiendo la asignación.
      *
-     * @param idEvaluador Identificador del instructor a eliminar de la asignación.
+     * @param idAprendiz Identificador del aprendiz para a eliminar la asignación.
      */
-    public void eliminarEvaluador(int idEvaluador) {
-        try (Connection con = conexion.getConnection()) {
-            String sql = "UPDATE aprendices SET ID_instructor = NULL WHERE ID_instructor = ?";
+    public void eliminarEvaluador(int idAprendiz) {
+        try (Connection con = dbConnection.getConnection()) {
+            String sql = "UPDATE aprendices SET ID_instructor = NULL WHERE ID_numeroAprendices = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idEvaluador);
+            ps.setInt(1, idAprendiz);
 
             int filasActualizadas = ps.executeUpdate();
-
             if (filasActualizadas > 0) {
-                JOptionPane.showMessageDialog(null, "Evaluador eliminado de " + filasActualizadas + " aprendices");
+                JOptionPane.showMessageDialog(null, "Evaluador eliminado del aprendiz.");
                 asignacionGUI.refrescarBusqueda();
-                SwingUtilities.getWindowAncestor(main).dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar el evaluador.");
             }
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al eliminar: " + ex.getMessage());
         }
@@ -255,11 +253,11 @@ public class GUIEvaluador {
         table1.setDefaultEditor(Object.class, null);
 
 
-        model.addColumn("ID_usuarios"); // Columna oculta pero necesaria
-        model.addColumn("Nombres");     // Columna visible
-        model.addColumn("Apellidos");   // Columna visible
+        model.addColumn("ID_usuarios");
+        model.addColumn("Nombres");
+        model.addColumn("Apellidos");
 
-        try (Connection con = conexion.getConnection()) {
+        try (Connection con = dbConnection.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "SELECT id_usuarios, nombres, apellidos FROM usuarios " +
                             "WHERE (nombres LIKE ? OR apellidos LIKE ?) AND ID_rol = 2");
@@ -280,6 +278,10 @@ public class GUIEvaluador {
             table1.setRowHeight(30);
 
 
+            JTableHeader tableHeader = table1.getTableHeader();
+            tableHeader.setReorderingAllowed(false);
+
+
             table1.getColumnModel().getColumn(0).setMinWidth(0);
             table1.getColumnModel().getColumn(0).setMaxWidth(0);
             table1.getColumnModel().getColumn(0).setWidth(0);
@@ -295,15 +297,17 @@ public class GUIEvaluador {
      * Carga la lista de todos los evaluadores desde la base de datos y los muestra en la tabla.
      */
     public void listaContacto() {
+        Border bottom = BorderFactory.createMatteBorder(0,0,2,0, Color.decode("#39A900"));
+        textField1.setBorder(bottom);
         NonEditableTableModel modeloa = new NonEditableTableModel();
         table1.setDefaultEditor(Object.class, null);
 
-        // Cambiamos las columnas visibles para mostrar nombres y apellidos por separado
+
         modeloa.addColumn("ID_usuarios");
         modeloa.addColumn("tipo_dc");
         modeloa.addColumn("numero");
-        modeloa.addColumn("Nombres");  // Cambiamos "Nombre Completo" a "Nombres"
-        modeloa.addColumn("Apellidos"); // Hacemos visible la columna "Apellidos"
+        modeloa.addColumn("Nombres");
+        modeloa.addColumn("Apellidos");
         modeloa.addColumn("email");
         modeloa.addColumn("direccion");
         modeloa.addColumn("contacto1");
@@ -319,9 +323,13 @@ public class GUIEvaluador {
         table1.setModel(modeloa);
         table1.setRowHeight(30);
 
+
+        JTableHeader tableHeader = table1.getTableHeader();
+        tableHeader.setReorderingAllowed(false);
+
         String[] dato = new String[12];
 
-        Connection con = conexion.getConnection();
+        Connection con = dbConnection.getConnection();
 
         try {
             // Ocultamos todas las columnas excepto "Nombres" (3) y "Apellidos" (4)
@@ -401,10 +409,10 @@ public class GUIEvaluador {
         frame.setContentPane(this.main);
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(450, 400);
+        frame.setSize(450, 500);
         frame.setResizable(false);
         frame.setVisible(true);
-        frame.setLocation(50, 50);
+        frame.setLocationRelativeTo(null);
 
         URL iconoURL = AsignacionGUI.class.getClassLoader().getResource("imagenes/sena.jpeg");
         if (iconoURL != null) {

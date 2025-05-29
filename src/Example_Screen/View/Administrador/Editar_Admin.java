@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import Example_Screen.View.Login.LoginGUI;
 /**
  * Esta clase es para la pantalla donde el administrador,puede ver y cambiar sus propios datos.
  */
@@ -35,6 +36,15 @@ public class Editar_Admin{
     private JButton cancelar;
     private JTextField apellido;
     private JTextField textField1;
+    private JTextField email_insti;
+    private JLabel modal;
+    private JLabel ficha;
+    private JLabel progra;
+    private JLabel empre;
+    private JTextField datoEmpre;
+    private JTextField datoProgra;
+    private JTextField datoFicha;
+    private JTextField datoModal;
 
     // Variables para almacenar los datos originales
     private String originalNombre;
@@ -42,11 +52,15 @@ public class Editar_Admin{
     private String originalTipoDoc;
     private String originalNumDoc;
     private String originalEmail;
+    private String originalEmail_Insti;
     private String originalDireccion;
     private String originalContacto;
     private String originalRol;
     private String originalEstado;
     private int userID; // Para almacenar el ID del usuario actual
+    private int rolUsuario;
+    private int idUsuario;
+    private int idRol;
 
     /**
      * Este metodo es para que otras partes del programa puedan agarrar el panel principal
@@ -61,7 +75,40 @@ public class Editar_Admin{
      * Aquí se configuran los botones, se cargan los datos del usuario
      * y se preparan las acciones para cuando el usuario hace clic.
      */
-    public Editar_Admin(){
+    public Editar_Admin(int idUsuario, int idRol){
+
+
+        this.idUsuario = idUsuario;
+        this.idRol = idRol;
+        cargarDatosAprendiz(this.idUsuario, this.idRol);
+        cargarDatosUsuario();
+        configurarVisibilidadCampos();
+
+
+
+//        // Ocultar campos si el usuario NO es rol 1 (Aprendiz)
+//        // Ocultar campos si el usuario NO es rol 1 (Aprendiz)
+//        if (this.idRol != 1) { // ← AQUÍ ESTÁ EL CAMBIO
+//            modal.setVisible(false);
+//            datoModal.setVisible(false);
+//            empre.setVisible(false);
+//            datoEmpre.setVisible(false);
+//            progra.setVisible(false);
+//            datoProgra.setVisible(false);
+//            ficha.setVisible(false);
+//            datoFicha.setVisible(false);
+//        }else {
+//            // Solo mostrar si es rol 1 (Aprendiz)
+//            modal.setVisible(true);
+//            datoModal.setVisible(true);
+//            empre.setVisible(true);
+//            datoEmpre.setVisible(true);
+//            progra.setVisible(true);
+//            datoProgra.setVisible(true);
+//            ficha.setVisible(true);
+//            datoFicha.setVisible(true);
+//        }
+
 
         textField1.setVisible(false);
         confirmar️Button.setEnabled(false);
@@ -72,6 +119,11 @@ public class Editar_Admin{
         tipo_doc.setEnabled(false);
         num_doc.setEnabled(false);
         email.setEnabled(false);
+        email_insti.setEnabled(false);
+        datoModal.setEnabled(false);
+        datoFicha.setEnabled(false);
+        datoProgra.setEnabled(false);
+        datoEmpre.setEnabled(false);
         direc.setEnabled(false);
         conta.setEnabled(false);
         rol.setEnabled(false);
@@ -103,13 +155,17 @@ public class Editar_Admin{
         tipo_doc.setBorder(bottom1);
         num_doc.setBorder(bottom1);
         email.setBorder(bottom1);
+        email_insti.setBorder(bottom1);
+        datoFicha.setBorder(bottom1);
+        datoProgra.setBorder(bottom1);
+        datoEmpre.setBorder(bottom1);
+        datoModal.setBorder(bottom1);
         direc.setBorder(bottom1);
         conta.setBorder(bottom1);
 
 
         Border bottom = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#39A900"));
 
-        cargarDatosUsuario();
 
         editarPerfil️Button.addActionListener(new ActionListener() {
             /**
@@ -119,22 +175,9 @@ public class Editar_Admin{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                nombre.setBorder(bottom);
-                apellido.setBorder(bottom);
-                num_doc.setBorder(bottom);
-                email.setBorder(bottom);
-                direc.setBorder(bottom);
-                conta.setBorder(bottom);
 
-                nombre.setEnabled(true);
-                apellido.setEnabled(true);
-                tipo_doc.setEnabled(true);
-                num_doc.setEnabled(true);
-                email.setEnabled(true);
-                direc.setEnabled(true);
-                conta.setEnabled(true);
-                rol.setEnabled(true);
-                estado.setEnabled(true);
+
+                configurarPermisosPorRol();
 
                 editarPerfil️Button.setEnabled(false);
                 confirmar️Button.setEnabled(true);
@@ -153,6 +196,11 @@ public class Editar_Admin{
                 tipo_doc.setEnabled(false);
                 num_doc.setEnabled(false);
                 email.setEnabled(false);
+                email_insti.setEnabled(false);
+                datoModal.setEnabled(false);
+                datoFicha.setEnabled(false);
+                datoProgra.setEnabled(false);
+                datoEmpre.setEnabled(false);
                 direc.setEnabled(false);
                 conta.setEnabled(false);
                 rol.setEnabled(false);
@@ -167,6 +215,11 @@ public class Editar_Admin{
                 tipo_doc.setBorder(bottom1);
                 num_doc.setBorder(bottom1);
                 email.setBorder(bottom1);
+                email_insti.setBorder(bottom1);
+                datoModal.setBorder(bottom1);
+                datoFicha.setBorder(bottom1);
+                datoProgra.setBorder(bottom1);
+                datoEmpre.setBorder(bottom1);
                 direc.setBorder(bottom1);
                 conta.setBorder(bottom1);
             }
@@ -181,6 +234,11 @@ public class Editar_Admin{
                 tipo_doc.setEnabled(false);
                 num_doc.setEnabled(false);
                 email.setEnabled(false);
+                email_insti.setEnabled(false);
+                datoModal.setEnabled(false);
+                datoFicha.setEnabled(false);
+                datoProgra.setEnabled(false);
+                datoEmpre.setEnabled(false);
                 direc.setEnabled(false);
                 conta.setEnabled(false);
                 rol.setEnabled(false);
@@ -195,10 +253,226 @@ public class Editar_Admin{
                 tipo_doc.setBorder(bottom1);
                 num_doc.setBorder(bottom1);
                 email.setBorder(bottom1);
+                email_insti.setBorder(bottom1);
+                datoModal.setBorder(bottom1);
+                datoFicha.setBorder(bottom1);
+                datoProgra.setBorder(bottom1);
+                datoEmpre.setBorder(bottom1);
                 direc.setBorder(bottom1);
                 conta.setBorder(bottom1);
             }
         });
+    }
+
+    private void configurarPermisosPorRol() {
+        Border bottom = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.decode("#39A900"));
+        Border bottomDisabled = BorderFactory.createMatteBorder(0, 0, 0, 0, Color.decode("#39A900"));
+
+        switch(rolUsuario) {
+            case 1: // APRENDIZ - Solo puede editar datos básicos
+                // Permitir editar
+                email.setEnabled(true);
+                email.setBorder(bottom);
+                direc.setEnabled(true);
+                direc.setBorder(bottom);
+                conta.setEnabled(true);
+                conta.setBorder(bottom);
+
+                // NO permitir editar (mantener deshabilitados)
+                nombre.setEnabled(false);
+                nombre.setBorder(bottom);
+                apellido.setEnabled(false);
+                apellido.setBorder(bottom);
+                email_insti.setEnabled(false);
+                email_insti.setBorder(bottom);
+                datoModal.setEnabled(false);
+                datoModal.setBorder(bottom);
+                datoFicha.setEnabled(false);
+                datoFicha.setBorder(bottom);
+                datoProgra.setEnabled(false);
+                datoProgra.setBorder(bottom);
+                datoEmpre.setEnabled(false);
+                datoEmpre.setBorder(bottom);
+                tipo_doc.setEnabled(false);
+                tipo_doc.setBorder(bottomDisabled);
+                num_doc.setEnabled(false);
+                num_doc.setBorder(bottomDisabled);
+                rol.setEnabled(false);
+                estado.setEnabled(false);
+                break;
+
+            case 2: // EVALUADOR - Puede editar más campos que aprendiz
+                email.setEnabled(true);
+                email.setBorder(bottom);
+                direc.setEnabled(true);
+                direc.setBorder(bottom);
+                conta.setEnabled(true);
+                conta.setBorder(bottom);
+
+                // NO permitir editar (mantener deshabilitados)
+                nombre.setEnabled(false);
+                nombre.setBorder(bottom);
+                apellido.setEnabled(false);
+                apellido.setBorder(bottom);
+                email_insti.setEnabled(false);
+                email_insti.setBorder(bottom);
+                modal.setVisible(false);
+                ficha.setVisible(false);
+                progra.setVisible(false);
+                empre.setVisible(false);
+                datoModal.setVisible(false);
+                datoFicha.setVisible(false);
+                datoProgra.setVisible(false);
+                datoEmpre.setVisible(false);
+                tipo_doc.setEnabled(false);
+                tipo_doc.setBorder(bottomDisabled);
+                num_doc.setEnabled(false);
+                num_doc.setBorder(bottomDisabled);
+                rol.setEnabled(false);
+                estado.setEnabled(false);
+
+            case 3: // COEVALUADOR - Mismo nivel que evaluador
+                // Permitir editar
+                email.setEnabled(true);
+                email.setBorder(bottom);
+                direc.setEnabled(true);
+                direc.setBorder(bottom);
+                conta.setEnabled(true);
+                conta.setBorder(bottom);
+
+
+                // NO permitir editar
+                nombre.setEnabled(false);
+                nombre.setBorder(bottom);
+                apellido.setEnabled(false);
+                apellido.setBorder(bottom);
+                email_insti.setEnabled(false);
+                email_insti.setBorder(bottom);
+                modal.setVisible(false);
+                ficha.setVisible(false);
+                progra.setVisible(false);
+                empre.setVisible(false);
+                datoModal.setVisible(false);
+                datoFicha.setVisible(false);
+                datoProgra.setVisible(false);
+                datoEmpre.setVisible(false);
+                tipo_doc.setEnabled(false);
+                num_doc.setEnabled(false);
+                num_doc.setBorder(bottom);
+                rol.setEnabled(false);
+                estado.setEnabled(false);
+                break;
+
+            case 4: // AUXILIAR - Similar a evaluador
+            case 5: // ADMINISTRADOR - Más permisos
+                // Permitir editar
+                nombre.setEnabled(true);
+                nombre.setBorder(bottom);
+                apellido.setEnabled(true);
+                apellido.setBorder(bottom);
+                tipo_doc.setEnabled(true);
+                num_doc.setEnabled(true);
+                num_doc.setBorder(bottom);
+                email.setEnabled(true);
+                email.setBorder(bottom);
+                email_insti.setEnabled(true);
+                email_insti.setBorder(bottom);
+                modal.setVisible(false);
+                ficha.setVisible(false);
+                progra.setVisible(false);
+                empre.setVisible(false);
+                datoModal.setVisible(false);
+                datoFicha.setVisible(false);
+                datoProgra.setVisible(false);
+                datoEmpre.setVisible(false);
+                direc.setEnabled(true);
+                direc.setBorder(bottom);
+                conta.setEnabled(true);
+                conta.setBorder(bottom);
+
+                // Administrador puede cambiar estado pero no rol
+                if(rolUsuario == 5) {
+                    estado.setEnabled(true);
+                } else {
+                    estado.setEnabled(false);
+                }
+                rol.setEnabled(false);
+                break;
+
+            case 6: // ADMINISTRADOR DEL SISTEMA - Todos los permisos
+                // Permitir editar TODO
+                nombre.setEnabled(true);
+                nombre.setBorder(bottom);
+                apellido.setEnabled(true);
+                apellido.setBorder(bottom);
+                tipo_doc.setEnabled(true);
+                num_doc.setEnabled(true);
+                num_doc.setBorder(bottom);
+                email.setEnabled(true);
+                email.setBorder(bottom);
+                email_insti.setEnabled(true);
+                email_insti.setBorder(bottom);
+                modal.setVisible(false);
+                ficha.setVisible(false);
+                progra.setVisible(false);
+                empre.setVisible(false);
+                datoModal.setVisible(false);
+                datoFicha.setVisible(false);
+                datoProgra.setVisible(false);
+                datoEmpre.setVisible(false);
+                direc.setEnabled(true);
+                direc.setBorder(bottom);
+                conta.setEnabled(true);
+                conta.setBorder(bottom);
+                rol.setEnabled(true);
+                estado.setEnabled(true);
+                break;
+
+            default:
+                // Por seguridad, si no reconoce el rol, no permitir editar nada crítico
+                nombre.setEnabled(true);
+                nombre.setBorder(bottom);
+                apellido.setEnabled(true);
+                apellido.setBorder(bottom);
+                email.setEnabled(true);
+                email.setBorder(bottom);
+                email_insti.setEnabled(true);
+                email_insti.setBorder(bottom);
+                direc.setEnabled(true);
+                direc.setBorder(bottom);
+                conta.setEnabled(true);
+                conta.setBorder(bottom);
+
+                tipo_doc.setEnabled(false);
+                tipo_doc.setBorder(bottomDisabled);
+                num_doc.setEnabled(false);
+                num_doc.setBorder(bottomDisabled);
+                rol.setEnabled(false);
+                estado.setEnabled(false);
+                break;
+        }
+    }
+
+    private void configurarVisibilidadCampos() {
+        if (this.idRol != 1) { // NO es Aprendiz
+            modal.setVisible(false);
+            datoModal.setVisible(false);
+            empre.setVisible(false);
+            datoEmpre.setVisible(false);
+            progra.setVisible(false);
+            datoProgra.setVisible(false);
+            ficha.setVisible(false);
+            datoFicha.setVisible(false);
+        } else { // ES Aprendiz (idRol = 1)
+            modal.setVisible(true);
+            datoModal.setVisible(true);
+            empre.setVisible(true);
+            datoEmpre.setVisible(true);
+            progra.setVisible(true);
+            datoProgra.setVisible(true);
+            ficha.setVisible(true);
+            datoFicha.setVisible(true);
+        }
     }
 
     public void cargarDatosUsuario()
@@ -219,12 +493,15 @@ public class Editar_Admin{
             if (rs.next()) {
                 // Almacenar ID para futuras actualizaciones
                 userID = rs.getInt("ID_usuarios");
+                //NUEVO: Almacenar el rol del Usuario
+                rolUsuario=rs.getInt("ID_rol");
 
                 // Cargar datos a los campos
                 nombre.setText(rs.getString("nombres"));
                 apellido.setText(rs.getString("apellidos"));
                 num_doc.setText(rs.getString("numero"));
                 email.setText(rs.getString("email"));
+                email_insti.setText(rs.getString("email_insti"));
                 direc.setText(rs.getString("direccion"));
                 conta.setText(rs.getString("contacto1"));
 
@@ -271,12 +548,15 @@ public class Editar_Admin{
 
     }
 
+
+
     public void guardarValoresOriginales() {
         originalNombre = nombre.getText();
         originalApellido = apellido.getText();
         originalTipoDoc = tipo_doc.getSelectedItem().toString();
         originalNumDoc = num_doc.getText();
         originalEmail = email.getText();
+        originalEmail_Insti = email_insti.getText();
         originalDireccion = direc.getText();
         originalContacto = conta.getText();
         originalRol = rol.getSelectedItem().toString();
@@ -297,6 +577,7 @@ public class Editar_Admin{
 
         num_doc.setText(originalNumDoc);
         email.setText(originalEmail);
+        email_insti.setText(originalEmail_Insti);
         direc.setText(originalDireccion);
         conta.setText(originalContacto);
 
@@ -320,7 +601,7 @@ public class Editar_Admin{
     public void actualizarDatosUsuario() {
         try (Connection conn = DBConnection.getConnection()) {
             String sql = "UPDATE usuarios SET nombres = ?, apellidos = ?, tipo_dc = ?, numero = ?, " +
-                    "email = ?, direccion = ?, contacto1 = ?, ID_rol = ?, estado = ? WHERE ID_usuarios = ?";
+                    "email = ?, email_insti = ?,direccion = ?, contacto1 = ?, ID_rol = ?, estado = ? WHERE ID_usuarios = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, nombre.getText());
@@ -328,16 +609,17 @@ public class Editar_Admin{
             stmt.setString(3, tipo_doc.getSelectedItem().toString());
             stmt.setString(4, num_doc.getText());
             stmt.setString(5, email.getText());
-            stmt.setString(6, direc.getText());
-            stmt.setString(7, conta.getText());
+            stmt.setString(6, email_insti.getText());
+            stmt.setString(7, direc.getText());
+            stmt.setString(8, conta.getText());
 
             // Obtener el ID del rol seleccionado
             // Esto podría necesitar ajustes dependiendo de cómo estén organizados tus comboBox
             int selectedRolIndex = rol.getSelectedIndex() + 1;
-            stmt.setInt(8, selectedRolIndex);
+            stmt.setInt(9, selectedRolIndex);
 
-            stmt.setString(9, estado.getSelectedItem().toString());
-            stmt.setInt(10, userID);
+            stmt.setString(10, estado.getSelectedItem().toString());
+            stmt.setInt(11, userID);
 
             int filasAfectadas = stmt.executeUpdate();
             if (filasAfectadas > 0) {
@@ -359,6 +641,39 @@ public class Editar_Admin{
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    private void cargarDatosAprendiz(int idUsuario, int idRol) {
+        if (idRol != 1) return; // Solo si es Aprendiz
+
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = """
+        SELECT e.nombre_empresa, f.codigo, 
+               p.nombre_programa, m.modalidad AS modalidadContrato
+        FROM aprendices a
+        LEFT JOIN empresas e ON a.ID_empresas = e.ID_empresas
+        LEFT JOIN fichas f ON a.ID_Fichas = f.ID_Fichas
+        LEFT JOIN programas p ON f.ID_programas = p.ID_programas
+        LEFT JOIN modalidad m ON a.ID_modalidad = m.ID_modalidad
+        WHERE a.ID_usuarios = ?
+        """;
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idUsuario);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                datoEmpre.setText(rs.getString("nombre_empresa"));
+                datoFicha.setText(rs.getString("codigo"));
+                datoProgra.setText(rs.getString("nombre_programa"));
+                datoModal.setText(rs.getString("modalidadContrato"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+
 
     public void actualizarConfigSiEmailCambio(String nuevoEmail) {
         String usuarioActual = obtenerUsuarioActual();

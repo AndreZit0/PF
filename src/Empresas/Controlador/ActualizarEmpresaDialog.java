@@ -1,5 +1,6 @@
 package Empresas.Controlador;
 
+import Empresas.Controlador.EmpresaDAO;
 import Empresas.Modelo.Empresa;
 import Empresas.ConexionBD.ConnectionDB;
 
@@ -19,7 +20,7 @@ public class ActualizarEmpresaDialog extends JDialog {
     private JComboBox<String> comboDepartamento;
     private JButton btnGuardar;
     private Empresa empresa;
-    private EmpresaDAO empresaDAO;
+    private Empresas.Controlador.EmpresaDAO empresaDAO;
     private Runnable onUpdateCallback;
     private JComboBox<String> comboCoevaluador;
 

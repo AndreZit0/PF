@@ -12,7 +12,6 @@ import java.net.URL;
 import java.sql.*;
 import java.util.Properties;
 import Example_Screen.View.Administrador.*;
-import Example_Screen.View.Aprendiz.AprendizGUI;
 //import Example_Screen.View.Aprendiz.*;
 
 public class LoginGUI {
@@ -28,7 +27,7 @@ public class LoginGUI {
     //JEFFERSONNNNN
 
     private static String usuarioActual;
-    private static int idUsuarioActual;
+    public static int idUsuarioActual;
     String usuario;
 
     public LoginGUI(String usuario) {
@@ -96,7 +95,7 @@ public class LoginGUI {
 
 
                         );
-                        //traerIDusuario= rs.getInt("ID_usuarios");
+                        traerIDusuario= rs.getInt("ID_usuarios");
 
                         guardarUsuario(usuario);
 
@@ -178,7 +177,7 @@ public class LoginGUI {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        URL iconoURL = LoginGUI.class.getClassLoader().getResource("Example_Screen/img/SENA.png");
+        URL iconoURL = LoginGUI.class.getClassLoader().getResource("img/SENA.png");
         if (iconoURL != null) {
             frame.setIconImage(new ImageIcon(iconoURL).getImage());
         }
