@@ -36,7 +36,6 @@ public class Empresa {
     /** Ciudad donde se encuentra la empresa */
     String ciudad;
 
-
     String estado;
 
     String nombreCoevaluador;
@@ -66,9 +65,7 @@ public class Empresa {
         this.email = email;
         this.departamento = departamento;
         this.ciudad = ciudad;
-
         this.estado = estado;
-
     }
 
     /**
@@ -251,7 +248,6 @@ public class Empresa {
         this.ciudad = ciudad;
     }
 
-
     public String getEstado() {
         return estado;
     }
@@ -267,5 +263,4 @@ public class Empresa {
     public void setNombreCoevaluador(String nombreCoevaluador) {
         this.nombreCoevaluador = nombreCoevaluador;
     }
-
 }

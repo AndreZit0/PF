@@ -1,12 +1,9 @@
-
 package Empresas.Vista;
 import Empresas.ConexionBD.ConnectionDB;
 import Empresas.Controlador.EmpresaDAO;
 import Empresas.Modelo.Empresa;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -27,13 +24,15 @@ public class CrearGUI {
     private JTextField Area;
     private JTextField Ciudad;
     private JComboBox combo1;
-    private JButton cancelarButton;
     private JButton confirmarButton;
     private JPanel pnlCrearEmpresa;
+    private JButton cancelarButton;
+    private JComboBox comboEstado;
     private EmpresaDAO empresaDAO = new EmpresaDAO();
     private ConnectionDB connectionDB = new ConnectionDB();
-
-    public JPanel getPanel(){return pnlCrearEmpresa;}
+    public JPanel getPanel() {
+        return pnlCrearEmpresa;
+    }
 
     /**
      * Constructor de la clase CrearGUI.
@@ -42,23 +41,11 @@ public class CrearGUI {
     public CrearGUI () {
         // para cargar los coevaluadores
         cargarUsuariosEnComboBox();
-        // Configura el borde inferior de los campos de texto
-        Border bottom = BorderFactory.createMatteBorder(0,0,2,0, Color.decode("#39A900"));
 
-        // Aplica el borde a los campos de texto
-        Nit.setBorder(bottom);
-        Contacto.setBorder(bottom);
-        Nombre.setBorder(bottom);
-        Area.setBorder(bottom);
-        Direccion.setBorder(bottom);
-        Email.setBorder(bottom);
-        comboBox1.setBorder(bottom);
-        combo1.setBorder(bottom);
-        Ciudad.setBorder(bottom);
         comboBox1.setSelectedIndex(-1); // Para que no haya selección al principio
         combo1.setSelectedIndex(-1); // Para que no haya selección al principio
+        comboEstado.setSelectedIndex(-1); // Para que no haya selección al principio
 
-        // Configura el evento de clic en el botón 'confirmar'
         confirmarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,13 +69,15 @@ public class CrearGUI {
         String departamento = comboBox1.getSelectedItem() != null ? comboBox1.getSelectedItem().toString().trim() : "";
         String usuarios = combo1.getSelectedItem() != null ? combo1.getSelectedItem().toString().trim() : "";
         String ciudad = Ciudad.getText().trim();
+        String estado = comboEstado.getSelectedItem() != null ? comboEstado.getSelectedItem().toString().trim() : "";
+
 
         if (nit.isEmpty() || nombre.isEmpty() || direccion.isEmpty() || area.isEmpty() ||
-                contacto.isEmpty() || email.isEmpty() || departamento.isEmpty() || ciudad.isEmpty() || usuarios.isEmpty()) {
+                contacto.isEmpty() || email.isEmpty() || departamento.isEmpty() || ciudad.isEmpty() || usuarios.isEmpty() || estado.isEmpty()) {
             JOptionPane.showMessageDialog(pnlCrearEmpresa, "Por favor, completa todos los campos antes de continuar.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        // Extraer ID de usuario desde combo1
+
         int idUsuario = 0;
         try {
             String[] partes = usuarios.split(" - ");
@@ -106,10 +95,10 @@ public class CrearGUI {
         // Confirmación antes de agregar la empresa
         int confirmacion = JOptionPane.showConfirmDialog(pnlCrearEmpresa, "¿Estás seguro de que deseas agregar esta empresa?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.NO_OPTION) {
-            return; // Si el usuario selecciona NO, se cancela
+            return;
         }
 
-        Empresa empresa = new Empresa(0, idUsuario, nit, nombre, direccion, area, contacto, email, departamento, ciudad);
+        Empresa empresa = new Empresa(0, idUsuario,  nit, nombre, direccion, area, contacto, email, departamento, ciudad, estado);
         if (empresaDAO.agregarEmpresa(empresa)) {
             JOptionPane.showMessageDialog(pnlCrearEmpresa, "Empresa agregada exitosamente.");
             // Limpiar los campos
@@ -122,6 +111,7 @@ public class CrearGUI {
             comboBox1.setSelectedIndex(-1);
             Ciudad.setText("");
             combo1.setSelectedIndex(-1);
+            comboEstado.setSelectedIndex(-1);
 
         } else {
             JOptionPane.showMessageDialog(pnlCrearEmpresa, "Error al agregar la empresa.");

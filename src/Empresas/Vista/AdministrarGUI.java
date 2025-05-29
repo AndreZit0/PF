@@ -25,8 +25,7 @@ import java.util.List;
  * Clase que representa la interfaz gráfica para gestionar empresas.
  */
 public class AdministrarGUI {
-    private JPanel main;
-
+    private JPanel pnlAdministrar;
     private JTable table1;
     private JButton observarButton;
     private JButton actualizarButton;
@@ -34,7 +33,9 @@ public class AdministrarGUI {
     private JButton eliminarButton;
     private EmpresaDAO empresaDAO = new EmpresaDAO();
     private ConnectionDB connectionDB = new ConnectionDB();
-
+    public JPanel getPanel() {
+        return pnlAdministrar;
+    }
 
     /**
      * Constructor de la clase AdministrarGUI.
@@ -46,7 +47,6 @@ public class AdministrarGUI {
         table1.setBackground(new Color(245, 245, 245));
         table1.setForeground(Color.BLACK);
         table1.setSelectionForeground(Color.WHITE);
-
         table1.setGridColor(new Color(220, 220, 220));
         table1.setShowGrid(true);
 
@@ -69,7 +69,6 @@ public class AdministrarGUI {
         });
 
          */
-
 
         // Configura el evento de clic en el botón 'observar'
         observarButton.addActionListener(new ActionListener() {
@@ -102,9 +101,9 @@ public class AdministrarGUI {
                 // Verificar si hay una fila seleccionada
                 int selectedRow = table1.getSelectedRow();
                 if (selectedRow == -1) {
+                    // mostrar mensaje
                     JOptionPane.showMessageDialog(null, "Seleccione una empresa primero.");
-                    return;
-
+                    return; // Salir
                 }
 
                 //colores
@@ -115,7 +114,6 @@ public class AdministrarGUI {
                     File tempFile = File.createTempFile("empresas_", ".pdf");
                     tempFile.deleteOnExit(); // Se elimina automáticamente cuando finalice el programa
                     PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(tempFile));
-
 
                     documento.open();
 
@@ -159,7 +157,6 @@ public class AdministrarGUI {
                     }
 
                     try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "");
-
                          PreparedStatement pst = cn.prepareStatement("SELECT nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad, estado FROM empresas;");
                          ResultSet rs = pst.executeQuery()) {
 
@@ -178,7 +175,6 @@ public class AdministrarGUI {
 
                     documento.add(tabla);
                     documento.close();
-
                     if (Desktop.isDesktopSupported()) {
                         Desktop.getDesktop().open(tempFile);
                     } else {
@@ -271,7 +267,6 @@ public class AdministrarGUI {
      */
 
     /*
-
     public void eliminarEmpresa() {
         int selectedRow = table1.getSelectedRow();
         if (selectedRow == -1) {
@@ -298,7 +293,6 @@ public class AdministrarGUI {
 
      */
 
-
     /**
      * Carga y muestra las empresas en la tabla.
      * Configura un modelo para la tabla y agrega las empresas a la vista.
@@ -309,7 +303,6 @@ public class AdministrarGUI {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
-
             }
         };
 
@@ -323,7 +316,6 @@ public class AdministrarGUI {
             model.addRow(new Object[]{
                     empresa.getNit(),
                     empresa.getNombre_empresa(),
-
                     empresa.getContacto(),
                     empresa.getNombreCoevaluador(),
                     empresa.getEstado()
@@ -332,12 +324,11 @@ public class AdministrarGUI {
         table1.setModel(model);
     }
 
+
     public static void main(String[] args) {
         AdministrarGUI administrarGUI = new AdministrarGUI();
         JFrame frame = new JFrame("EMPRESA");
-
-        frame.setContentPane(new AdministrarGUI().main);
-
+        frame.setContentPane(new AdministrarGUI().pnlAdministrar);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize(800, 600);
