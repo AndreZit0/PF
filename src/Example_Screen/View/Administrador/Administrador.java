@@ -13,8 +13,8 @@ import Example_Screen.View.Login.LoginGUI;
 import Example_Screen.View.Usuarios_Registrados.VerUsuariosRegistrados;
 
 import Example_Screen.View.VisualizarPerfilGUI;
-import Seguimiento.Modelo.GUI.CodigoGUI;
-import Seguimiento.Modelo.GUI.CodigoGUI2;
+import Seguimiento.Modelo.GUI.CodigoGUI3;
+import Seguimiento.Modelo.GUI.CodigoGUI4;
 import Usuarios.*;
 
 
@@ -715,7 +715,7 @@ public class Administrador {
      */
     public void mostrarPanelSeguimiento147() {
         String usuario = LoginGUI.getUsuarioActual();
-        CodigoGUI2 codigoGUI = new CodigoGUI2(usuario);
+        CodigoGUI4 codigoGUI = new CodigoGUI4(usuario);
 
         mostrarPanel("Formato 147 - Bitácoras", codigoGUI.getPanel());
     }
@@ -726,7 +726,7 @@ public class Administrador {
      */
     public void mostrarPanelSeguimiento023() {
         String usuario = LoginGUI.getUsuarioActual();
-        CodigoGUI codigoGUI = new CodigoGUI(usuario);
+        CodigoGUI3 codigoGUI = new CodigoGUI3(usuario);
 
         mostrarPanel("Formato 023 - Seguimiento", codigoGUI.getPanel());
     }
