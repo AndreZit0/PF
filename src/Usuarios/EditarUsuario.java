@@ -1,10 +1,13 @@
 package Usuarios;
 
 import Example_Screen.View.VisualizarPerfilGUI;
+import Example_Screen.View.Login.LoginGUI;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 public class EditarUsuario {
     private JPanel main;
@@ -27,7 +30,8 @@ public class EditarUsuario {
 
     private UsuariosDAO dao = new UsuariosDAO();
     private Usuarios_getset usuarioActual;
-    private VisualizarPerfilGUI visualizarPerfilGUI;
+    private boolean esEvaluador = false;
+
 
     public JPanel getMainPanel() {
         return main;
@@ -35,6 +39,9 @@ public class EditarUsuario {
 
     public EditarUsuario(Usuarios_getset usuario) {
         this.usuarioActual = usuario;
+
+        this.esEvaluador = "2".equals(LoginGUI.cofigBotonInicioSegunRol);
+
 
         // Cargar datos del usuario en los campos
         cargarDatosUsuario();
@@ -46,6 +53,10 @@ public class EditarUsuario {
         } else {
             estad.setVisible(false);
             estado_formacion.setVisible(false);
+        }
+
+        if (esEvaluador) {
+            configurarPermisoEvaluador();
         }
 
         // Acción al confirmar
@@ -66,6 +77,41 @@ public class EditarUsuario {
         });
     }
 
+    /**
+     * Configurar la pantalla para que solo el evaluador pueda editar el estado de formación
+     */
+
+    private void configurarPermisoEvaluador() {
+        // Deshabilitar todos los campos de texto
+        nombre.setEnabled(false);
+        apellido.setEnabled(false);
+        num_doc.setEnabled(false);
+        email.setEnabled(false);
+        email_insti.setEnabled(false);
+        direccion.setEnabled(false);
+        contacto1.setEnabled(false);
+        contacto2.setEnabled(false);
+        clave.setEnabled(false);
+
+        // Deshabilitar todos los ComboBox excepto estado_formacion
+        tipo_doc.setEnabled(false);
+        rol.setEnabled(false);
+        estado.setEnabled(false);
+
+        // Solo habilitar estado_formacion si el usuario que se está editando es un Aprendiz
+        if (usuarioActual.getID_rol() == 1) { // 1 = Aprendiz
+            estado_formacion.setEnabled(true);
+            estad.setVisible(true);
+            estado_formacion.setVisible(true);
+        } else {
+            estado_formacion.setEnabled(false);
+            JOptionPane.showMessageDialog(null,
+                    "Solo puede editar el estado de formación de usuarios con rol Aprendiz.",
+                    "Información",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
     private void cargarDatosUsuario() {
         // Supone que tus ComboBox ya tienen los ítems cargados (ej: en el constructor o en otro lugar)
         nombre.setText(usuarioActual.getNombres());
@@ -83,48 +129,73 @@ public class EditarUsuario {
     }
 
     private void guardarCambios() {
-        // Actualizar datos
-        usuarioActual.setNombres(nombre.getText());
-        usuarioActual.setApellidos(apellido.getText());
-        usuarioActual.setDocumento(num_doc.getText());
-        usuarioActual.setTipo_dc((String) tipo_doc.getSelectedItem());
-        usuarioActual.setID_rol(rol.getSelectedIndex() + 1);
-        usuarioActual.setEmail(email.getText());
-        usuarioActual.setEmail_insti(email_insti.getText());  // Actualizar email institucional
-        usuarioActual.setDireccion(direccion.getText());
-        usuarioActual.setContacto1(contacto1.getText());
-        usuarioActual.setContacto2(contacto2.getText());
-        usuarioActual.setClave(clave.getText());
-        usuarioActual.setEstado((String) estado.getSelectedItem());
 
-        String nuevoEstadoFormacion = (String) estado_formacion.getSelectedItem();
-        if (dao.actualizarUsuario(usuarioActual)) {
-            AprendizDAO aprendizDAO1 = new AprendizDAO();
-            aprendizDAO1.actualizarEstadoFormacion(usuarioActual.getID_usuarios(), nuevoEstadoFormacion);
-            JOptionPane.showMessageDialog(null, "Usuario actualizado correctamente.");
+        if (esEvaluador) {
+            // Si es evaluador, solo actualizar el estado de formación
+            String nuevoEstadoFormacion = (String) estado_formacion.getSelectedItem();
 
-            // Cerrar la ventana actual
-            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(main);
-            frame.dispose();
+            if (usuarioActual.getID_rol() == 1 && nuevoEstadoFormacion != null) { // Solo si es Aprendiz
+                AprendizDAO aprendizDAO = new AprendizDAO();
+                if (aprendizDAO.actualizarEstadoFormacion(usuarioActual.getID_usuarios(), nuevoEstadoFormacion)) {
+                    JOptionPane.showMessageDialog(null, "Estado de formación actualizado correctamente.");
 
-            // Buscar si ese usuario también es un aprendiz
-            AprendizDAO aprendizDAO = new AprendizDAO();
-            Aprendiz_getset aprendiz = aprendizDAO.obtenerAprendizPorUsuario(usuarioActual.getID_usuarios());
-
-            if (aprendiz != null) {
-                // Abrir ventana EditarAprendiz
-                JFrame frameEditarAprendiz = new JFrame("Editar Aprendiz");
-                EditarAprendiz editarAprendiz = new EditarAprendiz(aprendiz);
-                frameEditarAprendiz.setContentPane(editarAprendiz.getMainPanel());
-                frameEditarAprendiz.pack();
-                frameEditarAprendiz.setLocationRelativeTo(null);
-                frameEditarAprendiz.setVisible(true);
+                    // Cerrar la ventana actual
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(main);
+                    frame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al actualizar el estado de formación.");
+                }
             } else {
-                //JOptionPane.showMessageDialog(null, "Este usuario no está registrado como aprendiz.");
+                JOptionPane.showMessageDialog(null,
+                        "Solo puede actualizar el estado de formación de usuarios Aprendiz.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al actualizar usuario.");
+        }else{
+            // Actualizar datos
+            usuarioActual.setNombres(nombre.getText());
+            usuarioActual.setApellidos(apellido.getText());
+            usuarioActual.setDocumento(num_doc.getText());
+            usuarioActual.setTipo_dc((String) tipo_doc.getSelectedItem());
+            usuarioActual.setID_rol(rol.getSelectedIndex() + 1);
+            usuarioActual.setEmail(email.getText());
+            usuarioActual.setEmail_insti(email_insti.getText());  // Actualizar email institucional
+            usuarioActual.setDireccion(direccion.getText());
+            usuarioActual.setContacto1(contacto1.getText());
+            usuarioActual.setContacto2(contacto2.getText());
+            usuarioActual.setClave(clave.getText());
+            usuarioActual.setEstado((String) estado.getSelectedItem());
+
+            String nuevoEstadoFormacion = (String) estado_formacion.getSelectedItem();
+            if (dao.actualizarUsuario(usuarioActual)) {
+                AprendizDAO aprendizDAO1 = new AprendizDAO();
+                aprendizDAO1.actualizarEstadoFormacion(usuarioActual.getID_usuarios(), nuevoEstadoFormacion);
+                JOptionPane.showMessageDialog(null, "Usuario actualizado correctamente.");
+
+                // Cerrar la ventana actual
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(main);
+                frame.dispose();
+
+                // Buscar si ese usuario también es un aprendiz
+                AprendizDAO aprendizDAO = new AprendizDAO();
+                Aprendiz_getset aprendiz = aprendizDAO.obtenerAprendizPorUsuario(usuarioActual.getID_usuarios());
+
+                if (aprendiz != null) {
+                    // Abrir ventana EditarAprendiz
+                    JFrame frameEditarAprendiz = new JFrame("Editar Aprendiz");
+                    EditarAprendiz editarAprendiz = new EditarAprendiz(aprendiz);
+                    frameEditarAprendiz.setContentPane(editarAprendiz.getMainPanel());
+                    frameEditarAprendiz.pack();
+                    frameEditarAprendiz.setLocationRelativeTo(null);
+                    frameEditarAprendiz.setVisible(true);
+                } else {
+                    //JOptionPane.showMessageDialog(null, "Este usuario no está registrado como aprendiz.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al actualizar usuario.");
+            }
         }
+
     }
     private void cargarEstadoFormacion() {
         AprendizDAO aprendizDAO = new AprendizDAO();

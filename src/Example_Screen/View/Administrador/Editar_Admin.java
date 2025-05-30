@@ -45,6 +45,9 @@ public class Editar_Admin{
     private JTextField datoProgra;
     private JTextField datoFicha;
     private JTextField datoModal;
+    private JLabel esta_forma;
+    private JComboBox dato_forma;
+    private JLabel esss;
 
     // Variables para almacenar los datos originales
     private String originalNombre;
@@ -124,6 +127,7 @@ public class Editar_Admin{
         datoFicha.setEnabled(false);
         datoProgra.setEnabled(false);
         datoEmpre.setEnabled(false);
+        dato_forma.setEnabled(false);
         direc.setEnabled(false);
         conta.setEnabled(false);
         rol.setEnabled(false);
@@ -160,6 +164,7 @@ public class Editar_Admin{
         datoProgra.setBorder(bottom1);
         datoEmpre.setBorder(bottom1);
         datoModal.setBorder(bottom1);
+        dato_forma.setBorder(bottom1);
         direc.setBorder(bottom1);
         conta.setBorder(bottom1);
 
@@ -201,6 +206,7 @@ public class Editar_Admin{
                 datoFicha.setEnabled(false);
                 datoProgra.setEnabled(false);
                 datoEmpre.setEnabled(false);
+                dato_forma.setEnabled(false);
                 direc.setEnabled(false);
                 conta.setEnabled(false);
                 rol.setEnabled(false);
@@ -220,6 +226,7 @@ public class Editar_Admin{
                 datoFicha.setBorder(bottom1);
                 datoProgra.setBorder(bottom1);
                 datoEmpre.setBorder(bottom1);
+                dato_forma.setBorder(bottom1);
                 direc.setBorder(bottom1);
                 conta.setBorder(bottom1);
             }
@@ -239,6 +246,7 @@ public class Editar_Admin{
                 datoFicha.setEnabled(false);
                 datoProgra.setEnabled(false);
                 datoEmpre.setEnabled(false);
+                dato_forma.setEnabled(false);
                 direc.setEnabled(false);
                 conta.setEnabled(false);
                 rol.setEnabled(false);
@@ -258,6 +266,7 @@ public class Editar_Admin{
                 datoFicha.setBorder(bottom1);
                 datoProgra.setBorder(bottom1);
                 datoEmpre.setBorder(bottom1);
+                dato_forma.setBorder(bottom1);
                 direc.setBorder(bottom1);
                 conta.setBorder(bottom1);
             }
@@ -293,6 +302,8 @@ public class Editar_Admin{
                 datoProgra.setBorder(bottom);
                 datoEmpre.setEnabled(false);
                 datoEmpre.setBorder(bottom);
+                dato_forma.setEnabled(false);
+                dato_forma.setBorder(bottom);
                 tipo_doc.setEnabled(false);
                 tipo_doc.setBorder(bottomDisabled);
                 num_doc.setEnabled(false);
@@ -317,6 +328,7 @@ public class Editar_Admin{
                 email_insti.setEnabled(false);
                 email_insti.setBorder(bottom);
                 modal.setVisible(false);
+                esta_forma.setVisible(false);
                 ficha.setVisible(false);
                 progra.setVisible(false);
                 empre.setVisible(false);
@@ -324,6 +336,7 @@ public class Editar_Admin{
                 datoFicha.setVisible(false);
                 datoProgra.setVisible(false);
                 datoEmpre.setVisible(false);
+                dato_forma.setVisible(false);
                 tipo_doc.setEnabled(false);
                 tipo_doc.setBorder(bottomDisabled);
                 num_doc.setEnabled(false);
@@ -349,6 +362,7 @@ public class Editar_Admin{
                 email_insti.setEnabled(false);
                 email_insti.setBorder(bottom);
                 modal.setVisible(false);
+                esta_forma.setVisible(false);
                 ficha.setVisible(false);
                 progra.setVisible(false);
                 empre.setVisible(false);
@@ -356,6 +370,7 @@ public class Editar_Admin{
                 datoFicha.setVisible(false);
                 datoProgra.setVisible(false);
                 datoEmpre.setVisible(false);
+                dato_forma.setVisible(false);
                 tipo_doc.setEnabled(false);
                 num_doc.setEnabled(false);
                 num_doc.setBorder(bottom);
@@ -378,6 +393,7 @@ public class Editar_Admin{
                 email_insti.setEnabled(true);
                 email_insti.setBorder(bottom);
                 modal.setVisible(false);
+                esta_forma.setVisible(false);
                 ficha.setVisible(false);
                 progra.setVisible(false);
                 empre.setVisible(false);
@@ -385,6 +401,7 @@ public class Editar_Admin{
                 datoFicha.setVisible(false);
                 datoProgra.setVisible(false);
                 datoEmpre.setVisible(false);
+                dato_forma.setVisible(false);
                 direc.setEnabled(true);
                 direc.setBorder(bottom);
                 conta.setEnabled(true);
@@ -413,6 +430,7 @@ public class Editar_Admin{
                 email_insti.setEnabled(true);
                 email_insti.setBorder(bottom);
                 modal.setVisible(false);
+                esta_forma.setVisible(false);
                 ficha.setVisible(false);
                 progra.setVisible(false);
                 empre.setVisible(false);
@@ -420,6 +438,7 @@ public class Editar_Admin{
                 datoFicha.setVisible(false);
                 datoProgra.setVisible(false);
                 datoEmpre.setVisible(false);
+                dato_forma.setVisible(false);
                 direc.setEnabled(true);
                 direc.setBorder(bottom);
                 conta.setEnabled(true);
@@ -463,8 +482,12 @@ public class Editar_Admin{
             datoProgra.setVisible(false);
             ficha.setVisible(false);
             datoFicha.setVisible(false);
+            esta_forma.setVisible(false);
+            dato_forma.setVisible(false);
         } else { // ES Aprendiz (idRol = 1)
             modal.setVisible(true);
+            estado.setVisible(false);
+            esss.setVisible(false);
             datoModal.setVisible(true);
             empre.setVisible(true);
             datoEmpre.setVisible(true);
@@ -472,6 +495,8 @@ public class Editar_Admin{
             datoProgra.setVisible(true);
             ficha.setVisible(true);
             datoFicha.setVisible(true);
+            esta_forma.setVisible(true);
+            dato_forma.setVisible(true);
         }
     }
 
@@ -648,7 +673,8 @@ public class Editar_Admin{
         try (Connection conn = DBConnection.getConnection()) {
             String sql = """
         SELECT e.nombre_empresa, f.codigo, 
-               p.nombre_programa, m.modalidad AS modalidadContrato
+               p.nombre_programa, m.modalidad AS modalidadContrato,
+               a.estado
         FROM aprendices a
         LEFT JOIN empresas e ON a.ID_empresas = e.ID_empresas
         LEFT JOIN fichas f ON a.ID_Fichas = f.ID_Fichas
@@ -666,6 +692,19 @@ public class Editar_Admin{
                 datoFicha.setText(rs.getString("codigo"));
                 datoProgra.setText(rs.getString("nombre_programa"));
                 datoModal.setText(rs.getString("modalidadContrato"));
+                // Aquí hacemos la selección del estado en el comboBox
+                String estado = rs.getString("estado");
+                boolean encontrado = false;
+                for (int i = 0; i < dato_forma.getItemCount(); i++) {
+                    if (dato_forma.getItemAt(i).toString().equalsIgnoreCase(estado.trim())) {
+                        dato_forma.setSelectedIndex(i);
+                        encontrado = true;
+                        break;
+                    }
+                }
+                if (!encontrado) {
+                    dato_forma.setSelectedIndex(0); // Por defecto, si no encuentra
+                }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

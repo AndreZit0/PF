@@ -451,13 +451,13 @@ public class VerUsuariosRegistrados {
                     frameEditar.setVisible(true);
 
                     // Opcional: Actualizar la tabla después de cerrar la ventana de edición
-                    frameEditar.addWindowListener(new java.awt.event.WindowAdapter() {
-                        @Override
-                        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                            // Refrescar la tabla
-                            obtenerDatosUsuario();
-                        }
-                    });
+//                    frameEditar.addWindowListener(new java.awt.event.WindowAdapter() {
+//                        @Override
+//                        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+//                            // Refrescar la tabla
+//                            obtenerDatosUsuario();
+//                        }
+//                    });
 
                 } else {
                     JOptionPane.showMessageDialog(button,
