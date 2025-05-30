@@ -4,26 +4,16 @@ import Example_Screen.View.Login.LoginGUI;
 import Seguimiento.Modelo.Codigo;
 import Seguimiento.Modelo.DAO.CodigoDAO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import java.util.Timer;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
-
-import static Example_Screen.View.Login.LoginGUI.cofigBotonInicioSegunRol;
 
 /**
  * Interfaz gráfica para la gestión de archivos PDF (Formato 023).
@@ -84,22 +74,16 @@ public class CodigoGUI2 extends JFrame {
      */
     private void configurarVentana() {
         setTitle("Gestor de Archivos PDF");
-        setSize(900, 600);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(1200, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
-
 
     /**
      * Configura y organiza los componentes gráficos de la interfaz.
      */
     private void configurarComponentes() {
         panelPrincipal = new JPanel(new BorderLayout());
-        Border bordeVerde = BorderFactory.createLineBorder(new Color(0x39A900), 3);
-
-// Margen interior
-        Border margenInterior = BorderFactory.createEmptyBorder(25, 25, 25, 25);
-        panelPrincipal.setBorder(BorderFactory.createCompoundBorder(bordeVerde, margenInterior));
 
         panelArchivos = new JPanel();
         panelArchivos.setLayout(new BoxLayout(panelArchivos, BoxLayout.Y_AXIS));
@@ -128,7 +112,7 @@ public class CodigoGUI2 extends JFrame {
 
         JPanel panelSubir = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         btnSubir = new JButton("Subir PDF");
-        estilizarBoton(btnSubir, verde);
+        estilizarBotonPDF(btnSubir, verde);
         fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("Archivo PDF", "pdf"));
         btnSubir.addActionListener(e -> {
@@ -147,11 +131,60 @@ public class CodigoGUI2 extends JFrame {
      * @param boton Botón a estilizar
      * @param colorFondo Color de fondo del botón
      */
+
+
     private void estilizarBoton(JButton boton, Color colorFondo) {
         boton.setBackground(colorFondo);
         boton.setForeground(blanco);
-        boton.setFont(fuenteCalibri);
+        boton.setFont(new Font("Calibri", Font.PLAIN, 16));
+
+        // Margen interno para centrar el texto
+        boton.setMargin(new Insets(2, 5, 2, 5));
+
+        // Centrar texto horizontalmente
+        boton.setHorizontalAlignment(SwingConstants.CENTER);
+        boton.setVerticalAlignment(SwingConstants.CENTER);
+
+
+        // Efecto hover con transición suave
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton.setBackground(new Color(
+                        Math.max(0, colorFondo.getRed() - 50),
+                        Math.max(0, colorFondo.getGreen() - 50),
+                        Math.max(0, colorFondo.getBlue() - 50)
+                ));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton.setBackground(colorFondo);
+            }
+        });
     }
+    private void estilizarBotonPDF(JButton boton, Color colorFondo) {
+        boton.setBackground(colorFondo);
+        boton.setForeground(blanco);
+        boton.setFont(fuenteCalibri);
+
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                // Oscurece el color original en un 20%
+                boton.setBackground(new Color(
+                        Math.max(0, colorFondo.getRed() - 50),
+                        Math.max(0, colorFondo.getGreen() - 50),
+                        Math.max(0, colorFondo.getBlue() - 50)
+                ));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton.setBackground(colorFondo);
+            }
+        });
+    }
+
+
+
+
 
     /**
      * Muestra un mensaje indicando que se debe esperar antes de subir otro archivo.
@@ -355,24 +388,10 @@ public class CodigoGUI2 extends JFrame {
         estilizarBoton(btnEliminar, rojo);
         btnEliminar.addActionListener(e -> eliminarArchivo(archivo, panelArchivo));
 
-
         // Botón de validación
         JButton btnValidar = new JButton("Validar");
         estilizarBoton(btnValidar, Color.BLUE);
         btnValidar.addActionListener(e -> validarArchivo(archivo, btnValidar));
-
-        if ("2".equals(cofigBotonInicioSegunRol)) {
-            btnEliminar.setVisible(false);
-            btnSubir.setVisible(false);
-        }
-
-        if("4".equals(cofigBotonInicioSegunRol) || "5".equals(cofigBotonInicioSegunRol))
-        {
-            btnValidar.setVisible(false);
-            btnEliminar.setVisible(false);
-            btnSubir.setVisible(false);
-
-        }
 
         // Verificar si ya está validado por los 2 roles requeridos (Aprendiz y Evaluador)
         boolean validadoCompletamente = archivo.getVal1().equals("Aprobado") &&
@@ -394,8 +413,9 @@ public class CodigoGUI2 extends JFrame {
                 btnValidar.setText("Validado");
             }
         }
+        JPanel panelBotones = new JPanel(new GridLayout(3, 1, 0, 8)); // 8px de espacio vertical
+        panelBotones.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Márgenes interno: arriba, izquierda, abajo, derecha
 
-        JPanel panelBotones = new JPanel(new GridLayout(3, 1));
         panelBotones.add(btnVer);
         panelBotones.add(btnEliminar);
         panelBotones.add(btnValidar);
@@ -406,6 +426,8 @@ public class CodigoGUI2 extends JFrame {
         panelArchivos.add(panelArchivo);
         btnVer.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnValidar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
     }
 
     /**
@@ -559,8 +581,6 @@ public class CodigoGUI2 extends JFrame {
         // Puedes obtenerlo del LoginGUI o de la sesión
         return LoginGUI.cofigBotonInicioSegunRol;
     }
-
-
 
 
     /**

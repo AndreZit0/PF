@@ -2,8 +2,8 @@ package Example_Screen.View.Usuarios_Registrados;
 
 import Example_Screen.Connection.DBConnection;
 import Example_Screen.View.VisualizarPerfilGUI;
-import Seguimiento.Modelo.GUI.CodigoGUI3;
-import Seguimiento.Modelo.GUI.CodigoGUI4;
+import Seguimiento.Modelo.GUI.CodigoGUI;
+import Seguimiento.Modelo.GUI.CodigoGUI2;
 import Usuarios.EditarUsuario;
 import Usuarios.UsuariosDAO;
 import Usuarios.Usuarios_getset;
@@ -318,7 +318,7 @@ public class VerUsuariosRegistrados {
 
                 if (email != null && !email.isEmpty()) {
                     SwingUtilities.invokeLater(() -> {
-                        CodigoGUI4 bitacorasGUI = new CodigoGUI4(email);
+                        CodigoGUI2 bitacorasGUI = new CodigoGUI2(email);
                         bitacorasGUI.setVisible(true);
                     });
                 } else {
@@ -338,7 +338,7 @@ public class VerUsuariosRegistrados {
 
                 if (email != null && !email.isEmpty()) {
                     SwingUtilities.invokeLater(() -> {
-                        CodigoGUI3 codigoGUI = new CodigoGUI3(email);
+                        CodigoGUI codigoGUI = new CodigoGUI(email);
                         codigoGUI.setVisible(true);
                     });
                 } else {
