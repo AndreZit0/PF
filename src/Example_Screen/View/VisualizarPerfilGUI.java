@@ -1,9 +1,12 @@
 package Example_Screen.View;
 
 import Example_Screen.Connection.DBConnection;
+import Example_Screen.View.Administrador.Administrador;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileInputStream;
@@ -13,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import static Example_Screen.View.Login.LoginGUI.*;
 
 public class VisualizarPerfilGUI {
     public JPanel panel1;
@@ -31,23 +36,33 @@ public class VisualizarPerfilGUI {
     private JLabel datoProg;
     private JLabel datoFich;
     private JLabel datoModal;
-    private JButton irAlPerfilButton;
+    public JButton irAlPerfilButton;
     private JLabel fich;
     private JLabel empr;
     private JLabel prog;
-    private int userID;
+    public static int userID;
+    public static String emailActual;
     private DBConnection dbConnection = new DBConnection();
 
+    public static String idActualPerfil;
 
-    public VisualizarPerfilGUI(int idUsuario, int idRol) {
+    private Administrador admin;
+
+    public JButton getBotonirP(){return irAlPerfilButton;}
 
 
-        //irAlPerfilButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    public VisualizarPerfilGUI(int idUsuario, int idRol, Administrador admin) {
+
+
+        this.admin = admin;
+
+
+        irAlPerfilButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         Color colorHover = new Color(0, 120, 50);
         Color colorBase = new Color(57, 169, 0);
 
 
-        //aplicarEfectoHover(irAlPerfilButton, colorHover, colorBase);
+        aplicarEfectoHover(irAlPerfilButton, colorHover, colorBase);
 
         inicializarVisibilidadElementos();
 
@@ -56,7 +71,23 @@ public class VisualizarPerfilGUI {
 
         configurarVisibilidadAprendiz(idRol);
 
+        irAlPerfilButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                idUsuarioActual = Integer.parseInt(String.valueOf(userID));
+                usuarioActual = emailActual;
+                admin.mostrarPanelGraficoInicio();
+                Window window = SwingUtilities.getWindowAncestor(irAlPerfilButton);
+                if (window != null) {
+                    window.dispose();
+                }
+
+            }
+        });
     }
+
+
+
 
     public void aplicarEfectoHover(JButton boton, Color colorHover, Color colorBase) {
         boton.addMouseListener(new MouseAdapter() {
@@ -76,7 +107,7 @@ public class VisualizarPerfilGUI {
         boolean esAprendiz = (idRol == 1);
 
         // Mostrar/ocultar botón
-        //irAlPerfilButton.setVisible(esAprendiz);
+        irAlPerfilButton.setVisible(esAprendiz);
 
         // Mostrar/ocultar datos específicos de aprendiz
         empr.setVisible(esAprendiz);
@@ -89,7 +120,7 @@ public class VisualizarPerfilGUI {
 
     private void inicializarVisibilidadElementos() {
         // Inicializar elementos como ocultos por defecto
-        //irAlPerfilButton.setVisible(false);
+        irAlPerfilButton.setVisible(false);
         empr.setVisible(false);
         fich.setVisible(false);
         prog.setVisible(false);
@@ -100,22 +131,18 @@ public class VisualizarPerfilGUI {
 
     public void cargarDatosUsuario(int idUsuario)
     {
-        String usuarioEmail = obtenerUsuarioActual();
-        if (usuarioEmail == null || usuarioEmail.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No se pudo obtener la información del usuario actual.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
 
         try (Connection conn = DBConnection.getConnection()) {
             //String sql = "SELECT * FROM usuarios WHERE email = ?";
             // Cambiar esta consulta:
             String sql = "SELECT u.*, r.rol FROM usuarios u " +
                     "INNER JOIN rol r ON u.ID_rol = r.ID_rol " +
-                    "WHERE u.email = ?";
+                    "WHERE u.ID_usuarios = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, usuarioEmail);
+            stmt.setInt(1, idUsuario);
             ResultSet rs = stmt.executeQuery();
+
+
 
             if (rs.next()) {
                 // Almacenar ID para futuras actualizaciones
@@ -133,14 +160,18 @@ public class VisualizarPerfilGUI {
                 rol.setText(rs.getString("rol"));
                 estado.setText(rs.getString("estado"));
 
+                emailActual = rs.getString("email");
+
 
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró información del usuario en la base de datos.",
+                JOptionPane.showMessageDialog(null,
+                        "No se encontró información del usuario con ID: " + idUsuario,
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos del usuario: " + ex.getMessage(),
+            JOptionPane.showMessageDialog(null,
+                    "Error al cargar los datos del usuario: " + ex.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -157,6 +188,7 @@ public class VisualizarPerfilGUI {
             stmt.setString(1, numeroDoc);
             stmt.setString(2, tipoDoc);
             ResultSet rs = stmt.executeQuery();
+
 
             if (rs.next()) {
                 // Almacenar ID para futuras actualizaciones
@@ -180,6 +212,7 @@ public class VisualizarPerfilGUI {
                         "No se encontró información del usuario con documento: " + numeroDoc,
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
+            emailActual = rs.getString("email");
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null,
@@ -218,6 +251,10 @@ public class VisualizarPerfilGUI {
     }
 
 
+    public static String getUsuarioActualPerfil() {
+
+        return "idUsuarioActual";
+    }
 
 
     public String obtenerUsuarioActual() {

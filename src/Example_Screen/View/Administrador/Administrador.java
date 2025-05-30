@@ -18,9 +18,6 @@ import Seguimiento.Modelo.GUI.CodigoGUI2;
 import Usuarios.*;
 
 
-import static Example_Screen.View.Login.LoginGUI.cofigBotonInicioSegunRol;
-import static Example_Screen.View.Login.LoginGUI.traerIDusuario;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +28,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import static Example_Screen.View.Login.LoginGUI.*;
 
 /**
  * Esta es la clase principal para la pantalla del Administrador.
@@ -90,7 +89,7 @@ public class Administrador {
     private JFrame frame;
 
 
-    private VerUsuariosRegistrados verUsuario = new VerUsuariosRegistrados();
+    private VerUsuariosRegistrados verUsuario = new VerUsuariosRegistrados(this);
 
     public static int verUsuarioPorRol = 0;
     int anchoCompleto = 280;  // Ancho original del menú
@@ -552,7 +551,7 @@ public class Administrador {
      */
     public void mostrarPanelEditar() {
 
-        int idUsuario = LoginGUI.idUsuarioActual; // o traerIDusuario
+        int idUsuario = idUsuarioActual; // o traerIDusuario
         int idRol = traerIDusuario; // ← CAMBIO AQUÍ: usar el rol real del usuario
         // O si no tienes rolUsuarioActual, usa el método que tengas para obtener el rol:
         // int idRol = obtenerRolUsuario(idUsuario);
@@ -597,7 +596,7 @@ public class Administrador {
      * y configure sus filtros.
      */
     public void mostrarPanelUsuarios() {
-        VerUsuariosRegistrados verUsuarios = new VerUsuariosRegistrados();
+        VerUsuariosRegistrados verUsuarios = new VerUsuariosRegistrados(this);
 
     // Muy importante: accede al panel primero para inicializar los componentes del GUI builder
         contenidoPanel.removeAll();
@@ -665,18 +664,43 @@ public class Administrador {
      * Muestra el panel de seguimiento.
      */
     public void mostrarPanel(String titulo, JPanel panelContenido) {
-        // Etiqueta centrada
+        // Cargar ícono desde recursos
+        ImageIcon iconoRegresar = new ImageIcon(getClass().getResource("/img/previous (3).png"));
+        JButton btnRegresar = new JButton(iconoRegresar);
+        btnRegresar.setBorderPainted(false);
+        btnRegresar.setContentAreaFilled(false);
+        btnRegresar.setFocusPainted(false);
+        btnRegresar.setBackground(new Color(57, 169, 0)); // Verde
+        btnRegresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        btnRegresar.addActionListener(e -> {
+            mostrarPanelGraficoInicio();
+        });
+
+        // Título centrado
         JLabel lblTitulo = new JLabel(titulo, SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("Calibri", Font.BOLD, 25));   // tamaño y estilo opcionales
-        lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0)); // margen superior/inferior
-        lblTitulo.setForeground(Color.WHITE); // Texto en color blanco
+        lblTitulo.setFont(new Font("Calibri", Font.BOLD, 25));
+        lblTitulo.setForeground(Color.WHITE);
+
+        // Panel con fondo verde: solo el título y el botón
+        JPanel panelTitulo = new JPanel(new BorderLayout());
+        panelTitulo.setBackground(new Color(57, 169, 0));
+        panelTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        panelTitulo.add(lblTitulo, BorderLayout.CENTER);
+        panelTitulo.add(btnRegresar, BorderLayout.WEST); // AHORA el botón está a la derecha
+
+        // Panel superior blanco que contiene al panel del título
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+        panelSuperior.setBackground(Color.WHITE); // Fondo blanco
+        panelSuperior.add(panelTitulo, BorderLayout.CENTER);
+
+        // Actualizar contenido principal
         contenidoPanel.removeAll();
         contenidoPanel.setLayout(new BorderLayout());
+        contenidoPanel.setBackground(Color.WHITE); // Fondo general blanco
 
-        contenidoPanel.setBackground(new Color(57, 169, 0)); // Color verde #39A900
-
-        // Agregamos título y contenido
-        contenidoPanel.add(lblTitulo, BorderLayout.NORTH);
+        contenidoPanel.add(panelSuperior, BorderLayout.NORTH);
         contenidoPanel.add(panelContenido, BorderLayout.CENTER);
         contenidoPanel.revalidate();
         contenidoPanel.repaint();
@@ -794,11 +818,12 @@ public class Administrador {
         botonPerfil.addActionListener(e -> {
             try {
                 // Obtener el rol del usuario actual desde la base de datos
-                int rolUsuario = obtenerRolUsuario(LoginGUI.idUsuarioActual);
+                int rolUsuario = obtenerRolUsuario(VisualizarPerfilGUI.userID);
 
                 JDialog perfilDialog = new JDialog(frame, "Ver Información", true);
                 // Usar el ID del usuario actual y su rol correcto
-                VisualizarPerfilGUI perfilGUI = new VisualizarPerfilGUI(LoginGUI.idUsuarioActual, rolUsuario);
+                VisualizarPerfilGUI perfilGUI = new VisualizarPerfilGUI(VisualizarPerfilGUI.userID, rolUsuario,this);
+                perfilGUI.irAlPerfilButton.setVisible(false);
                 perfilDialog.setContentPane(perfilGUI.panel1);
                 perfilDialog.pack();
                 perfilDialog.setLocationRelativeTo(frame);
@@ -827,7 +852,7 @@ public class Administrador {
         });
 
         // CÓDIGO COMENTADO - Botón Bitácoras
-        /*
+
         // Crear y configurar botón Bitácoras
         JButton botonBitacoras = new JButton("Ver Bitácoras");
         botonBitacoras.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -851,10 +876,18 @@ public class Administrador {
                 botonBitacoras.setBackground(new Color(0x007BFF));
             }
         });
-        */
+
+        botonBitacoras.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelSeguimiento147();
+
+            }
+        });
+
 
         // CÓDIGO COMENTADO - Botón Seguimiento
-        /*
+
         // Crear y configurar botón Seguimiento
         JButton botonSeguimiento = new JButton("Ver Seguimiento");
         botonSeguimiento.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -878,20 +911,26 @@ public class Administrador {
                 botonSeguimiento.setBackground(new Color(0x003366));
             }
         });
-        */
 
-        // Añadir solo el botón de perfil centrado verticalmente
+        botonSeguimiento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelSeguimiento023();
+
+            }
+        });
+
+        if("3".equals(cofigBotonInicioSegunRol)){
+            botonBitacoras.setVisible(false);
+        }
         panelDerecho.add(Box.createVerticalGlue());
         panelDerecho.add(botonPerfil);
-        panelDerecho.add(Box.createVerticalGlue());
-
-        // CÓDIGO COMENTADO - Agregado de botones adicionales
-        /*
         panelDerecho.add(Box.createRigidArea(new Dimension(0, 10)));
         panelDerecho.add(botonBitacoras);
         panelDerecho.add(Box.createRigidArea(new Dimension(0, 10)));
         panelDerecho.add(botonSeguimiento);
-        */
+        panelDerecho.add(Box.createVerticalGlue());
+
 
 
         contenidoPanel.add(panelIzquierdo, BorderLayout.CENTER);
@@ -951,9 +990,9 @@ public class Administrador {
      */
     public void configurarFlechasBotones() {
 
-        verUsuariosButton.setText(verUsuariosButton.getText() + "    " + ICONO_FLECHA_DERECHA);
-        crearUsuariosButton.setText(crearUsuariosButton.getText() + "        " + ICONO_FLECHA_DERECHA);
-        registrarEmpresa.setText(registrarEmpresa.getText() + " " + ICONO_FLECHA_DERECHA);
+        verUsuariosButton.setText(verUsuariosButton.getText() + "     " + ICONO_FLECHA_DERECHA);
+        crearUsuariosButton.setText(crearUsuariosButton.getText() + "" + ICONO_FLECHA_DERECHA);
+        registrarEmpresa.setText(registrarEmpresa.getText() + "    " + ICONO_FLECHA_DERECHA);
         FormatoBoton.setText(FormatoBoton.getText() + "  " + ICONO_FLECHA_DERECHA);
 
 
@@ -969,7 +1008,7 @@ public class Administrador {
      * y luego mostrar esa información en una tabla dentro del panel principal de la interfaz.
      */
     public void mostrarTablaAprendicesAsignados() {
-        VerUsuariosRegistrados vista = new VerUsuariosRegistrados();
+        VerUsuariosRegistrados vista = new VerUsuariosRegistrados(this);
         AprendicesAsignados asignados = new AprendicesAsignados();
 
         asignados.obtenerAprendicesAsignados(traerIDusuario, vista);
@@ -990,7 +1029,7 @@ public class Administrador {
      */
     public void mostrarTablaAprendicesContratados() {
 
-        VerUsuariosRegistrados vista = new VerUsuariosRegistrados();
+        VerUsuariosRegistrados vista = new VerUsuariosRegistrados(this);
         vista.mostrarRol("Aprendices Contratados");
 
         // 2. Obtener y mostrar los datos de aprendices contratados
