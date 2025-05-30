@@ -114,7 +114,37 @@ public class AprendizDAO {
         }
         return null;
     }
+    public String obtenerEstadoFormacionPorUsuario(int idUsuario) {
+        String estado = null;
+        String sql = "SELECT estado FROM aprendices WHERE ID_usuarios = ?";
 
+        try (Connection con = ConexionBD.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    estado = rs.getString("estado");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return estado;
+    }
+
+    public boolean actualizarEstadoFormacion(int idUsuario, String nuevoEstado) {
+        String sql = "UPDATE aprendices SET estado = ? WHERE ID_usuarios = ?";
+        try (Connection con = ConexionBD.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, nuevoEstado);
+            ps.setInt(2, idUsuario);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
 

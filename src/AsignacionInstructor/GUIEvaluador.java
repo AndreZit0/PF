@@ -49,7 +49,7 @@ public class GUIEvaluador {
 
         listaContacto();
 
-        main.setBackground(Color.decode("#F6F6F6"));
+        main.setBackground(Color.decode("#FFFFFF"));
 
         JTableHeader header = table1.getTableHeader();
         header.setBackground(Color.decode("#39A900"));

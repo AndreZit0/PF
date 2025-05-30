@@ -56,7 +56,7 @@ public class AsignacionGUI {
         table1.setModel(modelo);
         table1.setRowSorter(sorter);
 
-        pnlAsigna.setBackground(Color.decode("#F6F6F6"));
+        pnlAsigna.setBackground(Color.decode("#FFFFFF"));
 
         JTableHeader header = table1.getTableHeader();
         header.setBackground(Color.decode("#39A900"));
