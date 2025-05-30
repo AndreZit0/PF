@@ -20,9 +20,11 @@ public class EditarUsuario {
     private JButton confirmarButton;
     private JButton cancelar;
     private JTextField email_insti;
+    private JComboBox estado_formacion;
 
     private UsuariosDAO dao = new UsuariosDAO();
     private Usuarios_getset usuarioActual;
+    public Aprendiz_getset aprendizactual;
 
     public JPanel getMainPanel() {
         return main;
@@ -33,6 +35,7 @@ public class EditarUsuario {
 
         // Cargar datos del usuario en los campos
         cargarDatosUsuario();
+        cargarEstadoFormacion();
 
         // Acción al confirmar
         confirmarButton.addActionListener(new ActionListener() {
@@ -83,7 +86,10 @@ public class EditarUsuario {
         usuarioActual.setClave(clave.getText());
         usuarioActual.setEstado((String) estado.getSelectedItem());
 
+        String nuevoEstadoFormacion = (String) estado_formacion.getSelectedItem();
         if (dao.actualizarUsuario(usuarioActual)) {
+            AprendizDAO aprendizDAO1 = new AprendizDAO();
+            aprendizDAO1.actualizarEstadoFormacion(usuarioActual.getID_usuarios(), nuevoEstadoFormacion);
             JOptionPane.showMessageDialog(null, "Usuario actualizado correctamente.");
 
             // Cerrar la ventana actual
@@ -107,6 +113,15 @@ public class EditarUsuario {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Error al actualizar usuario.");
+        }
+    }
+    private void cargarEstadoFormacion() {
+        AprendizDAO aprendizDAO = new AprendizDAO();
+        String estado = aprendizDAO.obtenerEstadoFormacionPorUsuario(usuarioActual.getID_usuarios());
+
+
+        if (estado != null) {
+            estado_formacion.setSelectedItem(estado);
         }
     }
 
