@@ -92,6 +92,7 @@ public class Administrador {
     private VerUsuariosRegistrados verUsuario = new VerUsuariosRegistrados(this);
 
     public static int verUsuarioPorRol = 0;
+    public static int datosAprendices = 0;
     int anchoCompleto = 280;  // Ancho original del menú
     int anchoReducido = 80;   // Ancho reducido (30% aprox)
 
@@ -232,6 +233,7 @@ public class Administrador {
         aplicarEfectoHover(auxiliares, colorHover, colorBase);
         aplicarEfectoHover(coevaluadores, colorHover, colorBase);
         aplicarEfectoHover(evaluadores, colorHover, colorBase);
+        aplicarEfectoHover(asignaBoton, colorHover, colorBase);
 
 
 
@@ -478,6 +480,7 @@ public class Administrador {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mostrarTablaAprendicesAsignados();
+                datosAprendices = 7;
 
             }
         });
@@ -486,6 +489,7 @@ public class Administrador {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mostrarTablaAprendicesContratados();
+                datosAprendices = 8;
 
             }
         });
