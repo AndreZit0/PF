@@ -9,6 +9,11 @@ import Seguimiento.Modelo.GUI.CodigoGUI2;
 import Usuarios.EditarUsuario;
 import Usuarios.UsuariosDAO;
 import Usuarios.Usuarios_getset;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -19,17 +24,21 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
+import static Example_Screen.View.Administrador.Administrador.datosAprendices;
 import static Example_Screen.View.Administrador.Administrador.verUsuarioPorRol;
-import static Example_Screen.View.Login.LoginGUI.idUsuarioActual;
-import static Example_Screen.View.Login.LoginGUI.traerIDusuario;
+import static Example_Screen.View.Login.LoginGUI.*;
 
 public class VerUsuariosRegistrados {
     private JTable table1;
@@ -39,6 +48,7 @@ public class VerUsuariosRegistrados {
     private JLabel tipoUsuario;
     private JPanel panelTable;
     private JScrollPane scroll;
+    private JButton pdfButton;
 
     public JTable getTable() {
         return table1;
@@ -69,6 +79,239 @@ public class VerUsuariosRegistrados {
 
     public VerUsuariosRegistrados(Administrador admin) {
         this.admin = admin;
+        pdfButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombreArchivo = "";  // Este será el prefijo del nombre del archivo
+
+// colores
+                BaseColor verdeSena = new BaseColor(57, 169, 0);
+                Document documento = new Document(PageSize.A4);
+
+                try {
+                    // 1. Definir el nombre del archivo según el tipo de reporte
+                    if ((verUsuarioPorRol >= 1 && verUsuarioPorRol <= 4)) {
+                        nombreArchivo = "usuarios_";
+                    } else if (datosAprendices == 7) {
+                        nombreArchivo = "aprendices_asignados_";
+                    } else if (datosAprendices == 8) {
+                        nombreArchivo = "aprendices_contratados_";
+                    } else {
+                        nombreArchivo = "reporte_"; // nombre por defecto si no coincide nada
+                    }
+
+                    // 2. Crear archivo temporal con nombre adecuado
+                    File tempFile = File.createTempFile(nombreArchivo, ".pdf");
+                    tempFile.deleteOnExit(); // Eliminar al cerrar programa
+                    PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(tempFile));
+
+                    documento.open();
+
+                    // 3. Fondo de imagen
+                    String imagePath = "src/Empresas/img/fondo.png";
+                    File imgFile = new File(imagePath);
+                    if (!imgFile.exists()) {
+                        JOptionPane.showMessageDialog(null, "Error: Imagen de fondo no encontrada.");
+                        return;
+                    }
+
+                    com.itextpdf.text.Image background = com.itextpdf.text.Image.getInstance(imagePath);
+                    background.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
+                    background.setAbsolutePosition(0, 0);
+                    PdfContentByte canvas = writer.getDirectContentUnder();
+                    canvas.addImage(background);
+
+                    documento.add(new Paragraph("\n\n\n"));
+                    documento.add(new Paragraph("\n\n\n"));
+
+                    // 4. Reporte por Rol
+                    if ((verUsuarioPorRol >= 1 && verUsuarioPorRol <= 4)) {
+                        String nombrePDF = switch (verUsuarioPorRol) {
+                            case 1 -> "Aprendices Registrados";
+                            case 2 -> "Evaluadores Registrados";
+                            case 3 -> "Coevaluadores Registrados";
+                            case 4 -> "Auxiliares Registrados";
+                            default -> "Usuarios";
+                        };
+
+                        Paragraph titulo = new Paragraph(nombrePDF,
+                                FontFactory.getFont("Tahoma", 22, com.itextpdf.text.Font.BOLD, verdeSena));
+                        titulo.setAlignment(Element.ALIGN_CENTER);
+                        documento.add(titulo);
+                        documento.add(new Paragraph("\n\n"));
+
+                        PdfPTable tabla = new PdfPTable(9);
+                        tabla.setWidthPercentage(110);
+                        tabla.setSpacingBefore(10f);
+                        tabla.setSpacingAfter(10f);
+
+                        String[] headers = {"T. De identificacion", "Numero", "Nombre", "Apellido", "Email", "Email inst", "Direccion", "Contacto", "Estado"};
+                        for (String header : headers) {
+                            PdfPCell cell = new PdfPCell(new Phrase(header,
+                                    FontFactory.getFont("Calibri", 12, com.itextpdf.text.Font.BOLD, BaseColor.WHITE)));
+                            cell.setBackgroundColor(verdeSena);
+                            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                            tabla.addCell(cell);
+                        }
+
+                        try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "");
+                             PreparedStatement pst = cn.prepareStatement(
+                                     "SELECT tipo_dc, numero, nombres, apellidos, email, email_insti, direccion, contacto1, estado FROM usuarios WHERE id_rol = ?"
+                             )) {
+
+                            pst.setInt(1, verUsuarioPorRol);
+                            ResultSet rs = pst.executeQuery();
+
+                            if (!rs.isBeforeFirst()) {
+                                JOptionPane.showMessageDialog(null, "No se han encontrado los datos.");
+                            } else {
+                                while (rs.next()) {
+                                    for (int i = 1; i <= 9; i++) {
+                                        tabla.addCell(rs.getString(i));
+                                    }
+                                }
+                            }
+
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(null, "Error en la base de datos: " + ex.getMessage());
+                        }
+
+                        documento.add(tabla);
+                    }
+
+                    // 5. Aprendices asignados
+                    if (datosAprendices == 7) {
+                        Paragraph titulo = new Paragraph("Aprendices Asignados",
+                                FontFactory.getFont("Tahoma", 22, com.itextpdf.text.Font.BOLD, verdeSena));
+                        titulo.setAlignment(Element.ALIGN_CENTER);
+                        documento.add(titulo);
+                        documento.add(new Paragraph("\n\n"));
+
+                        PdfPTable tabla = new PdfPTable(9);
+                        tabla.setWidthPercentage(110);
+                        tabla.setSpacingBefore(10f);
+                        tabla.setSpacingAfter(10f);
+
+                        String[] headers = {"T. De identificacion", "Número", "Nombre", "Apellido", "Email", "Email inst", "Dirección", "Contacto", "Estado"};
+
+                        for (String header : headers) {
+                            PdfPCell cell = new PdfPCell(new Phrase(header,
+                                    FontFactory.getFont("Calibri", 12, com.itextpdf.text.Font.BOLD, BaseColor.WHITE)));
+                            cell.setBackgroundColor(verdeSena);
+                            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                            tabla.addCell(cell);
+                        }
+
+                        try (Connection con = DBConnection.getConnection()) {
+                            String sqlAprendices = "SELECT ID_usuarios FROM aprendices WHERE ID_instructor = ?";
+                            PreparedStatement psAprendices = con.prepareStatement(sqlAprendices);
+                            psAprendices.setInt(1, traerIDusuario);
+                            ResultSet rsAprendices = psAprendices.executeQuery();
+
+                            boolean hayDatos = false;
+
+                            while (rsAprendices.next()) {
+                                int idAprendiz = rsAprendices.getInt("ID_usuarios");
+
+                                String sqlUsuario = "SELECT tipo_dc, numero, nombres, apellidos, email, email_insti, direccion, contacto1, estado FROM usuarios WHERE ID_usuarios = ?";
+                                PreparedStatement psUsuario = con.prepareStatement(sqlUsuario);
+                                psUsuario.setInt(1, idAprendiz);
+                                ResultSet rsUsuario = psUsuario.executeQuery();
+
+                                if (rsUsuario.next()) {
+                                    for (int i = 1; i <= 9; i++) {
+                                        tabla.addCell(rsUsuario.getString(i));
+                                    }
+                                    hayDatos = true;
+                                }
+
+                                psUsuario.close();
+                            }
+
+                            if (!hayDatos) {
+                                JOptionPane.showMessageDialog(null, "No se encontraron aprendices asignados.");
+                            }
+
+                            psAprendices.close();
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(null, "Error en la base de datos: " + ex.getMessage());
+                        }
+
+                        documento.add(tabla);
+                    }
+
+                    // 6. Aprendices contratados
+                    if (datosAprendices == 8) {
+                        Paragraph titulo = new Paragraph("Aprendices Contratados",
+                                FontFactory.getFont("Tahoma", 22, com.itextpdf.text.Font.BOLD, verdeSena));
+                        titulo.setAlignment(Element.ALIGN_CENTER);
+                        documento.add(titulo);
+                        documento.add(new Paragraph("\n\n"));
+
+                        PdfPTable tabla = new PdfPTable(6);
+                        tabla.setWidthPercentage(110);
+                        tabla.setSpacingBefore(10f);
+                        tabla.setSpacingAfter(10f);
+
+                        String[] headers = {"T. De Documento", "Número", "Nombres", "Apellidos", "Email", "Empresa"};
+
+                        for (String header : headers) {
+                            PdfPCell cell = new PdfPCell(new Phrase(header,
+                                    FontFactory.getFont("Calibri", 12, com.itextpdf.text.Font.BOLD, BaseColor.WHITE)));
+                            cell.setBackgroundColor(verdeSena);
+                            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                            tabla.addCell(cell);
+                        }
+
+                        try (Connection con = DBConnection.getConnection();
+                             PreparedStatement psAprendices = con.prepareStatement("""
+             SELECT u.tipo_dc, u.numero, u.nombres, u.apellidos, u.email, e.nombre_empresa
+             FROM aprendices a
+             INNER JOIN usuarios u ON a.ID_usuarios = u.ID_usuarios
+             INNER JOIN empresas e ON a.ID_empresas = e.ID_empresas
+             WHERE a.ID_empresas = ?
+         """)) {
+
+                            psAprendices.setInt(1, traerIDusuario);
+
+                            ResultSet rsAprendices = psAprendices.executeQuery();
+
+                            if (!rsAprendices.isBeforeFirst()) {
+                                JOptionPane.showMessageDialog(null, "No se han encontrado aprendices contratados.");
+                            } else {
+                                while (rsAprendices.next()) {
+                                    tabla.addCell(rsAprendices.getString("tipo_dc"));
+                                    tabla.addCell(rsAprendices.getString("numero"));
+                                    tabla.addCell(rsAprendices.getString("nombres"));
+                                    tabla.addCell(rsAprendices.getString("apellidos"));
+                                    tabla.addCell(rsAprendices.getString("email"));
+                                    tabla.addCell(rsAprendices.getString("nombre_empresa"));
+                                }
+                            }
+
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(null, "Error en la base de datos: " + ex.getMessage());
+                        }
+
+                        documento.add(tabla);
+                    }
+
+                    // 7. Cerrar documento
+                    documento.close();
+
+                    // 8. Abrir el PDF
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().open(tempFile);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "La apertura automática no es compatible en este sistema.");
+                    }
+
+                } catch (DocumentException | IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al generar el PDF: " + ex.getMessage());
+                }
+
+            }
+        });
     }
 
 
@@ -510,6 +753,7 @@ public class VerUsuariosRegistrados {
 
         scroll.getViewport().setBackground(Color.decode("#e8e6e8"));
         scroll.getViewport().setBackground(Color.decode("#e8e6e8"));
+        table1.getTableHeader().setReorderingAllowed(false);
     }
 
     public void tipoDeUsuarioRegistrado1() {

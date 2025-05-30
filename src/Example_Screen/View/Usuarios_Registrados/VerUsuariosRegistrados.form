@@ -48,7 +48,7 @@
           <text value=""/>
         </properties>
       </component>
-      <grid id="f5cdf" binding="panelTable" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="f5cdf" binding="panelTable" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="40" left="0" bottom="20" right="0"/>
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -75,6 +75,22 @@
               </component>
             </children>
           </scrollpane>
+          <component id="40769" class="javax.swing.JButton" binding="pdfButton">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="120" height="30"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-812014"/>
+              <borderPainted value="false"/>
+              <focusPainted value="false"/>
+              <font name="Calibri" style="1"/>
+              <foreground color="-1"/>
+              <requestFocusEnabled value="false"/>
+              <text value="Generar PDF"/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>
