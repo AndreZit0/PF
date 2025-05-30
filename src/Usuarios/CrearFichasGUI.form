@@ -35,7 +35,7 @@
                 <properties>
                   <font name="Calibri" size="18" style="1"/>
                   <foreground color="-16777216"/>
-                  <text value="ID_Programa"/>
+                  <text value="Programa"/>
                 </properties>
               </component>
               <component id="50f35" class="javax.swing.JLabel">
@@ -45,7 +45,7 @@
                 <properties>
                   <font name="Calibri" size="18" style="1"/>
                   <foreground color="-16777216"/>
-                  <text value="ID_Sede"/>
+                  <text value="Sede"/>
                 </properties>
               </component>
               <component id="f716f" class="javax.swing.JLabel">

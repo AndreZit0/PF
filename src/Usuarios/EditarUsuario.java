@@ -1,5 +1,7 @@
 package Usuarios;
 
+import Example_Screen.View.VisualizarPerfilGUI;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,10 +23,11 @@ public class EditarUsuario {
     private JButton cancelar;
     private JTextField email_insti;
     private JComboBox estado_formacion;
+    private JLabel estad;
 
     private UsuariosDAO dao = new UsuariosDAO();
     private Usuarios_getset usuarioActual;
-    public Aprendiz_getset aprendizactual;
+    private VisualizarPerfilGUI visualizarPerfilGUI;
 
     public JPanel getMainPanel() {
         return main;
@@ -36,6 +39,14 @@ public class EditarUsuario {
         // Cargar datos del usuario en los campos
         cargarDatosUsuario();
         cargarEstadoFormacion();
+
+        if ("Aprendiz".equals(rol.getSelectedItem().toString())) {
+            estad.setVisible(true);
+            estado_formacion.setVisible(true);
+        } else {
+            estad.setVisible(false);
+            estado_formacion.setVisible(false);
+        }
 
         // Acción al confirmar
         confirmarButton.addActionListener(new ActionListener() {
