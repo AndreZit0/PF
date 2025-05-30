@@ -40,6 +40,8 @@ public class VisualizarPerfilGUI {
     private JLabel fich;
     private JLabel empr;
     private JLabel prog;
+    private JLabel dato_apren;
+    private JLabel esta_apren;
     public static int userID;
     public static String emailActual;
     private DBConnection dbConnection = new DBConnection();
@@ -114,6 +116,7 @@ public class VisualizarPerfilGUI {
         fich.setVisible(esAprendiz);
         prog.setVisible(esAprendiz);
         modalidad.setVisible(esAprendiz);
+        esta_apren.setVisible(esAprendiz);
 
 
     }
@@ -125,6 +128,7 @@ public class VisualizarPerfilGUI {
         fich.setVisible(false);
         prog.setVisible(false);
         modalidad.setVisible(false);
+        esta_apren.setVisible(false);
     }
 
 
@@ -221,13 +225,14 @@ public class VisualizarPerfilGUI {
         }
     }
 
-    private void cargarDatosAprendiz(int idUsuario, int idRol) {
+    public void cargarDatosAprendiz(int idUsuario, int idRol) {
         if (idRol != 1) return; // Solo si es Aprendiz
 
         try (Connection conn = dbConnection.getConnection()) {
             String sql = """
             SELECT e.nombre_empresa, f.codigo, 
-                   p.nombre_programa, m.modalidad AS modalidadContrato
+                   p.nombre_programa, m.modalidad AS modalidadContrato,
+                   a.estado
             FROM aprendices a
             LEFT JOIN empresas e ON a.ID_empresas = e.ID_empresas
             LEFT JOIN fichas f ON a.ID_Fichas = f.ID_Fichas
@@ -244,6 +249,7 @@ public class VisualizarPerfilGUI {
                 datoFich.setText(rs.getString("codigo"));
                 datoProg.setText(rs.getString("nombre_programa"));
                 datoModal.setText(rs.getString("modalidadContrato"));
+                dato_apren.setText(rs.getString("estado"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
