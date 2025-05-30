@@ -1,0 +1,967 @@
+Index: src/Empresas/Vista/ActualizarGUI.form
+===================================================================
+diff --git a/src/Empresas/Vista/ActualizarGUI.form b/src/Empresas/Vista/ActualizarGUI.form
+deleted file mode 100644
+--- a/src/Empresas/Vista/ActualizarGUI.form	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
++++ /dev/null	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
+@@ -1,273 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Empresas.Vista.ActualizarGUI">
+-  <grid id="27dc6" binding="main" layout-manager="GridLayoutManager" row-count="11" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+-    <margin top="20" left="20" bottom="20" right="20"/>
+-    <constraints>
+-      <xy x="20" y="20" width="500" height="468"/>
+-    </constraints>
+-    <properties>
+-      <background color="-592138"/>
+-      <font name="Calibri" size="20" style="1"/>
+-    </properties>
+-    <border type="none"/>
+-    <children>
+-      <component id="9728a" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="NIT:"/>
+-        </properties>
+-      </component>
+-      <component id="af7e" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Nombre:"/>
+-        </properties>
+-      </component>
+-      <component id="eab5c" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Dirección:"/>
+-        </properties>
+-      </component>
+-      <component id="16a46" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Área:"/>
+-        </properties>
+-      </component>
+-      <component id="5fdad" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Coevaluador:"/>
+-        </properties>
+-      </component>
+-      <component id="14032" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Contacto:"/>
+-        </properties>
+-      </component>
+-      <component id="b6daa" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Email:"/>
+-        </properties>
+-      </component>
+-      <component id="5fc17" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Departamento:"/>
+-        </properties>
+-      </component>
+-      <component id="a895f" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Ciudad:"/>
+-        </properties>
+-      </component>
+-      <component id="9c461" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Estado:"/>
+-        </properties>
+-      </component>
+-      <component id="b46fa" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+-        <constraints>
+-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="e837e" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+-        <constraints>
+-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="c3b73" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+-        <constraints>
+-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="53d78" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+-        <constraints>
+-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="a7fd8" class="javax.swing.JTextField" binding="textField5">
+-        <constraints>
+-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="e81bd" class="javax.swing.JTextField" binding="textField6">
+-        <constraints>
+-          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="1bd63" class="javax.swing.JTextField" binding="textField7">
+-        <constraints>
+-          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="2278a" class="javax.swing.JComboBox" binding="comboBoxdep">
+-        <constraints>
+-          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <model>
+-            <item value="Amazonas"/>
+-            <item value="Antioquia"/>
+-            <item value="Atlántico"/>
+-            <item value="Bogotá D.C."/>
+-            <item value="Bolívar"/>
+-            <item value="Boyacá"/>
+-            <item value="Caldas"/>
+-            <item value="Caquetá"/>
+-            <item value="Casanare"/>
+-            <item value="Cauca"/>
+-            <item value="Cesar"/>
+-            <item value="Chocó"/>
+-            <item value="Córdoba"/>
+-            <item value="Cundinamarca"/>
+-            <item value="Guaviare"/>
+-            <item value="Guainía"/>
+-            <item value="Huila"/>
+-            <item value="La Guajira"/>
+-            <item value="Magdalena"/>
+-            <item value="Meta"/>
+-            <item value="Nariño"/>
+-            <item value="Norte de Santander"/>
+-            <item value="Putumayo"/>
+-            <item value="Quindío"/>
+-            <item value="Risaralda"/>
+-            <item value="San Andrés y Providencia"/>
+-            <item value="Santander"/>
+-            <item value="Sucre"/>
+-            <item value="Tolima"/>
+-            <item value="Valle del Cauca"/>
+-            <item value="Vaupés"/>
+-            <item value="Vichada"/>
+-          </model>
+-        </properties>
+-      </component>
+-      <component id="d48c0" class="javax.swing.JComboBox" binding="comboBoxest">
+-        <constraints>
+-          <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <model>
+-            <item value="Activa"/>
+-            <item value="Inactiva"/>
+-          </model>
+-        </properties>
+-      </component>
+-      <component id="51358" class="javax.swing.JButton" binding="guardarCambiosButton" default-binding="true">
+-        <constraints>
+-          <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <background color="-12998400"/>
+-          <font name="Calibri" size="20" style="1"/>
+-          <foreground color="-592138"/>
+-          <text value="Guardar Cambios"/>
+-        </properties>
+-      </component>
+-      <component id="6e90f" class="javax.swing.JComboBox" binding="comboBoxcoe">
+-        <constraints>
+-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <model/>
+-        </properties>
+-      </component>
+-    </children>
+-  </grid>
+-</form>
+Index: src/Empresas/Vista/DetallesGUI.form
+===================================================================
+diff --git a/src/Empresas/Vista/DetallesGUI.form b/src/Empresas/Vista/DetallesGUI.form
+deleted file mode 100644
+--- a/src/Empresas/Vista/DetallesGUI.form	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
++++ /dev/null	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
+@@ -1,246 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Empresas.Vista.DetallesGUI">
+-  <grid id="27dc6" binding="main" layout-manager="GridLayoutManager" row-count="10" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+-    <margin top="20" left="20" bottom="20" right="20"/>
+-    <constraints>
+-      <xy x="20" y="20" width="500" height="429"/>
+-    </constraints>
+-    <properties>
+-      <background color="-592138"/>
+-      <foreground color="-592138"/>
+-    </properties>
+-    <border type="none"/>
+-    <children>
+-      <component id="48fe2" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="NIT:"/>
+-        </properties>
+-      </component>
+-      <component id="4f0f6" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Nombre:"/>
+-        </properties>
+-      </component>
+-      <component id="702e7" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Dirección:"/>
+-        </properties>
+-      </component>
+-      <component id="c91a" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Área:"/>
+-        </properties>
+-      </component>
+-      <component id="cac57" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Coevaluador:"/>
+-        </properties>
+-      </component>
+-      <component id="52408" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Contacto:"/>
+-        </properties>
+-      </component>
+-      <component id="dcc74" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Email:"/>
+-        </properties>
+-      </component>
+-      <component id="b48a8" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Departamento:"/>
+-        </properties>
+-      </component>
+-      <component id="20127" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Ciudad:"/>
+-        </properties>
+-      </component>
+-      <component id="5f1df" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+-        <constraints>
+-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <editable value="false"/>
+-          <enabled value="true"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="c90c7" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+-        <constraints>
+-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <editable value="false"/>
+-          <enabled value="true"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="cddaf" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+-        <constraints>
+-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <editable value="false"/>
+-          <enabled value="true"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="8ffae" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+-        <constraints>
+-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <editable value="false"/>
+-          <enabled value="true"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="5d372" class="javax.swing.JTextField" binding="textField5" default-binding="true">
+-        <constraints>
+-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <editable value="false"/>
+-          <enabled value="true"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="406a0" class="javax.swing.JTextField" binding="textField6" default-binding="true">
+-        <constraints>
+-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <editable value="false"/>
+-          <enabled value="true"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="f81d8" class="javax.swing.JTextField" binding="textField7" default-binding="true">
+-        <constraints>
+-          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <editable value="false"/>
+-          <enabled value="true"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="ee716" class="javax.swing.JTextField" binding="textField8" default-binding="true">
+-        <constraints>
+-          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <editable value="false"/>
+-          <enabled value="true"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="b37d2" class="javax.swing.JTextField" binding="textField9" default-binding="true">
+-        <constraints>
+-          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <editable value="false"/>
+-          <enabled value="true"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-      <component id="1a651" class="javax.swing.JLabel">
+-        <constraints>
+-          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+-        </constraints>
+-        <properties>
+-          <font name="Calibri" size="16" style="1"/>
+-          <foreground color="-16644608"/>
+-          <text value="Estado:"/>
+-        </properties>
+-      </component>
+-      <component id="df968" class="javax.swing.JTextField" binding="textField10">
+-        <constraints>
+-          <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+-            <preferred-size width="150" height="-1"/>
+-          </grid>
+-        </constraints>
+-        <properties>
+-          <background color="-592138"/>
+-          <editable value="false"/>
+-          <enabled value="true"/>
+-          <font name="Calibri" size="16" style="1"/>
+-        </properties>
+-      </component>
+-    </children>
+-  </grid>
+-</form>
+Index: src/Empresas/Vista/ActualizarGUI.java
+===================================================================
+diff --git a/src/Empresas/Vista/ActualizarGUI.java b/src/Empresas/Vista/ActualizarGUI.java
+deleted file mode 100644
+--- a/src/Empresas/Vista/ActualizarGUI.java	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
++++ /dev/null	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
+@@ -1,142 +0,0 @@
+-package Empresas.Vista;
+-
+-import Empresas.ConexionBD.ConnectionDB;
+-import Empresas.Controlador.EmpresaDAO;
+-import Empresas.Modelo.Empresa;
+-
+-import javax.swing.*;
+-import java.awt.*;
+-import java.awt.event.ActionEvent;
+-import java.awt.event.ActionListener;
+-import java.sql.Connection;
+-import java.sql.PreparedStatement;
+-import java.sql.ResultSet;
+-import java.sql.SQLException;
+-
+-/**
+- * Clase que representa una ventana de diálogo para actualizar los datos de una empresa.
+- * Permite modificar los campos asociados a una empresa y actualizar la información en la base de datos.
+- */
+-public class ActualizarGUI extends JDialog {
+-    private JPanel main; // <--- este es tu panel principal
+-    private JTextField textField1;
+-    private JTextField textField2;
+-    private JTextField textField3;
+-    private JTextField textField4;
+-    private JTextField textField5;
+-    private JTextField textField6;
+-    private JTextField textField7;
+-    private JComboBox comboBoxdep;
+-    private JComboBox comboBoxest;
+-    public JComboBox comboBoxcoe;
+-    private JButton guardarCambiosButton;
+-
+-    private Empresa empresa;
+-    private EmpresaDAO empresaDAO;
+-
+-    /**
+-     * Constructor de la clase ActualizarGUI.
+-     *
+-     * @param owner    Componente padre de la ventana de diálogo.
+-     * @param empresa  Objeto Empresa que contiene los datos a actualizar.
+-     * @param empresaDAO Objeto DAO para manejar operaciones con la base de datos.
+-     * @param onUpdate Callback que se ejecuta después de guardar los cambios (por ejemplo, para refrescar una tabla).
+-     */
+-    public ActualizarGUI(Frame owner, Empresa empresa, EmpresaDAO empresaDAO, Runnable onUpdate) {
+-        super(owner, "Actualizar Empresa", true);
+-        this.empresa = empresa;
+-        this.empresaDAO = empresaDAO;
+-
+-        setContentPane(main);
+-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+-        setSize(400, 500);
+-        setLocationRelativeTo(owner);
+-
+-        cargarDatosEmpresa();
+-        cargarCoevaluadores();
+-        guardarCambiosButton.addActionListener(e -> {
+-            if (guardarCambios()) {
+-                onUpdate.run();
+-                dispose();
+-            }
+-        });
+-    }
+-
+-    /**
+-     * Carga los datos actuales de la empresa en los campos del formulario.
+-     */
+-    public void cargarDatosEmpresa() {
+-        textField1.setText(empresa.getNit());
+-        textField2.setText(empresa.getNombre_empresa());
+-        textField3.setText(empresa.getDireccion());
+-        textField4.setText(empresa.getArea());
+-        comboBoxcoe.setSelectedItem(empresa.getID_usuarios());
+-        textField5.setText(empresa.getContacto());
+-        textField6.setText(empresa.getEmail());
+-        textField7.setText(empresa.getCiudad());
+-        comboBoxdep.setSelectedItem(empresa.getDepartamento());
+-        comboBoxest.setSelectedItem(empresa.getEstado());
+-    }
+-
+-    /**
+-     * Guarda los cambios realizados en el formulario actualizando el objeto empresa
+-     * y persistiendo los datos mediante el DAO.
+-     */
+-    public boolean guardarCambios() {
+-        String email = textField6.getText();
+-        if (!email.endsWith("@gmail.com")) {
+-            JOptionPane.showMessageDialog(this, "El correo electrónico debe terminar en '@gmail.com'.", "Correo no válido", JOptionPane.ERROR_MESSAGE);
+-            return false;
+-        }
+-
+-        empresa.setNit(textField1.getText());
+-        empresa.setNombre_empresa(textField2.getText());
+-        empresa.setDireccion(textField3.getText());
+-        empresa.setArea(textField4.getText());
+-
+-        String coevaluadorSeleccionado = (String) comboBoxcoe.getSelectedItem();
+-        if (coevaluadorSeleccionado != null && !coevaluadorSeleccionado.isEmpty()) {
+-            int idCoevaluador = Integer.parseInt(coevaluadorSeleccionado.split(" - ")[0]);
+-            empresa.setID_usuarios(idCoevaluador);
+-        }
+-
+-        empresa.setContacto(textField5.getText());
+-        empresa.setEmail(email);
+-        empresa.setCiudad(textField7.getText());
+-        empresa.setDepartamento((String) comboBoxdep.getSelectedItem());
+-        empresa.setEstado((String) comboBoxest.getSelectedItem());
+-
+-        empresaDAO.actualizarEmpresa(empresa);
+-        JOptionPane.showMessageDialog(this, "Empresa actualizada con éxito.");
+-        return true;
+-    }
+-
+-
+-    /**
+-     * Carga en el ComboBox los usuarios que tienen el rol de "Coevaluador" desde la base de datos.
+-     */
+-    public void cargarCoevaluadores() {
+-        try (Connection con = new ConnectionDB().getConnection();
+-             PreparedStatement ps = con.prepareStatement(
+-                     "SELECT u.ID_usuarios, u.nombres, u.apellidos " +
+-                             "FROM usuarios u " +
+-                             "JOIN rol r ON u.ID_rol = r.ID_rol " +
+-                             "WHERE r.rol = 'Coevaluador'"
+-             );
+-             ResultSet rs = ps.executeQuery()) {
+-
+-            while (rs.next()) {
+-                int id = rs.getInt("ID_usuarios");
+-                String nombre = rs.getString("nombres");
+-                String apellido = rs.getString("apellidos");
+-                comboBoxcoe.addItem(id + " - " + nombre + " " + apellido);
+-            }
+-
+-        } catch (SQLException ex) {
+-            ex.printStackTrace();
+-            JOptionPane.showMessageDialog(null, "Error al cargar los coevaluadores.");
+-        }
+-
+-    }
+-
+-}
+Index: src/Empresas/Vista/DetallesGUI.java
+===================================================================
+diff --git a/src/Empresas/Vista/DetallesGUI.java b/src/Empresas/Vista/DetallesGUI.java
+deleted file mode 100644
+--- a/src/Empresas/Vista/DetallesGUI.java	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
++++ /dev/null	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
+@@ -1,96 +0,0 @@
+-package Empresas.Vista;
+-
+-import Empresas.ConexionBD.ConnectionDB;
+-import Empresas.Controlador.EmpresaDAO;
+-import Empresas.Modelo.Empresa;
+-import javax.swing.*;
+-import java.awt.*;
+-import java.sql.Connection;
+-import java.sql.PreparedStatement;
+-import java.sql.ResultSet;
+-import java.sql.SQLException;
+-
+-/**
+- * Clase que representa la interfaz gráfica para visualizar los detalles de una empresa.
+- */
+-public class DetallesGUI {
+-    private JTextField textField1;
+-    private JTextField textField2;
+-    private JTextField textField3;
+-    private JTextField textField4;
+-    private JTextField textField5;
+-    private JTextField textField6;
+-    private JTextField textField7;
+-    private JTextField textField8;
+-    private JTextField textField9;
+-    private JPanel main;
+-    private JTextField textField10;
+-    private EmpresaDAO empresaDAO = new EmpresaDAO();
+-    private ConnectionDB connectionDB = new ConnectionDB();
+-
+-    /**
+-     * Constructor que inicializa la interfaz de detalles con los datos de una empresa específica.
+-     *
+-     * @param nitEmpresaSeleccionada NIT de la empresa cuyos datos se desean cargar.
+-     */
+-    public DetallesGUI(String nitEmpresaSeleccionada) {
+-        cargarDatosEmpresa(nitEmpresaSeleccionada);
+-    }
+-
+-    /**
+-     * Carga los datos de la empresa desde la base de datos y los asigna a los campos de texto de la interfaz.
+-     *
+-     * @param nit NIT de la empresa a consultar.
+-     */
+-    public void cargarDatosEmpresa(String nit) {
+-        Empresa empresa = empresaDAO.buscarEmpresa(nit);
+-
+-        if (empresa == null) {
+-            JOptionPane.showMessageDialog(null, "Empresa no encontrada.");
+-            return;
+-        }
+-
+-        String nombreCoevaluador = "";
+-        try (Connection con = new ConnectionDB().getConnection();
+-             PreparedStatement ps = con.prepareStatement("SELECT nombres, apellidos FROM usuarios WHERE ID_usuarios = ?")) {
+-            ps.setInt(1, empresa.getID_usuarios());
+-            try (ResultSet rs = ps.executeQuery()) {
+-                if (rs.next()) {
+-                    nombreCoevaluador = rs.getString("nombres") + " " + rs.getString("apellidos");
+-                }
+-            }
+-        } catch (SQLException ex) {
+-            ex.printStackTrace();
+-        }
+-
+-        JTextField[] campos = {textField1, textField2, textField3, textField4, textField5, textField6, textField7, textField8, textField9, textField10};
+-
+-        for (JTextField campo : campos) {
+-            campo.setBorder(BorderFactory.createCompoundBorder(
+-                    BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1),
+-                    BorderFactory.createEmptyBorder(2, 5, 2, 5)
+-            ));
+-            campo.setCaretColor(campo.getBackground());
+-        }
+-
+-        textField1.setText(empresa.getNit());
+-        textField2.setText(empresa.getNombre_empresa());
+-        textField3.setText(empresa.getDireccion());
+-        textField4.setText(empresa.getArea());
+-        textField5.setText(nombreCoevaluador);
+-        textField6.setText(empresa.getContacto());
+-        textField7.setText(empresa.getEmail());
+-        textField8.setText(empresa.getDepartamento());
+-        textField9.setText(empresa.getCiudad());
+-        textField10.setText(empresa.getEstado());
+-    }
+-
+-    /**
+-     * Devuelve el panel principal que contiene la interfaz gráfica.
+-     *
+-     * @return JPanel principal.
+-     */
+-    public JPanel getMainPanel() {
+-        return main;
+-    }
+-}
+Index: src/Empresas/Modelo/Empresa.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Empresas.Modelo;\r\n\r\n/**\r\n * Clase que representa una empresa con sus respectivos datos de identificación,\r\n * contacto y localización.\r\n */\r\npublic class Empresa {\r\n\r\n    /** ID único de la empresa */\r\n    int ID_empresas;\r\n\r\n    /** ID del usuario asociado a la empresa */\r\n    int ID_usuarios;\r\n\r\n    /** Número de identificación tributaria de la empresa */\r\n    String nit;\r\n\r\n    /** Nombre de la empresa */\r\n    String nombre_empresa;\r\n\r\n    /** Dirección de la empresa */\r\n    String direccion;\r\n\r\n    /** Área de actividad de la empresa */\r\n    String area;\r\n\r\n    /** Información de contacto de la empresa */\r\n    String contacto;\r\n\r\n    /** Correo electrónico de la empresa */\r\n    String email;\r\n\r\n    /** Departamento donde se encuentra la empresa */\r\n    String departamento;\r\n\r\n    /** Ciudad donde se encuentra la empresa */\r\n    String ciudad;\r\n\r\n\r\n    String estado;\r\n\r\n    String nombreCoevaluador;\r\n\r\n    /**\r\n     * Constructor que inicializa los datos de la empresa.\r\n     *\r\n     * @param ID_empresas El ID único de la empresa.\r\n     * @param ID_usuarios El ID del usuario asociado a la empresa.\r\n     * @param nit El número de identificación tributaria de la empresa.\r\n     * @param nombre_empresa El nombre de la empresa.\r\n     * @param direccion La dirección de la empresa.\r\n     * @param area El área de actividad de la empresa.\r\n     * @param contacto La información de contacto de la empresa.\r\n     * @param email El correo electrónico de la empresa.\r\n     * @param departamento El departamento donde se encuentra la empresa.\r\n     * @param ciudad La ciudad donde se encuentra la empresa.\r\n     */\r\n    public Empresa(int ID_empresas, int ID_usuarios, String nit, String nombre_empresa, String direccion, String area, String contacto, String email, String departamento, String ciudad, String estado) {\r\n        this.ID_empresas = ID_empresas;\r\n        this.ID_usuarios = ID_usuarios;\r\n        this.nit = nit;\r\n        this.nombre_empresa = nombre_empresa;\r\n        this.direccion = direccion;\r\n        this.area = area;\r\n        this.contacto = contacto;\r\n        this.email = email;\r\n        this.departamento = departamento;\r\n        this.ciudad = ciudad;\r\n\r\n        this.estado = estado;\r\n\r\n    }\r\n\r\n    /**\r\n     * Obtiene el ID de la empresa.\r\n     *\r\n     * @return El ID de la empresa.\r\n     */\r\n    public int getID_empresas() {\r\n        return ID_empresas;\r\n    }\r\n\r\n    /**\r\n     * Establece el ID de la empresa.\r\n     *\r\n     * @param ID_empresas El ID de la empresa.\r\n     */\r\n    public void setID_empresas(int ID_empresas) {\r\n        this.ID_empresas = ID_empresas;\r\n    }\r\n\r\n    /**\r\n     * Obtiene el ID del usuario asociado a la empresa.\r\n     *\r\n     * @return El ID del usuario asociado a la empresa.\r\n     */\r\n    public int getID_usuarios() {\r\n        return ID_usuarios;\r\n    }\r\n\r\n    /**\r\n     * Establece el ID del usuario asociado a la empresa.\r\n     *\r\n     * @param ID_usuarios El ID del usuario asociado a la empresa.\r\n     */\r\n    public void setID_usuarios(int ID_usuarios) {\r\n        this.ID_usuarios = ID_usuarios;\r\n    }\r\n\r\n    /**\r\n     * Obtiene el número de identificación tributaria de la empresa.\r\n     *\r\n     * @return El número de identificación tributaria de la empresa.\r\n     */\r\n    public String getNit() {\r\n        return nit;\r\n    }\r\n\r\n    /**\r\n     * Establece el número de identificación tributaria de la empresa.\r\n     *\r\n     * @param nit El número de identificación tributaria de la empresa.\r\n     */\r\n    public void setNit(String nit) {\r\n        this.nit = nit;\r\n    }\r\n\r\n    /**\r\n     * Obtiene el nombre de la empresa.\r\n     *\r\n     * @return El nombre de la empresa.\r\n     */\r\n    public String getNombre_empresa() {\r\n        return nombre_empresa;\r\n    }\r\n\r\n    /**\r\n     * Establece el nombre de la empresa.\r\n     *\r\n     * @param nombre_empresa El nombre de la empresa.\r\n     */\r\n    public void setNombre_empresa(String nombre_empresa) {\r\n        this.nombre_empresa = nombre_empresa;\r\n    }\r\n\r\n    /**\r\n     * Obtiene la dirección de la empresa.\r\n     *\r\n     * @return La dirección de la empresa.\r\n     */\r\n    public String getDireccion() {\r\n        return direccion;\r\n    }\r\n\r\n    /**\r\n     * Establece la dirección de la empresa.\r\n     *\r\n     * @param direccion La dirección de la empresa.\r\n     */\r\n    public void setDireccion(String direccion) {\r\n        this.direccion = direccion;\r\n    }\r\n\r\n    /**\r\n     * Obtiene el área de actividad de la empresa.\r\n     *\r\n     * @return El área de actividad de la empresa.\r\n     */\r\n    public String getArea() {\r\n        return area;\r\n    }\r\n\r\n    /**\r\n     * Establece el área de actividad de la empresa.\r\n     *\r\n     * @param area El área de actividad de la empresa.\r\n     */\r\n    public void setArea(String area) {\r\n        this.area = area;\r\n    }\r\n\r\n    /**\r\n     * Obtiene la información de contacto de la empresa.\r\n     *\r\n     * @return La información de contacto de la empresa.\r\n     */\r\n    public String getContacto() {\r\n        return contacto;\r\n    }\r\n\r\n    /**\r\n     * Establece la información de contacto de la empresa.\r\n     *\r\n     * @param contacto La información de contacto de la empresa.\r\n     */\r\n    public void setContacto(String contacto) {\r\n        this.contacto = contacto;\r\n    }\r\n\r\n    /**\r\n     * Obtiene el correo electrónico de la empresa.\r\n     *\r\n     * @return El correo electrónico de la empresa.\r\n     */\r\n    public String getEmail() {\r\n        return email;\r\n    }\r\n\r\n    /**\r\n     * Establece el correo electrónico de la empresa.\r\n     *\r\n     * @param email El correo electrónico de la empresa.\r\n     */\r\n    public void setEmail(String email) {\r\n        this.email = email;\r\n    }\r\n\r\n    /**\r\n     * Obtiene el departamento donde se encuentra la empresa.\r\n     *\r\n     * @return El departamento donde se encuentra la empresa.\r\n     */\r\n    public String getDepartamento() {\r\n        return departamento;\r\n    }\r\n\r\n    /**\r\n     * Establece el departamento donde se encuentra la empresa.\r\n     *\r\n     * @param departamento El departamento donde se encuentra la empresa.\r\n     */\r\n    public void setDepartamento(String departamento) {\r\n        this.departamento = departamento;\r\n    }\r\n\r\n    /**\r\n     * Obtiene la ciudad donde se encuentra la empresa.\r\n     *\r\n     * @return La ciudad donde se encuentra la empresa.\r\n     */\r\n    public String getCiudad() {\r\n        return ciudad;\r\n    }\r\n\r\n    /**\r\n     * Establece la ciudad donde se encuentra la empresa.\r\n     *\r\n     * @param ciudad La ciudad donde se encuentra la empresa.\r\n     */\r\n    public void setCiudad(String ciudad) {\r\n        this.ciudad = ciudad;\r\n    }\r\n\r\n\r\n    public String getEstado() {\r\n        return estado;\r\n    }\r\n\r\n    public void setEstado(String estado) {\r\n        this.estado = estado;\r\n    }\r\n\r\n    public String getNombreCoevaluador() {\r\n        return nombreCoevaluador;\r\n    }\r\n\r\n    public void setNombreCoevaluador(String nombreCoevaluador) {\r\n        this.nombreCoevaluador = nombreCoevaluador;\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Empresas/Modelo/Empresa.java b/src/Empresas/Modelo/Empresa.java
+--- a/src/Empresas/Modelo/Empresa.java	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
++++ b/src/Empresas/Modelo/Empresa.java	(date 1748533055947)
+@@ -36,11 +36,6 @@
+     /** Ciudad donde se encuentra la empresa */
+     String ciudad;
+ 
+-
+-    String estado;
+-
+-    String nombreCoevaluador;
+-
+     /**
+      * Constructor que inicializa los datos de la empresa.
+      *
+@@ -55,7 +50,7 @@
+      * @param departamento El departamento donde se encuentra la empresa.
+      * @param ciudad La ciudad donde se encuentra la empresa.
+      */
+-    public Empresa(int ID_empresas, int ID_usuarios, String nit, String nombre_empresa, String direccion, String area, String contacto, String email, String departamento, String ciudad, String estado) {
++    public Empresa(int ID_empresas, int ID_usuarios, String nit, String nombre_empresa, String direccion, String area, String contacto, String email, String departamento, String ciudad) {
+         this.ID_empresas = ID_empresas;
+         this.ID_usuarios = ID_usuarios;
+         this.nit = nit;
+@@ -66,9 +61,6 @@
+         this.email = email;
+         this.departamento = departamento;
+         this.ciudad = ciudad;
+-
+-        this.estado = estado;
+-
+     }
+ 
+     /**
+@@ -250,22 +242,4 @@
+     public void setCiudad(String ciudad) {
+         this.ciudad = ciudad;
+     }
+-
+-
+-    public String getEstado() {
+-        return estado;
+-    }
+-
+-    public void setEstado(String estado) {
+-        this.estado = estado;
+-    }
+-
+-    public String getNombreCoevaluador() {
+-        return nombreCoevaluador;
+-    }
+-
+-    public void setNombreCoevaluador(String nombreCoevaluador) {
+-        this.nombreCoevaluador = nombreCoevaluador;
+-    }
+-
+ }
+\ No newline at end of file
+Index: src/Empresas/Controlador/EmpresaDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Empresas.Controlador;\r\n\r\nimport Empresas.ConexionBD.ConnectionDB;\r\nimport Empresas.Modelo.Empresa;\r\n\r\nimport java.sql.*;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\n/**\r\n * Clase DAO (Data Access Object) para manejar las operaciones CRUD sobre la entidad Modelo.Empresa\r\n * en la base de datos.\r\n */\r\npublic class EmpresaDAO {\r\n    private ConnectionDB connectionDB = new ConnectionDB();\r\n\r\n    /**\r\n     * Obtiene la lista de todas las empresas registradas en la base de datos.\r\n     *\r\n     * @return una lista de objetos {@link Empresa} con los datos recuperados.\r\n     */\r\n    public List<Empresa> obtenerEmpresa() {\r\n        List<Empresa> empresas = new ArrayList<>();\r\n        String query = \"SELECT e.*, CONCAT(u.nombres, ' ', u.apellidos) AS nombre_coevaluador \" +\r\n                \"FROM empresas e \" +\r\n                \"JOIN usuarios u ON e.ID_usuarios = u.ID_usuarios\";\r\n\r\n\r\n        try (Connection con = connectionDB.getConnection();\r\n             Statement stmt = con.createStatement();\r\n             ResultSet rs = stmt.executeQuery(query)) {\r\n\r\n            while (rs.next()) {\r\n                Empresa empresa = new Empresa(rs.getInt(\"ID_empresas\"), rs.getInt(\"ID_usuarios\")\r\n                        , rs.getString(\"nit\"),\r\n                        rs.getString(\"nombre_empresa\"), rs.getString(\"direccion\"), rs.getString(\"area\"),\r\n\r\n                        rs.getString(\"contacto\"), rs.getString(\"email\"), rs.getString(\"departamento\"), rs.getString(\"ciudad\"), rs.getString(\"estado\"));\r\n\r\n                empresa.setNombreCoevaluador(rs.getString(\"nombre_coevaluador\"));\r\n\r\n                empresas.add(empresa);\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return empresas;\r\n    }\r\n\r\n    /**\r\n     * Agrega una nueva empresa a la base de datos.\r\n     *\r\n     * @param empresa el objeto {@link Empresa} que contiene los datos a insertar.\r\n     * @return {@code true} si la operación fue exitosa, de lo contrario {@code false}.\r\n     */\r\n    public boolean agregarEmpresa(Empresa empresa) {\r\n\r\n        String query = \"INSERT INTO empresas (nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad, ID_usuarios, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)\";\r\n\r\n\r\n        try (Connection con = connectionDB.getConnection();\r\n             PreparedStatement pst = con.prepareStatement(query)) {\r\n\r\n            pst.setString(1, empresa.getNit());\r\n            pst.setString(2, empresa.getNombre_empresa());\r\n            pst.setString(3, empresa.getDireccion());\r\n            pst.setString(4, empresa.getArea());\r\n            pst.setString(5, empresa.getContacto());\r\n            pst.setString(6, empresa.getEmail());\r\n            pst.setString(7, empresa.getDepartamento());\r\n            pst.setString(8, empresa.getCiudad());\r\n            pst.setInt(9, empresa.getID_usuarios());\r\n            pst.setString(10, empresa.getEstado());\r\n\r\n\r\n            int resultado = pst.executeUpdate();\r\n            return resultado > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Elimina una empresa de la base de datos según su ID.\r\n     *\r\n     * @param id el ID único de la empresa a eliminar.\r\n     * @return {@code true} si la eliminación fue exitosa, de lo contrario {@code false}.\r\n     */\r\n    /*\r\n\r\n    public boolean eliminarEmpresa(int id) {\r\n        String query = \"DELETE FROM empresas WHERE ID_empresas = ?\";\r\n        try (Connection con = connectionDB.getConnection();\r\n             PreparedStatement stmt = con.prepareStatement(query)) {\r\n\r\n            stmt.setInt(1, id);\r\n            int files = stmt.executeUpdate();\r\n            if (files > 0) {\r\n                return true;\r\n            } else {\r\n                return false;\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n     */\r\n\r\n\r\n    /**\r\n     * Busca una empresa en la base de datos según su NIT.\r\n     *\r\n     * @param nit el NIT de la empresa a buscar.\r\n     * @return un objeto {@link Empresa} si se encuentra, o {@code null} si no existe.\r\n     */\r\n    public Empresa buscarEmpresa(String nit) {\r\n        String query = \"SELECT * FROM empresas WHERE nit = ?\";\r\n        try (Connection con = connectionDB.getConnection();\r\n             PreparedStatement stmt = con.prepareStatement(query)) {\r\n\r\n            stmt.setString(1, nit);\r\n            ResultSet rs = stmt.executeQuery();\r\n\r\n            if (rs.next()) {\r\n                return new Empresa(\r\n                        rs.getInt(\"ID_empresas\"),\r\n                        rs.getInt(\"ID_usuarios\"),\r\n                        rs.getString(\"nit\"),\r\n                        rs.getString(\"nombre_empresa\"),\r\n                        rs.getString(\"direccion\"),\r\n                        rs.getString(\"area\"),\r\n                        rs.getString(\"contacto\"),\r\n                        rs.getString(\"email\"),\r\n                        rs.getString(\"departamento\"),\r\n                        rs.getString(\"ciudad\"),\r\n                        rs.getString(\"estado\")\r\n                );\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Actualiza los datos de una empresa existente en la base de datos.\r\n     *\r\n     * @param empresa el objeto {@link Empresa} con los nuevos datos.\r\n     * @return {@code true} si la actualización fue exitosa, de lo contrario {@code false}.\r\n     */\r\n    public boolean actualizarEmpresa(Empresa empresa) {\r\n        String query = \"UPDATE empresas SET nit = ?, nombre_empresa = ?, direccion = ?, area = ?, contacto = ?, email = ?, departamento = ?, ciudad = ?, estado = ?, ID_usuarios = ? WHERE ID_empresas = ?\";\r\n\r\n\r\n        try (Connection con = connectionDB.getConnection();\r\n             PreparedStatement pst = con.prepareStatement(query)) {\r\n\r\n            pst.setString(1, empresa.getNit());\r\n            pst.setString(2, empresa.getNombre_empresa());\r\n            pst.setString(3, empresa.getDireccion());\r\n            pst.setString(4, empresa.getArea());\r\n            pst.setString(5, empresa.getContacto());\r\n            pst.setString(6, empresa.getEmail());\r\n            pst.setString(7, empresa.getDepartamento());\r\n            pst.setString(8, empresa.getCiudad());\r\n\r\n            pst.setString(9, empresa.getEstado());\r\n            pst.setInt(10, empresa.getID_usuarios());\r\n            pst.setInt(11, empresa.getID_empresas());\r\n\r\n            int rowsUpdated = pst.executeUpdate();\r\n            return rowsUpdated > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Empresas/Controlador/EmpresaDAO.java b/src/Empresas/Controlador/EmpresaDAO.java
+--- a/src/Empresas/Controlador/EmpresaDAO.java	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
++++ b/src/Empresas/Controlador/EmpresaDAO.java	(date 1748533055946)
+@@ -21,10 +21,7 @@
+      */
+     public List<Empresa> obtenerEmpresa() {
+         List<Empresa> empresas = new ArrayList<>();
+-        String query = "SELECT e.*, CONCAT(u.nombres, ' ', u.apellidos) AS nombre_coevaluador " +
+-                "FROM empresas e " +
+-                "JOIN usuarios u ON e.ID_usuarios = u.ID_usuarios";
+-
++        String query = "SELECT * FROM empresas";
+ 
+         try (Connection con = connectionDB.getConnection();
+              Statement stmt = con.createStatement();
+@@ -34,11 +31,7 @@
+                 Empresa empresa = new Empresa(rs.getInt("ID_empresas"), rs.getInt("ID_usuarios")
+                         , rs.getString("nit"),
+                         rs.getString("nombre_empresa"), rs.getString("direccion"), rs.getString("area"),
+-
+-                        rs.getString("contacto"), rs.getString("email"), rs.getString("departamento"), rs.getString("ciudad"), rs.getString("estado"));
+-
+-                empresa.setNombreCoevaluador(rs.getString("nombre_coevaluador"));
+-
++                        rs.getString("contacto"), rs.getString("email"), rs.getString("departamento"), rs.getString("ciudad"));
+                 empresas.add(empresa);
+             }
+         } catch (SQLException e) {
+@@ -54,9 +47,7 @@
+      * @return {@code true} si la operación fue exitosa, de lo contrario {@code false}.
+      */
+     public boolean agregarEmpresa(Empresa empresa) {
+-
+-        String query = "INSERT INTO empresas (nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad, ID_usuarios, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+-
++        String query = "INSERT INTO empresas (nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad, ID_usuarios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+ 
+         try (Connection con = connectionDB.getConnection();
+              PreparedStatement pst = con.prepareStatement(query)) {
+@@ -70,8 +61,6 @@
+             pst.setString(7, empresa.getDepartamento());
+             pst.setString(8, empresa.getCiudad());
+             pst.setInt(9, empresa.getID_usuarios());
+-            pst.setString(10, empresa.getEstado());
+-
+ 
+             int resultado = pst.executeUpdate();
+             return resultado > 0;
+@@ -87,8 +76,6 @@
+      * @param id el ID único de la empresa a eliminar.
+      * @return {@code true} si la eliminación fue exitosa, de lo contrario {@code false}.
+      */
+-    /*
+-
+     public boolean eliminarEmpresa(int id) {
+         String query = "DELETE FROM empresas WHERE ID_empresas = ?";
+         try (Connection con = connectionDB.getConnection();
+@@ -107,9 +94,6 @@
+         }
+     }
+ 
+-     */
+-
+-
+     /**
+      * Busca una empresa en la base de datos según su NIT.
+      *
+@@ -135,8 +119,7 @@
+                         rs.getString("contacto"),
+                         rs.getString("email"),
+                         rs.getString("departamento"),
+-                        rs.getString("ciudad"),
+-                        rs.getString("estado")
++                        rs.getString("ciudad")
+                 );
+             }
+         } catch (SQLException e) {
+@@ -152,8 +135,7 @@
+      * @return {@code true} si la actualización fue exitosa, de lo contrario {@code false}.
+      */
+     public boolean actualizarEmpresa(Empresa empresa) {
+-        String query = "UPDATE empresas SET nit = ?, nombre_empresa = ?, direccion = ?, area = ?, contacto = ?, email = ?, departamento = ?, ciudad = ?, estado = ?, ID_usuarios = ? WHERE ID_empresas = ?";
+-
++        String query = "UPDATE empresas SET nit = ?, nombre_empresa = ?, direccion = ?, area = ?, contacto = ?, email = ?, departamento = ?, ciudad = ?, ID_usuarios = ? WHERE ID_empresas = ?";
+ 
+         try (Connection con = connectionDB.getConnection();
+              PreparedStatement pst = con.prepareStatement(query)) {
+@@ -166,17 +148,15 @@
+             pst.setString(6, empresa.getEmail());
+             pst.setString(7, empresa.getDepartamento());
+             pst.setString(8, empresa.getCiudad());
++            pst.setInt(9, empresa.getID_usuarios()); // Aquí se asegura de pasar el ID del coevaluador seleccionado
++            pst.setInt(10, empresa.getID_empresas()); // ID de la empresa a actualizar
+ 
+-            pst.setString(9, empresa.getEstado());
+-            pst.setInt(10, empresa.getID_usuarios());
+-            pst.setInt(11, empresa.getID_empresas());
+-
++            // Ejecutar la actualización
+             int rowsUpdated = pst.executeUpdate();
+-            return rowsUpdated > 0;
++            return rowsUpdated > 0; // Si actualizó, devuelve true
+         } catch (SQLException e) {
+             e.printStackTrace();
+-            return false;
++            return false; // Si hay error, devuelve false
+         }
+     }
+-
+ }

@@ -1,0 +1,102 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"dd0fa537-c9b4-49aa-a309-b38457857701\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/libraries/mysql_connector_java.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/uiDesigner.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/uiDesigner.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/PF.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/PF.iml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/config.properties\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/config.properties\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Empresas/Controlador/EmpresaDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Empresas/Controlador/EmpresaDAO.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Empresas/Modelo/Empresa.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Empresas/Modelo/Empresa.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Empresas/Vista/ActualizarGUI.form\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Empresas/Vista/ActualizarGUI.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.form\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.form\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Empresas/Vista/DetallesGUI.form\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Empresas/Vista/DetallesGUI.java\" beforeDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;AndreZit0&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/AndreZit0/PF.git&quot;,\r\n    &quot;accountId&quot;: &quot;b0a66982-8d2c-4177-a680-744c39e570ea&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2xYpCXqVoZ6N8jrJIDpLsHAs1OE\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.AdminFichasGUI.executor\": \"Run\",\r\n    \"Application.AdminProgramaGUI.executor\": \"Run\",\r\n    \"Application.AdminSedesGUI.executor\": \"Run\",\r\n    \"Application.LoginGUI.executor\": \"Run\",\r\n    \"Application.UsuariosGUI.executor\": \"Run\",\r\n    \"Downloaded.Files.Path.Enabled\": \"false\",\r\n    \"Repository.Attach.Annotations\": \"false\",\r\n    \"Repository.Attach.JavaDocs\": \"false\",\r\n    \"Repository.Attach.Sources\": \"false\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW\": \"false\",\r\n    \"UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH\": \"248\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"project.structure.last.edited\": \"Libraries\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\" selected=\"Application.LoginGUI\">\r\n    <configuration name=\"AdminFichasGUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Usuarios.AdminFichasGUI\" />\r\n      <module name=\"PF\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Usuarios.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AdminProgramaGUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Usuarios.AdminProgramaGUI\" />\r\n      <module name=\"PF\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Usuarios.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AdminSedesGUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Usuarios.AdminSedesGUI\" />\r\n      <module name=\"PF\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Usuarios.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"LoginGUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Example_Screen.View.Login.LoginGUI\" />\r\n      <module name=\"PF\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Example_Screen.View.Login.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"UsuariosGUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Usuarios.UsuariosGUI\" />\r\n      <module name=\"PF\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Usuarios.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.LoginGUI\" />\r\n        <item itemvalue=\"Application.AdminFichasGUI\" />\r\n        <item itemvalue=\"Application.AdminProgramaGUI\" />\r\n        <item itemvalue=\"Application.AdminSedesGUI\" />\r\n        <item itemvalue=\"Application.UsuariosGUI\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"dd0fa537-c9b4-49aa-a309-b38457857701\" name=\"Changes\" comment=\"\" />\r\n      <created>1748124734085</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1748124734085</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"CUSTOM_BOOLEAN_PROPERTIES\">\r\n                <map>\r\n                  <entry key=\"Show.Git.Branches\" value=\"false\" />\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision d5a60a63d0dcf00dc4544ce790a1ff2d72a6ae23)
++++ b/.idea/workspace.xml	(date 1748535003737)
+@@ -4,20 +4,8 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
++    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="...">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/PF.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PF.iml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Empresas/Controlador/EmpresaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Controlador/EmpresaDAO.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Empresas/Modelo/Empresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Modelo/Empresa.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/ActualizarGUI.form" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/ActualizarGUI.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.form" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Empresas/Vista/AdministrarGUI.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/DetallesGUI.form" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Empresas/Vista/DetallesGUI.java" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -27,7 +15,7 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="master" />
++        <entry key="$PROJECT_DIR$" value="branch_martin" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -146,11 +134,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Application.UsuariosGUI" />
+         <item itemvalue="Application.LoginGUI" />
+-        <item itemvalue="Application.AdminFichasGUI" />
+-        <item itemvalue="Application.AdminProgramaGUI" />
+         <item itemvalue="Application.AdminSedesGUI" />
+-        <item itemvalue="Application.UsuariosGUI" />
++        <item itemvalue="Application.AdminProgramaGUI" />
++        <item itemvalue="Application.AdminFichasGUI" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -163,6 +151,15 @@
+       <option name="presentableId" value="Default" />
+       <updated>1748124734085</updated>
+     </task>
++    <task id="LOCAL-00001" summary="reparacion">
++      <option name="closed" value="true" />
++      <created>1748534758013</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1748534758013</updated>
++    </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -182,4 +179,8 @@
+       </map>
+     </option>
+   </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="reparacion" />
++    <option name="LAST_COMMIT_MESSAGE" value="reparacion" />
++  </component>
+ </project>
+\ No newline at end of file
+Index: PF.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" name=\"mysql.connector.java\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"itextpdf\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/PF.iml b/PF.iml
+--- a/PF.iml	(revision d5a60a63d0dcf00dc4544ce790a1ff2d72a6ae23)
++++ b/PF.iml	(date 1748535003713)
+@@ -7,7 +7,7 @@
+     </content>
+     <orderEntry type="inheritedJdk" />
+     <orderEntry type="sourceFolder" forTests="false" />
+-    <orderEntry type="library" name="mysql.connector.java" level="project" />
+     <orderEntry type="library" name="itextpdf" level="project" />
++    <orderEntry type="library" name="mysql.connector.java" level="project" />
+   </component>
+ </module>
+\ No newline at end of file

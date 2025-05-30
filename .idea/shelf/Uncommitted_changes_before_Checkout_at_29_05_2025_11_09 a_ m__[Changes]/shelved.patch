@@ -1,0 +1,20 @@
+Index: .idea/libraries/mysql_connector_java.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"mysql.connector.java\" type=\"repository\">\r\n    <properties maven-id=\"mysql:mysql-connector-java:8.0.30\" />\r\n    <CLASSES>\r\n      <root url=\"jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar!/\" />\r\n      <root url=\"jar://$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.19.4/protobuf-java-3.19.4.jar!/\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES>\r\n      <root url=\"jar://$USER_HOME$/.ideaLibSources/mysql-connector-java-8.0.30-sources.jar!/\" />\r\n    </SOURCES>\r\n\r\n  </library>\r\n</component>
+===================================================================
+diff --git a/.idea/libraries/mysql_connector_java.xml b/.idea/libraries/mysql_connector_java.xml
+--- a/.idea/libraries/mysql_connector_java.xml	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
++++ b/.idea/libraries/mysql_connector_java.xml	(date 1748534842849)
+@@ -6,9 +6,6 @@
+       <root url="jar://$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.19.4/protobuf-java-3.19.4.jar!/" />
+     </CLASSES>
+     <JAVADOC />
+-    <SOURCES>
+-      <root url="jar://$USER_HOME$/.ideaLibSources/mysql-connector-java-8.0.30-sources.jar!/" />
+-    </SOURCES>
+-
++    <SOURCES />
+   </library>
+ </component>
+\ No newline at end of file

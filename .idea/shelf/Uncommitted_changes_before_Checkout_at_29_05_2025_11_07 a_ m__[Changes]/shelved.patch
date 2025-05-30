@@ -1,0 +1,22 @@
+Index: .idea/libraries/mysql_connector_java.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/mysql_connector_java.xml b/.idea/libraries/mysql_connector_java.xml
+new file mode 100644
+--- /dev/null	(date 1748534643200)
++++ b/.idea/libraries/mysql_connector_java.xml	(date 1748534643200)
+@@ -0,0 +1,11 @@
++<component name="libraryTable">
++  <library name="mysql.connector.java" type="repository">
++    <properties maven-id="mysql:mysql-connector-java:8.0.30" />
++    <CLASSES>
++      <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar!/" />
++      <root url="jar://$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.19.4/protobuf-java-3.19.4.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file

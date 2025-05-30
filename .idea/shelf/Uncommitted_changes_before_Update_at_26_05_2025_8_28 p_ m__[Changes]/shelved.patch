@@ -1,0 +1,128 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"dd0fa537-c9b4-49aa-a309-b38457857701\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/modules.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/modules.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Modulo_Perfiles.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/PF.iml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"miguel\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;AndreZit0&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\r\n  \"selectedUrlAndAccountId\": {\r\n    \"url\": \"https://github.com/Miguelml1219/Modulo_Perfiles.git\",\r\n    \"accountId\": \"2669e2aa-ce14-47d7-878f-92b28afebe6f\"\r\n  }\r\n}]]></component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2xYpCXqVoZ6N8jrJIDpLsHAs1OE\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.LoginGUI.executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"project.structure.last.edited\": \"Libraries\",\r\n    \"project.structure.proportion\": \"0.0\",\r\n    \"project.structure.side.proportion\": \"0.2\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"LoginGUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Example_Screen.View.Login.LoginGUI\" />\r\n      <module name=\"PF\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Example_Screen.View.Login.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.LoginGUI\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"dd0fa537-c9b4-49aa-a309-b38457857701\" name=\"Changes\" comment=\"\" />\r\n      <created>1748124734085</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1748124734085</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision f2b9c9b660b1ab4600921021eaf52852d8057f6d)
++++ b/.idea/workspace.xml	(date 1748309288939)
+@@ -4,10 +4,23 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
++    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="...">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Modulo_Perfiles.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PF.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminModalidadGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminModalidadGUI.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/AprendizGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AprendizGUI.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearSedesGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearSedesGUI.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearSedesGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearSedesGUI.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearUsuarioGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearUsuarioGUI.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearUsuarioGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearUsuarioGUI.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/UsuariosDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/UsuariosDAO.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -17,7 +30,7 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="miguel" />
++        <entry key="$PROJECT_DIR$" value="master" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -28,12 +41,12 @@
+     &quot;assignee&quot;: &quot;AndreZit0&quot;
+   }
+ }</component>
+-  <component name="GithubPullRequestsUISettings"><![CDATA[{
+-  "selectedUrlAndAccountId": {
+-    "url": "https://github.com/Miguelml1219/Modulo_Perfiles.git",
+-    "accountId": "2669e2aa-ce14-47d7-878f-92b28afebe6f"
+-  }
+-}]]></component>
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/AndreZit0/PF.git&quot;,
++    &quot;accountId&quot;: &quot;2669e2aa-ce14-47d7-878f-92b28afebe6f&quot;
++  }
++}</component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 3
+ }</component>
+@@ -45,17 +58,18 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Application.LoginGUI.executor": "Run",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "git-widget-placeholder": "master",
+-    "project.structure.last.edited": "Libraries",
+-    "project.structure.proportion": "0.0",
+-    "project.structure.side.proportion": "0.2"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.LoginGUI.executor&quot;: &quot;Run&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;248&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;branch__andres&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RunManager">
+     <configuration name="LoginGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="Example_Screen.View.Login.LoginGUI" />
+@@ -73,6 +87,7 @@
+     <recent_temporary>
+       <list>
+         <item itemvalue="Application.LoginGUI" />
++        <item itemvalue="Application.LoginGUI" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -84,6 +99,15 @@
+       <option name="presentableId" value="Default" />
+       <updated>1748124734085</updated>
+     </task>
++    <task id="LOCAL-00001" summary="...">
++      <option name="closed" value="true" />
++      <created>1748127776124</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1748127776124</updated>
++    </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -97,4 +121,8 @@
+       </map>
+     </option>
+   </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="..." />
++    <option name="LAST_COMMIT_MESSAGE" value="..." />
++  </component>
+ </project>
+\ No newline at end of file

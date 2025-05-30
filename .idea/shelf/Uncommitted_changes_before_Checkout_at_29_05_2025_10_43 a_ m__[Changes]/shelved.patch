@@ -1,0 +1,548 @@
+Index: src/Empresas/Vista/AdministrarGUI.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Empresas.Vista;\r\nimport Empresas.ConexionBD.ConnectionDB;\r\nimport Empresas.Controlador.EmpresaDAO;\r\nimport Empresas.Modelo.Empresa;\r\nimport com.itextpdf.text.*;\r\nimport com.itextpdf.text.Font;\r\nimport com.itextpdf.text.Image;\r\nimport com.itextpdf.text.pdf.PdfContentByte;\r\nimport com.itextpdf.text.pdf.PdfPCell;\r\nimport com.itextpdf.text.pdf.PdfPTable;\r\nimport com.itextpdf.text.pdf.PdfWriter;\r\nimport javax.swing.*;\r\nimport javax.swing.table.DefaultTableModel;\r\nimport javax.swing.table.JTableHeader;\r\nimport java.awt.*;\r\nimport java.awt.event.ActionEvent;\r\nimport java.awt.event.ActionListener;\r\nimport java.io.File;\r\nimport java.io.FileOutputStream;\r\nimport java.io.IOException;\r\nimport java.sql.*;\r\nimport java.util.List;\r\n\r\n/**\r\n * Clase que representa la interfaz gráfica para gestionar empresas.\r\n */\r\npublic class AdministrarGUI {\r\n    private JPanel main;\r\n\r\n    private JTable table1;\r\n    private JButton observarButton;\r\n    private JButton actualizarButton;\r\n    private JButton pdfButton;\r\n    private JButton eliminarButton;\r\n    private EmpresaDAO empresaDAO = new EmpresaDAO();\r\n    private ConnectionDB connectionDB = new ConnectionDB();\r\n\r\n\r\n    /**\r\n     * Constructor de la clase AdministrarGUI.\r\n     * Inicializa los componentes de la interfaz y configura los bordes y estilos visuales.\r\n     */\r\n    public AdministrarGUI() {\r\n\r\n        // Personalización visual de la JTable\r\n        table1.setBackground(new Color(245, 245, 245));\r\n        table1.setForeground(Color.BLACK);\r\n        table1.setSelectionForeground(Color.WHITE);\r\n\r\n        table1.setGridColor(new Color(220, 220, 220));\r\n        table1.setShowGrid(true);\r\n\r\n        // Personaliza la cabecera de la tabla\r\n        JTableHeader header = table1.getTableHeader();\r\n        header.setBackground(new Color(57, 169, 0));\r\n        header.setForeground(Color.WHITE);\r\n        header.setFont(header.getFont().deriveFont(Font.BOLD));\r\n\r\n        // Deshabilita el reordenamiento de las columnas\r\n        header.setReorderingAllowed(false);\r\n        table1.setRowHeight(25);\r\n\r\n        // Configura el evento de clic en el botón 'eliminar'\r\n        /*\r\n        eliminarButton.addActionListener(e -> {\r\n            eliminarEmpresa();\r\n            List<Empresa> empresas = empresaDAO.obtenerEmpresa();\r\n            cargarEmpresas(empresas);\r\n        });\r\n\r\n         */\r\n\r\n\r\n        // Configura el evento de clic en el botón 'observar'\r\n        observarButton.addActionListener(new ActionListener() {\r\n            @Override\r\n            public void actionPerformed(ActionEvent e) {\r\n                empresaDetalle();\r\n            }\r\n        });\r\n\r\n        // Configura el evento de clic en el botón 'actualizar'\r\n        actualizarButton.addActionListener(new ActionListener() {\r\n            @Override\r\n            public void actionPerformed(ActionEvent e) {\r\n                actualizarEmpresa();\r\n            }\r\n        });\r\n\r\n        List<Empresa> empresas = empresaDAO.obtenerEmpresa();\r\n        cargarEmpresas(empresas);\r\n\r\n        /**\r\n         * Configura el evento para generar un archivo PDF con la lista de empresas registradas.\r\n         * Cuando el botón es presionado, se verifica si hay una fila seleccionada en la tabla.\r\n         * Si no hay una selección, se muestra un mensaje. Si hay una fila seleccionada, se genera un PDF\r\n         * con la información de las empresas almacenadas en la base de datos.\r\n         */\r\n        pdfButton.addActionListener(new ActionListener() {\r\n            @Override\r\n            public void actionPerformed(ActionEvent e) {\r\n                // Verificar si hay una fila seleccionada\r\n                int selectedRow = table1.getSelectedRow();\r\n                if (selectedRow == -1) {\r\n                    JOptionPane.showMessageDialog(null, \"Seleccione una empresa primero.\");\r\n                    return;\r\n\r\n                }\r\n\r\n                //colores\r\n                BaseColor verdeSena = new BaseColor(57, 169, 0);\r\n                Document documento = new Document(PageSize.A4);\r\n\r\n                try {\r\n                    File tempFile = File.createTempFile(\"empresas_\", \".pdf\");\r\n                    tempFile.deleteOnExit(); // Se elimina automáticamente cuando finalice el programa\r\n                    PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(tempFile));\r\n\r\n\r\n                    documento.open();\r\n\r\n                    String imagePath = \"src/Empresas/img/fondo.png\";\r\n                    File imgFile = new File(imagePath);\r\n                    if (!imgFile.exists()) {\r\n                        JOptionPane.showMessageDialog(null, \"Error: Imagen de fondo no encontrada.\");\r\n                        return;\r\n                    }\r\n\r\n                    Image background = Image.getInstance(imagePath);\r\n                    background.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());\r\n                    background.setAbsolutePosition(0, 0);\r\n\r\n                    PdfContentByte canvas = writer.getDirectContentUnder();\r\n                    canvas.addImage(background);\r\n\r\n\r\n                    documento.add(new Paragraph(\"\\n\\n\\n\"));\r\n                    documento.add(new Paragraph(\"\\n\\n\\n\"));\r\n\r\n                    Paragraph titulo = new Paragraph(\"Empresas Registradas\",\r\n                            FontFactory.getFont(\"Tahoma\", 22, Font.BOLD, verdeSena));\r\n                    titulo.setAlignment(Element.ALIGN_CENTER);\r\n                    documento.add(titulo);\r\n                    documento.add(new Paragraph(\"\\n\\n\"));\r\n\r\n                    PdfPTable tabla = new PdfPTable(9);\r\n                    tabla.setWidthPercentage(110);\r\n                    tabla.setSpacingBefore(10f);\r\n                    tabla.setSpacingAfter(10f);\r\n\r\n                    String[] headers = {\"NIT\", \"Nombre\", \"Dir\", \"Area\", \"Contacto\", \"Correo\", \"Depto\", \"Ciudad\", \"Estado\"};\r\n\r\n                    for (String header : headers) {\r\n                        PdfPCell cell = new PdfPCell(new Phrase(header,\r\n                                FontFactory.getFont(\"Calibri\", 12, Font.BOLD, BaseColor.WHITE)));\r\n                        cell.setBackgroundColor(verdeSena);\r\n                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);\r\n                        tabla.addCell(cell);\r\n                    }\r\n\r\n                    try (Connection cn = DriverManager.getConnection(\"jdbc:mysql://localhost/saep\", \"root\", \"\");\r\n\r\n                         PreparedStatement pst = cn.prepareStatement(\"SELECT nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad, estado FROM empresas;\");\r\n                         ResultSet rs = pst.executeQuery()) {\r\n\r\n                        if (!rs.isBeforeFirst()) {\r\n                            JOptionPane.showMessageDialog(null, \"No se han encontrado empresas.\");\r\n                        } else {\r\n                            while (rs.next()) {\r\n                                for (int i = 1; i <= 9; i++) {\r\n                                    tabla.addCell(rs.getString(i));\r\n                                }\r\n                            }\r\n                        }\r\n                    } catch (SQLException ex) {\r\n                        JOptionPane.showMessageDialog(null, \"Error en la base de datos: \" + ex.getMessage());\r\n                    }\r\n\r\n                    documento.add(tabla);\r\n                    documento.close();\r\n\r\n                    if (Desktop.isDesktopSupported()) {\r\n                        Desktop.getDesktop().open(tempFile);\r\n                    } else {\r\n                        JOptionPane.showMessageDialog(null, \"La apertura automática no es compatible en este sistema.\");\r\n                    }\r\n\r\n                } catch (DocumentException | IOException ex) {\r\n                    JOptionPane.showMessageDialog(null, \"Error al generar el PDF: \" + ex.getMessage());\r\n                }\r\n            }\r\n        });\r\n    }\r\n\r\n    /**\r\n     * Actualiza los datos de la empresa seleccionada en la tabla.\r\n     * Si no hay ninguna fila seleccionada, muestra un mensaje solicitando que se seleccione una empresa.\r\n     * Si se encuentra la empresa, abre un cuadro de diálogo para actualizarla.\r\n     */\r\n    public void actualizarEmpresa() {\r\n        int selectedRow = table1.getSelectedRow();\r\n        if (selectedRow == -1) {\r\n            JOptionPane.showMessageDialog(null, \"Seleccione una empresa primero.\");\r\n            return;\r\n        }\r\n\r\n        String nit = table1.getValueAt(selectedRow, 0).toString();\r\n\r\n        Empresa empresa = empresaDAO.buscarEmpresa(nit);\r\n\r\n        if (empresa != null) {\r\n            ActualizarGUI dialog = new ActualizarGUI(\r\n                    null, empresa, empresaDAO, () -> cargarEmpresasEnTabla()\r\n            );\r\n            dialog.setVisible(true);\r\n        } else {\r\n            JOptionPane.showMessageDialog(null, \"Empresa no encontrada.\");\r\n        }\r\n    }\r\n\r\n    public void cargarEmpresasEnTabla() {\r\n        DefaultTableModel model = new DefaultTableModel(\r\n                new Object[]{\"NIT\", \"Nombre\", \"Teléfono\", \"Coevaluador\", \"Estado\"}, 0\r\n        ) {\r\n            @Override\r\n            public boolean isCellEditable(int row, int column) {\r\n                return false;\r\n            }\r\n        };\r\n\r\n        List<Empresa> empresas = empresaDAO.obtenerEmpresa();\r\n\r\n        for (Empresa emp : empresas) {\r\n            model.addRow(new Object[]{\r\n                    emp.getNit(),\r\n                    emp.getNombre_empresa(),\r\n                    emp.getContacto(),\r\n                    emp.getNombreCoevaluador(),\r\n                    emp.getEstado()\r\n            });\r\n        }\r\n\r\n        table1.setModel(model);\r\n    }\r\n\r\n    /**\r\n     * Muestra los detalles de la empresa seleccionada en la tabla.\r\n     * Si no hay ninguna fila seleccionada, muestra un mensaje solicitando que se seleccione una empresa.\r\n     */\r\n    public void empresaDetalle() {\r\n        int selectedRow = table1.getSelectedRow();\r\n        if (selectedRow != -1) {\r\n            String nitSeleccionado = table1.getValueAt(selectedRow, 0).toString();\r\n            DetallesGUI detalles = new DetallesGUI(nitSeleccionado);\r\n            JFrame frame = new JFrame(\"Detalles de la Empresa\");\r\n            frame.setContentPane(detalles.getMainPanel());\r\n            frame.setSize(400, 500);\r\n            frame.setLocationRelativeTo(null);\r\n            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);\r\n            frame.setVisible(true);\r\n\r\n        } else {\r\n            JOptionPane.showMessageDialog(null, \"Seleccione una empresa primero.\");\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Elimina la empresa seleccionada de la base de datos.\r\n     * Si no hay ninguna fila seleccionada, muestra un mensaje solicitando que se seleccione una empresa.\r\n     * Luego solicita confirmación antes de eliminar la empresa.\r\n     */\r\n\r\n    /*\r\n\r\n    public void eliminarEmpresa() {\r\n        int selectedRow = table1.getSelectedRow();\r\n        if (selectedRow == -1) {\r\n            JOptionPane.showMessageDialog(null, \"Seleccione una empresa primero.\");\r\n            return;\r\n        }\r\n\r\n        int confirm = JOptionPane.showConfirmDialog(null, \"¿Está seguro que desea eliminar esta empresa?\", \"Confirmar eliminación\", JOptionPane.YES_NO_OPTION);\r\n        if (confirm != JOptionPane.YES_OPTION) return;\r\n\r\n        try {\r\n            String nit = table1.getValueAt(selectedRow, 0).toString();\r\n            Empresa empresa = empresaDAO.buscarEmpresa(nit);\r\n            if (empresa != null) {\r\n                empresaDAO.eliminarEmpresa(empresa.getID_empresas());\r\n                JOptionPane.showMessageDialog(null, \"Empresa eliminada correctamente.\");\r\n            } else {\r\n                JOptionPane.showMessageDialog(null, \"Empresa no encontrada.\");\r\n            }\r\n        } catch (Exception e) {\r\n            JOptionPane.showMessageDialog(null, \"Error al eliminar: \" + e.getMessage());\r\n        }\r\n    }\r\n\r\n     */\r\n\r\n\r\n    /**\r\n     * Carga y muestra las empresas en la tabla.\r\n     * Configura un modelo para la tabla y agrega las empresas a la vista.\r\n     */\r\n    public void cargarEmpresas(List<Empresa> listaEmpresas) {\r\n        DefaultTableModel model = new DefaultTableModel() {\r\n            // para que ninguna celda sea editable\r\n            @Override\r\n            public boolean isCellEditable(int row, int column) {\r\n                return false;\r\n\r\n            }\r\n        };\r\n\r\n        model.addColumn(\"NIT\");\r\n        model.addColumn(\"Nombre\");\r\n        model.addColumn(\"Teléfono\");\r\n        model.addColumn(\"Coevaluador\");\r\n        model.addColumn(\"Estado\");\r\n\r\n        for (Empresa empresa : listaEmpresas) {\r\n            model.addRow(new Object[]{\r\n                    empresa.getNit(),\r\n                    empresa.getNombre_empresa(),\r\n\r\n                    empresa.getContacto(),\r\n                    empresa.getNombreCoevaluador(),\r\n                    empresa.getEstado()\r\n            });\r\n        }\r\n        table1.setModel(model);\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        AdministrarGUI administrarGUI = new AdministrarGUI();\r\n        JFrame frame = new JFrame(\"EMPRESA\");\r\n\r\n        frame.setContentPane(new AdministrarGUI().main);\r\n\r\n        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\r\n        frame.pack();\r\n        frame.setSize(800, 600);\r\n        frame.setResizable(false);\r\n        frame.setVisible(true);\r\n\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/Empresas/Vista/AdministrarGUI.java b/src/Empresas/Vista/AdministrarGUI.java
+--- a/src/Empresas/Vista/AdministrarGUI.java	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
++++ b/src/Empresas/Vista/AdministrarGUI.java	(date 1748533055949)
+@@ -1,5 +1,6 @@
+ package Empresas.Vista;
+ import Empresas.ConexionBD.ConnectionDB;
++import Empresas.Controlador.ActualizarEmpresaDialog;
+ import Empresas.Controlador.EmpresaDAO;
+ import Empresas.Modelo.Empresa;
+ import com.itextpdf.text.*;
+@@ -25,8 +26,7 @@
+  * Clase que representa la interfaz gráfica para gestionar empresas.
+  */
+ public class AdministrarGUI {
+-    private JPanel main;
+-
++    private JPanel pnlAdministrarEmpresa;
+     private JTable table1;
+     private JButton observarButton;
+     private JButton actualizarButton;
+@@ -35,6 +35,7 @@
+     private EmpresaDAO empresaDAO = new EmpresaDAO();
+     private ConnectionDB connectionDB = new ConnectionDB();
+ 
++    public JPanel getPanel(){return pnlAdministrarEmpresa;}
+ 
+     /**
+      * Constructor de la clase AdministrarGUI.
+@@ -45,8 +46,8 @@
+         // Personalización visual de la JTable
+         table1.setBackground(new Color(245, 245, 245));
+         table1.setForeground(Color.BLACK);
+-        table1.setSelectionForeground(Color.WHITE);
+-
++        //table1.setSelectionBackground(new Color(119, 119, 119));
++        //table1.setSelectionForeground(Color.WHITE);
+         table1.setGridColor(new Color(220, 220, 220));
+         table1.setShowGrid(true);
+ 
+@@ -61,16 +62,12 @@
+         table1.setRowHeight(25);
+ 
+         // Configura el evento de clic en el botón 'eliminar'
+-        /*
+         eliminarButton.addActionListener(e -> {
+             eliminarEmpresa();
+             List<Empresa> empresas = empresaDAO.obtenerEmpresa();
+             cargarEmpresas(empresas);
+         });
+ 
+-         */
+-
+-
+         // Configura el evento de clic en el botón 'observar'
+         observarButton.addActionListener(new ActionListener() {
+             @Override
+@@ -102,9 +99,9 @@
+                 // Verificar si hay una fila seleccionada
+                 int selectedRow = table1.getSelectedRow();
+                 if (selectedRow == -1) {
++                    // mostrar mensaje
+                     JOptionPane.showMessageDialog(null, "Seleccione una empresa primero.");
+-                    return;
+-
++                    return; // Salir
+                 }
+ 
+                 //colores
+@@ -112,10 +109,8 @@
+                 Document documento = new Document(PageSize.A4);
+ 
+                 try {
+-                    File tempFile = File.createTempFile("empresas_", ".pdf");
+-                    tempFile.deleteOnExit(); // Se elimina automáticamente cuando finalice el programa
+-                    PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(tempFile));
+-
++                    String ruta = System.getProperty("user.home") + "/Downloads/empresas.pdf";
++                    PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(ruta));
+ 
+                     documento.open();
+ 
+@@ -126,7 +121,7 @@
+                         return;
+                     }
+ 
+-                    Image background = Image.getInstance(imagePath);
++                    com.itextpdf.text.Image background = Image.getInstance(imagePath);
+                     background.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
+                     background.setAbsolutePosition(0, 0);
+ 
+@@ -144,11 +139,11 @@
+                     documento.add(new Paragraph("\n\n"));
+ 
+                     PdfPTable tabla = new PdfPTable(9);
+-                    tabla.setWidthPercentage(110);
++                    tabla.setWidthPercentage(100);
+                     tabla.setSpacingBefore(10f);
+                     tabla.setSpacingAfter(10f);
+ 
+-                    String[] headers = {"NIT", "Nombre", "Dir", "Area", "Contacto", "Correo", "Depto", "Ciudad", "Estado"};
++                    String[] headers = {"ID", "NIT", "Nombre", "Dir", "Area", "Contacto", "Correo", "Depto", "Ciudad"};
+ 
+                     for (String header : headers) {
+                         PdfPCell cell = new PdfPCell(new Phrase(header,
+@@ -159,8 +154,7 @@
+                     }
+ 
+                     try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "");
+-
+-                         PreparedStatement pst = cn.prepareStatement("SELECT nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad, estado FROM empresas;");
++                         PreparedStatement pst = cn.prepareStatement("SELECT ID_empresas, nit, nombre_empresa, direccion, area, contacto, email, departamento, ciudad FROM empresas;");
+                          ResultSet rs = pst.executeQuery()) {
+ 
+                         if (!rs.isBeforeFirst()) {
+@@ -179,11 +173,7 @@
+                     documento.add(tabla);
+                     documento.close();
+ 
+-                    if (Desktop.isDesktopSupported()) {
+-                        Desktop.getDesktop().open(tempFile);
+-                    } else {
+-                        JOptionPane.showMessageDialog(null, "La apertura automática no es compatible en este sistema.");
+-                    }
++                    JOptionPane.showMessageDialog(null, "PDF generado correctamente en descargas.");
+ 
+                 } catch (DocumentException | IOException ex) {
+                     JOptionPane.showMessageDialog(null, "Error al generar el PDF: " + ex.getMessage());
+@@ -205,43 +195,17 @@
+         }
+ 
+         String nit = table1.getValueAt(selectedRow, 0).toString();
+-
+         Empresa empresa = empresaDAO.buscarEmpresa(nit);
+ 
+         if (empresa != null) {
+-            ActualizarGUI dialog = new ActualizarGUI(
+-                    null, empresa, empresaDAO, () -> cargarEmpresasEnTabla()
+-            );
+-            dialog.setVisible(true);
++            new ActualizarEmpresaDialog(null, empresa, empresaDAO, () -> {
++                List<Empresa> empresas = empresaDAO.obtenerEmpresa();
++                cargarEmpresas(empresas);
++            }).setVisible(true);
+         } else {
+-            JOptionPane.showMessageDialog(null, "Empresa no encontrada.");
++            JOptionPane.showMessageDialog(null, "No se pudo encontrar la empresa.");
+         }
+     }
+-
+-    public void cargarEmpresasEnTabla() {
+-        DefaultTableModel model = new DefaultTableModel(
+-                new Object[]{"NIT", "Nombre", "Teléfono", "Coevaluador", "Estado"}, 0
+-        ) {
+-            @Override
+-            public boolean isCellEditable(int row, int column) {
+-                return false;
+-            }
+-        };
+-
+-        List<Empresa> empresas = empresaDAO.obtenerEmpresa();
+-
+-        for (Empresa emp : empresas) {
+-            model.addRow(new Object[]{
+-                    emp.getNit(),
+-                    emp.getNombre_empresa(),
+-                    emp.getContacto(),
+-                    emp.getNombreCoevaluador(),
+-                    emp.getEstado()
+-            });
+-        }
+-
+-        table1.setModel(model);
+-    }
+ 
+     /**
+      * Muestra los detalles de la empresa seleccionada en la tabla.
+@@ -250,15 +214,41 @@
+     public void empresaDetalle() {
+         int selectedRow = table1.getSelectedRow();
+         if (selectedRow != -1) {
+-            String nitSeleccionado = table1.getValueAt(selectedRow, 0).toString();
+-            DetallesGUI detalles = new DetallesGUI(nitSeleccionado);
+-            JFrame frame = new JFrame("Detalles de la Empresa");
+-            frame.setContentPane(detalles.getMainPanel());
+-            frame.setSize(400, 500);
+-            frame.setLocationRelativeTo(null);
+-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+-            frame.setVisible(true);
++            String nit = table1.getValueAt(selectedRow, 0).toString();
++            String nombre = table1.getValueAt(selectedRow, 1).toString();
++            String telefono = table1.getValueAt(selectedRow, 2).toString();
++
++            Empresa empresa = empresaDAO.buscarEmpresa(nit);
++
++            // Obtener el ID del coevaluador
++            int idUsuario = empresa.getID_usuarios(); // Suponiendo que tienes este método en tu clase Empresa
++            String nombreCoevaluador = "";
++
++            // Obtener el nombre y apellido del coevaluador desde la base de datos
++            try (Connection con = new ConnectionDB().getConnection();
++                 PreparedStatement ps = con.prepareStatement("SELECT nombres, apellidos FROM usuarios WHERE ID_usuarios = ?")) {
++                ps.setInt(1, idUsuario);
++                try (ResultSet rs = ps.executeQuery()) {
++                    if (rs.next()) {
++                        nombreCoevaluador = rs.getString("nombres") + " " + rs.getString("apellidos");
++                    }
++                }
++            } catch (SQLException ex) {
++                ex.printStackTrace();
++                JOptionPane.showMessageDialog(null, "Error al obtener el nombre del coevaluador.");
++            }
+ 
++            String mensaje = "NIT: " + empresa.getNit() + "\n"
++                    + "Nombre: " + empresa.getNombre_empresa() + "\n"
++                    + "Dirección: " + empresa.getDireccion() + "\n"
++                    + "Área: " + empresa.getArea() + "\n"
++                    + "Coevaluador: " + nombreCoevaluador + "\n"
++                    + "Contacto: " + empresa.getContacto() + "\n"
++                    + "Email: " + empresa.getEmail() + "\n"
++                    + "Departamento: " + empresa.getDepartamento() + "\n"
++                    + "Ciudad: " + empresa.getCiudad();
++
++            JOptionPane.showMessageDialog(null, mensaje, "Detalles de la empresa", JOptionPane.INFORMATION_MESSAGE);
+         } else {
+             JOptionPane.showMessageDialog(null, "Seleccione una empresa primero.");
+         }
+@@ -269,9 +259,6 @@
+      * Si no hay ninguna fila seleccionada, muestra un mensaje solicitando que se seleccione una empresa.
+      * Luego solicita confirmación antes de eliminar la empresa.
+      */
+-
+-    /*
+-
+     public void eliminarEmpresa() {
+         int selectedRow = table1.getSelectedRow();
+         if (selectedRow == -1) {
+@@ -296,9 +283,6 @@
+         }
+     }
+ 
+-     */
+-
+-
+     /**
+      * Carga y muestra las empresas en la tabla.
+      * Configura un modelo para la tabla y agrega las empresas a la vista.
+@@ -308,25 +292,19 @@
+             // para que ninguna celda sea editable
+             @Override
+             public boolean isCellEditable(int row, int column) {
+-                return false;
+-
++                return false; // Ninguna celda será editable
+             }
+         };
+ 
+         model.addColumn("NIT");
+         model.addColumn("Nombre");
+         model.addColumn("Teléfono");
+-        model.addColumn("Coevaluador");
+-        model.addColumn("Estado");
+ 
+         for (Empresa empresa : listaEmpresas) {
+             model.addRow(new Object[]{
+                     empresa.getNit(),
+                     empresa.getNombre_empresa(),
+-
+-                    empresa.getContacto(),
+-                    empresa.getNombreCoevaluador(),
+-                    empresa.getEstado()
++                    empresa.getContacto()
+             });
+         }
+         table1.setModel(model);
+@@ -335,9 +313,7 @@
+     public static void main(String[] args) {
+         AdministrarGUI administrarGUI = new AdministrarGUI();
+         JFrame frame = new JFrame("EMPRESA");
+-
+-        frame.setContentPane(new AdministrarGUI().main);
+-
++        frame.setContentPane(new AdministrarGUI().pnlAdministrarEmpresa);
+         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         frame.pack();
+         frame.setSize(800, 600);
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n\r\n    <list default=\"true\" id=\"dd0fa537-c9b4-49aa-a309-b38457857701\" name=\"Changes\" comment=\"...\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p__m___Changes_.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p_ m__[Changes]/shelved.patch\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;AndreZit0&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\r\n  \"selectedUrlAndAccountId\": {\r\n    \"url\": \"https://github.com/AndreZit0/PF.git\",\r\n    \"accountId\": \"b0a66982-8d2c-4177-a680-744c39e570ea\"\r\n  }\r\n}]]></component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2xYpCXqVoZ6N8jrJIDpLsHAs1OE\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.AdminFichasGUI.executor\": \"Run\",\r\n    \"Application.AdminProgramaGUI.executor\": \"Run\",\r\n    \"Application.AdminSedesGUI.executor\": \"Run\",\r\n    \"Application.LoginGUI.executor\": \"Run\",\r\n    \"Application.UsuariosGUI.executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW\": \"false\",\r\n    \"UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH\": \"248\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n\r\n    \"project.structure.last.edited\": \"Libraries\",\r\n    \"project.structure.proportion\": \"0.0\",\r\n    \"project.structure.side.proportion\": \"0.2\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\" selected=\"Application.AdminFichasGUI\">\r\n    <configuration name=\"AdminFichasGUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Usuarios.AdminFichasGUI\" />\r\n      <module name=\"PF\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Usuarios.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AdminProgramaGUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Usuarios.AdminProgramaGUI\" />\r\n      <module name=\"PF\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Usuarios.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AdminSedesGUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Usuarios.AdminSedesGUI\" />\r\n      <module name=\"PF\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Usuarios.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"LoginGUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Example_Screen.View.Login.LoginGUI\" />\r\n      <module name=\"PF\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Example_Screen.View.Login.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"UsuariosGUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Usuarios.UsuariosGUI\" />\r\n      <module name=\"PF\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Usuarios.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.AdminFichasGUI\" />\r\n        <item itemvalue=\"Application.AdminProgramaGUI\" />\r\n        <item itemvalue=\"Application.AdminSedesGUI\" />\r\n        <item itemvalue=\"Application.UsuariosGUI\" />\r\n        <item itemvalue=\"Application.LoginGUI\" />\r\n        <item itemvalue=\"Application.LoginGUI\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"dd0fa537-c9b4-49aa-a309-b38457857701\" name=\"Changes\" comment=\"\" />\r\n      <created>1748124734085</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1748124734085</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"CUSTOM_BOOLEAN_PROPERTIES\">\r\n                <map>\r\n                  <entry key=\"Show.Git.Branches\" value=\"false\" />\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
++++ b/.idea/workspace.xml	(date 1748533287155)
+@@ -4,17 +4,25 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-
+-    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="...">
++    <list default="true" id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="se acomodo el campo para filtrar los datos a la derecha de las pantallas de fichas, programas y sedes, se puso el emoji de lupa en el lugar correspondiente, validacion para el campo contacto 2 hecho ahora no se creara un usuario si el campo se encuentra vacio y ajuste en las fichas que aparecen en el combobox de la pantalla modal de aprendiz ahora solo aparecen las fichas con estado activa">
+       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p__m___Changes_.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_05_2025_5_08_p_ m__[Changes]/shelved.patch" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminFichasGUI.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.form" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminProgramaGUI.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.form" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/AdminSedesGUI.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearFichasGUI.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/CrearProgramaGUI.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/EditarFichas.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/EditarFichas.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/EditarFichas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/EditarFichas.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/EditarPrograma.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/EditarPrograma.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/EditarPrograma.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/EditarPrograma.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/FichasDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/FichasDAO.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/Fichas_setget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/Fichas_setget.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/ProgramasDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/ProgramasDAO.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Usuarios/Programas_getset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Usuarios/Programas_getset.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -35,12 +43,12 @@
+     &quot;assignee&quot;: &quot;AndreZit0&quot;
+   }
+ }</component>
+-  <component name="GithubPullRequestsUISettings"><![CDATA[{
+-  "selectedUrlAndAccountId": {
+-    "url": "https://github.com/AndreZit0/PF.git",
+-    "accountId": "b0a66982-8d2c-4177-a680-744c39e570ea"
+-  }
+-}]]></component>
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/AndreZit0/PF.git&quot;,
++    &quot;accountId&quot;: &quot;2669e2aa-ce14-47d7-878f-92b28afebe6f&quot;
++  }
++}</component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 3
+ }</component>
+@@ -52,27 +60,18 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Application.AdminFichasGUI.executor": "Run",
+-    "Application.AdminProgramaGUI.executor": "Run",
+-    "Application.AdminSedesGUI.executor": "Run",
+-    "Application.LoginGUI.executor": "Run",
+-    "Application.UsuariosGUI.executor": "Run",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "false",
+-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "248",
+-    "git-widget-placeholder": "master",
+-    "ignore.virus.scanning.warn.message": "true",
+-    "kotlin-language-version-configured": "true",
+-
+-    "project.structure.last.edited": "Libraries",
+-    "project.structure.proportion": "0.0",
+-    "project.structure.side.proportion": "0.2"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.LoginGUI.executor&quot;: &quot;Run&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;branch__andres&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+   }
+-}]]></component>
+-  <component name="RunManager" selected="Application.AdminFichasGUI">
++}</component>
++  <component name="RunManager" selected="Application.LoginGUI">
+     <configuration name="AdminFichasGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="Usuarios.AdminFichasGUI" />
+       <module name="PF" />
+@@ -140,16 +139,14 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Application.LoginGUI" />
++        <item itemvalue="Application.LoginGUI" />
+         <item itemvalue="Application.AdminFichasGUI" />
+-        <item itemvalue="Application.AdminProgramaGUI" />
++        <item itemvalue="Application.UsuariosGUI" />
+         <item itemvalue="Application.AdminSedesGUI" />
+-        <item itemvalue="Application.UsuariosGUI" />
+-        <item itemvalue="Application.LoginGUI" />
+-        <item itemvalue="Application.LoginGUI" />
+       </list>
+     </recent_temporary>
+   </component>
+-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+       <changelist id="dd0fa537-c9b4-49aa-a309-b38457857701" name="Changes" comment="" />
+@@ -165,13 +162,7 @@
+       <map>
+         <entry key="MAIN">
+           <value>
+-            <State>
+-              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+-                <map>
+-                  <entry key="Show.Git.Branches" value="false" />
+-                </map>
+-              </option>
+-            </State>
++            <State />
+           </value>
+         </entry>
+       </map>
+Index: .idea/libraries/mysql_connector_java.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"mysql.connector.java\" type=\"repository\">\r\n    <properties maven-id=\"mysql:mysql-connector-java:8.0.30\" />\r\n    <CLASSES>\r\n      <root url=\"jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar!/\" />\r\n      <root url=\"jar://$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.19.4/protobuf-java-3.19.4.jar!/\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES>\r\n      <root url=\"jar://$USER_HOME$/.ideaLibSources/mysql-connector-java-8.0.30-sources.jar!/\" />\r\n    </SOURCES>\r\n\r\n  </library>\r\n</component>
+===================================================================
+diff --git a/.idea/libraries/mysql_connector_java.xml b/.idea/libraries/mysql_connector_java.xml
+--- a/.idea/libraries/mysql_connector_java.xml	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
++++ b/.idea/libraries/mysql_connector_java.xml	(date 1748533157874)
+@@ -7,8 +7,8 @@
+     </CLASSES>
+     <JAVADOC />
+     <SOURCES>
+-      <root url="jar://$USER_HOME$/.ideaLibSources/mysql-connector-java-8.0.30-sources.jar!/" />
++      <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30-sources.jar!/" />
++      <root url="jar://$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.19.4/protobuf-java-3.19.4-sources.jar!/" />
+     </SOURCES>
+-
+   </library>
+ </component>
+\ No newline at end of file
+Index: config.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Tue May 27 20:55:45 GMT-05:00 2025\r\nusuario=andreslopez5@gmail.com\r\n
+===================================================================
+diff --git a/config.properties b/config.properties
+--- a/config.properties	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
++++ b/config.properties	(date 1748533210000)
+@@ -1,2 +1,2 @@
+-#Tue May 27 20:55:45 GMT-05:00 2025
++#Thu May 29 10:40:09 GMT-05:00 2025
+ usuario=andreslopez5@gmail.com
+Index: src/Empresas/Vista/AdministrarGUI.form
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<form xmlns=\"http://www.intellij.com/uidesigner/form/\" version=\"1\" bind-to-class=\"Empresas.Vista.AdministrarGUI\">\r\n  <grid id=\"27dc6\" binding=\"main\" layout-manager=\"GridLayoutManager\" row-count=\"2\" column-count=\"1\" same-size-horizontally=\"false\" same-size-vertically=\"false\" hgap=\"-1\" vgap=\"-1\">\r\n    <margin top=\"20\" left=\"20\" bottom=\"20\" right=\"20\"/>\r\n    <constraints>\r\n      <xy x=\"20\" y=\"20\" width=\"500\" height=\"400\"/>\r\n    </constraints>\r\n    <properties/>\r\n    <border type=\"none\"/>\r\n    <children>\r\n      <scrollpane id=\"6537\">\r\n        <constraints>\r\n          <grid row=\"0\" column=\"0\" row-span=\"1\" col-span=\"1\" vsize-policy=\"7\" hsize-policy=\"7\" anchor=\"0\" fill=\"3\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n        <properties/>\r\n        <border type=\"none\"/>\r\n        <children>\r\n          <component id=\"390f0\" class=\"javax.swing.JTable\" binding=\"table1\" default-binding=\"true\">\r\n            <constraints/>\r\n            <properties/>\r\n          </component>\r\n        </children>\r\n      </scrollpane>\r\n\r\n      <grid id=\"bc367\" layout-manager=\"GridLayoutManager\" row-count=\"1\" column-count=\"3\" same-size-horizontally=\"false\" same-size-vertically=\"false\" hgap=\"-1\" vgap=\"-1\">\r\n\r\n        <margin top=\"0\" left=\"0\" bottom=\"0\" right=\"0\"/>\r\n        <constraints>\r\n          <grid row=\"1\" column=\"0\" row-span=\"1\" col-span=\"1\" vsize-policy=\"3\" hsize-policy=\"3\" anchor=\"4\" fill=\"2\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n        <properties/>\r\n        <border type=\"none\"/>\r\n        <children>\r\n\r\n          <component id=\"b92ea\" class=\"javax.swing.JButton\" binding=\"observarButton\">\r\n            <constraints>\r\n              <grid row=\"0\" column=\"0\" row-span=\"1\" col-span=\"1\" vsize-policy=\"0\" hsize-policy=\"3\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\">\r\n                <preferred-size width=\"120\" height=\"30\"/>\r\n              </grid>\r\n            </constraints>\r\n            <properties>\r\n              <background color=\"-12998400\"/>\r\n              <font name=\"Calibri\" style=\"1\"/>\r\n              <foreground color=\"-1\"/>\r\n              <text value=\"Detalles\"/>\r\n            </properties>\r\n          </component>\r\n\r\n          <component id=\"907bc\" class=\"javax.swing.JButton\" binding=\"actualizarButton\" default-binding=\"true\">\r\n            <constraints>\r\n              <grid row=\"0\" column=\"1\" row-span=\"1\" col-span=\"1\" vsize-policy=\"0\" hsize-policy=\"3\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\">\r\n                <preferred-size width=\"120\" height=\"30\"/>\r\n              </grid>\r\n\r\n            </constraints>\r\n            <properties>\r\n              <background color=\"-16745729\"/>\r\n              <font name=\"Calibri\" style=\"1\"/>\r\n              <foreground color=\"-1\"/>\r\n              <text value=\"Actualizar\"/>\r\n            </properties>\r\n          </component>\r\n          <component id=\"b7e0\" class=\"javax.swing.JButton\" binding=\"pdfButton\">\r\n            <constraints>\r\n              <grid row=\"0\" column=\"2\" row-span=\"1\" col-span=\"1\" vsize-policy=\"0\" hsize-policy=\"3\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\">\r\n                <preferred-size width=\"120\" height=\"30\"/>\r\n              </grid>\r\n            </constraints>\r\n            <properties>\r\n              <background color=\"-812014\"/>\r\n\r\n              <font name=\"Calibri\" style=\"1\"/>\r\n              <foreground color=\"-1\"/>\r\n              <text value=\"Generar PDF\"/>\r\n            </properties>\r\n          </component>\r\n        </children>\r\n      </grid>\r\n    </children>\r\n  </grid>\r\n</form>\r\n
+===================================================================
+diff --git a/src/Empresas/Vista/AdministrarGUI.form b/src/Empresas/Vista/AdministrarGUI.form
+--- a/src/Empresas/Vista/AdministrarGUI.form	(revision d5a5080037d757aab7e5285a08bc3ad0fbabbfa3)
++++ b/src/Empresas/Vista/AdministrarGUI.form	(date 1748533055948)
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Empresas.Vista.AdministrarGUI">
+-  <grid id="27dc6" binding="main" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+-    <margin top="20" left="20" bottom="20" right="20"/>
++  <grid id="27dc6" binding="pnlAdministrarEmpresa" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
++    <margin top="0" left="0" bottom="0" right="0"/>
+     <constraints>
+       <xy x="20" y="20" width="500" height="400"/>
+     </constraints>
+@@ -21,9 +21,7 @@
+           </component>
+         </children>
+       </scrollpane>
+-
+-      <grid id="bc367" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+-
++      <grid id="2159b" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+         <margin top="0" left="0" bottom="0" right="0"/>
+         <constraints>
+           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="2" indent="0" use-parent-layout="false"/>
+@@ -31,12 +29,9 @@
+         <properties/>
+         <border type="none"/>
+         <children>
+-
+-          <component id="b92ea" class="javax.swing.JButton" binding="observarButton">
++          <component id="c9b97" class="javax.swing.JButton" binding="observarButton">
+             <constraints>
+-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+-                <preferred-size width="120" height="30"/>
+-              </grid>
++              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+             </constraints>
+             <properties>
+               <background color="-12998400"/>
+@@ -45,13 +40,9 @@
+               <text value="Detalles"/>
+             </properties>
+           </component>
+-
+-          <component id="907bc" class="javax.swing.JButton" binding="actualizarButton" default-binding="true">
++          <component id="c5f90" class="javax.swing.JButton" binding="actualizarButton" default-binding="true">
+             <constraints>
+-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+-                <preferred-size width="120" height="30"/>
+-              </grid>
+-
++              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+             </constraints>
+             <properties>
+               <background color="-16745729"/>
+@@ -60,18 +51,26 @@
+               <text value="Actualizar"/>
+             </properties>
+           </component>
+-          <component id="b7e0" class="javax.swing.JButton" binding="pdfButton">
++          <component id="224a8" class="javax.swing.JButton" binding="pdfButton">
+             <constraints>
+-              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+-                <preferred-size width="120" height="30"/>
+-              </grid>
++              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+             </constraints>
+             <properties>
+-              <background color="-812014"/>
+-
++              <background color="-12844801"/>
+               <font name="Calibri" style="1"/>
+               <foreground color="-1"/>
+               <text value="Generar PDF"/>
++            </properties>
++          </component>
++          <component id="cac0" class="javax.swing.JButton" binding="eliminarButton">
++            <constraints>
++              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
++            </constraints>
++            <properties>
++              <background color="-50384"/>
++              <font name="Calibri" style="1"/>
++              <foreground color="-1"/>
++              <text value="Borrar"/>
+             </properties>
+           </component>
+         </children>

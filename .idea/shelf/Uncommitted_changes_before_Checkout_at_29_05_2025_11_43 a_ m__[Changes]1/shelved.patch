@@ -1,0 +1,20 @@
+Index: PF.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" name=\"mysql.connector.java\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"itextpdf\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"itext5-itextpdf-5.5.12\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/PF.iml b/PF.iml
+--- a/PF.iml	(revision bd09673ec8f7aaf3bac93c7a3516c9feec9da65a)
++++ b/PF.iml	(date 1748535044310)
+@@ -9,6 +9,5 @@
+     <orderEntry type="sourceFolder" forTests="false" />
+     <orderEntry type="library" name="mysql.connector.java" level="project" />
+     <orderEntry type="library" name="itextpdf" level="project" />
+-    <orderEntry type="library" name="itext5-itextpdf-5.5.12" level="project" />
+   </component>
+ </module>
+\ No newline at end of file
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_22_05_2025_10_56_a_ m__[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_22_05_2025_10_56_a_ m__[Changes]1/shelved.patch
+deleted file mode 100644
