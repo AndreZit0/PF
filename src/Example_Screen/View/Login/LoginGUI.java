@@ -26,7 +26,7 @@ public class LoginGUI {
 
     //JEFFERSONNNNN
 
-    private static String usuarioActual;
+    public static String usuarioActual;
     public static int idUsuarioActual;
     String usuario;
 

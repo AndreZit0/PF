@@ -355,6 +355,20 @@
               <text value=""/>
             </properties>
           </component>
+          <component id="913cd" class="javax.swing.JButton" binding="irAlPerfilButton">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-12998400"/>
+              <borderPainted value="true"/>
+              <focusPainted value="false"/>
+              <focusable value="true"/>
+              <font name="Calibri" size="18" style="1"/>
+              <foreground color="-1"/>
+              <text value="Ir al Perfil"/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>

@@ -17,7 +17,7 @@ public class AprendicesContratados {
     public void obtenerAprendicesContratados(int idInstructor, VerUsuariosRegistrados vista) {
         DefaultTableModel model = new DefaultTableModel() {
             public boolean isCellEditable(int row, int column) {
-                return column == 6 || column == 7 ; // Solo la columna del botón "Ver Perfil" es editable (ahora es la columna 6)
+                return column == 6; // Solo la columna del botón "Ver Perfil" es editable (ahora es la columna 6)
             }
         };
 
@@ -29,7 +29,7 @@ public class AprendicesContratados {
         model.addColumn("Email");
         model.addColumn("Empresa"); // Nueva columna agregada
         model.addColumn("Ver Perfil");
-        model.addColumn("Seguimiento");
+//        model.addColumn("Seguimiento");
 
         try {
             Connection con = DBConnection.getConnection();
@@ -48,7 +48,7 @@ public class AprendicesContratados {
             ResultSet rsAprendices = psAprendices.executeQuery();
 
             while (rsAprendices.next()) {
-                Object[] dato = new Object[8]; // Aumentado a 7 columnas
+                Object[] dato = new Object[7]; // Aumentado a 7 columnas
                 dato[0] = rsAprendices.getString("tipo_dc");
                 dato[1] = rsAprendices.getString("numero");
                 dato[2] = rsAprendices.getString("nombres");
@@ -56,7 +56,7 @@ public class AprendicesContratados {
                 dato[4] = rsAprendices.getString("email");
                 dato[5] = rsAprendices.getString("nombre_empresa"); // Nueva columna Empresa
                 dato[6] = "Ver Perfil";
-                dato[7] = "Seguimiento";
+//                dato[7] = "Seguimiento";
                 model.addRow(dato);
             }
 
@@ -77,8 +77,8 @@ public class AprendicesContratados {
             tabla.getColumn("Ver Perfil").setCellRenderer(vista.getButtonRenderer());
             tabla.getColumn("Ver Perfil").setCellEditor(vista.getButtonEditor());
 
-            tabla.getColumn("Seguimiento").setCellRenderer(vista.getButtonRenderer());
-            tabla.getColumn("Seguimiento").setCellEditor(vista.getButtonEditor());
+//            tabla.getColumn("Seguimiento").setCellRenderer(vista.getButtonRenderer());
+//            tabla.getColumn("Seguimiento").setCellEditor(vista.getButtonEditor());
 
             vista.componentesPersonalizado();
 
