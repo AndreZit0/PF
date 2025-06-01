@@ -70,9 +70,12 @@ public class LoginGUI {
         ingresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 usuario = TexfUsuario.getText().trim();
                 usuarioActual = usuario;
+                String estado= "";
                 String contraseña = new String(TexfContraseña.getPassword());
+
 
                 if (usuario.isEmpty() || contraseña.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -80,72 +83,100 @@ public class LoginGUI {
                 }
 
                 try (Connection conn = DBConnection.getConnection()) {
-                    String sql = "SELECT * FROM usuarios WHERE email = ? AND clave = ?";
-                    PreparedStatement stmt = conn.prepareStatement(sql);
-                    stmt.setString(1, usuario);
-                    stmt.setString(2, contraseña);
-                    ResultSet rs = stmt.executeQuery();
 
-                    if (rs.next()) {
+                    String sqlEst = "SELECT estado FROM usuarios WHERE email = ?";
+                    PreparedStatement stmtEst = conn.prepareStatement(sqlEst);
 
-                        // JEFFERSONNN Aquí obtenemos el ID del usuario de la base de datos
-                        idUsuarioActual = rs.getInt("ID_usuarios");
+                    stmtEst.setString(1,usuario);
+                    ResultSet rsEst = stmtEst.executeQuery();
 
-                        rolUsuarioActual = rs.getInt("ID_rol");  // ← Nueva línea
-
-
-                        Usuario user = new Usuario(
-                                rs.getString("nombres"),
-                                cofigBotonInicioSegunRol= rs.getString("id_rol")
-
-
-                        );
-                        traerIDusuario= rs.getInt("ID_usuarios");
-
-                        guardarUsuario(usuario);
-
-                        switch (user.getRol().toLowerCase()) {
-
-                            case "1":
-                                Administrador aprendiz = new Administrador();
-                                aprendiz.Admin_Screen();
-                                break;
-                            case "2":
-                                Administrador evaluador = new Administrador();
-                                evaluador.Admin_Screen();
-                                break;
-                            case "3":
-                                Administrador coevaluador = new Administrador();
-                                coevaluador.Admin_Screen();
-                                break;
-                            case "4":
-                                Administrador auxiliar = new Administrador();
-                                auxiliar.Admin_Screen();
-                                break;
-                            case "5":
-                                Administrador administrador = new Administrador();
-                                administrador.Admin_Screen();
-                                break;
-                            case "6":
-                                Administrador administradorSistema = new Administrador();
-                                administradorSistema.Admin_Screen();
-                                break;
-                            default:
-                                JOptionPane.showMessageDialog(null, "Rol no reconocido.", "Error", JOptionPane.ERROR_MESSAGE);
-                                return;
-                        }
-
-                        SwingUtilities.getWindowAncestor(main).dispose();
-
+                    if (rsEst.next()) {
+                        estado = rsEst.getString("estado");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "El usuario no existe.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                        return;
                     }
 
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+
+
+                if("Activo".equals(estado)){
+
+                    try (Connection conn = DBConnection.getConnection()) {
+                        String sql = "SELECT * FROM usuarios WHERE email = ? AND clave = ? AND estado = ?";
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setString(1, usuario);
+                        stmt.setString(2, contraseña);
+                        stmt.setString(3, estado);
+                        ResultSet rs = stmt.executeQuery();
+
+                        if (rs.next()) {
+
+                            // JEFFERSONNN Aquí obtenemos el ID del usuario de la base de datos
+                            idUsuarioActual = rs.getInt("ID_usuarios");
+
+                            rolUsuarioActual = rs.getInt("ID_rol");  // ← Nueva línea
+
+
+                            Usuario user = new Usuario(
+                                    rs.getString("nombres"),
+                                    cofigBotonInicioSegunRol= rs.getString("id_rol")
+
+
+                            );
+                            traerIDusuario= rs.getInt("ID_usuarios");
+
+                            guardarUsuario(usuario);
+
+                            switch (user.getRol().toLowerCase()) {
+
+                                case "1":
+                                    Administrador aprendiz = new Administrador();
+                                    aprendiz.Admin_Screen();
+                                    break;
+                                case "2":
+                                    Administrador evaluador = new Administrador();
+                                    evaluador.Admin_Screen();
+                                    break;
+                                case "3":
+                                    Administrador coevaluador = new Administrador();
+                                    coevaluador.Admin_Screen();
+                                    break;
+                                case "4":
+                                    Administrador auxiliar = new Administrador();
+                                    auxiliar.Admin_Screen();
+                                    break;
+                                case "5":
+                                    Administrador administrador = new Administrador();
+                                    administrador.Admin_Screen();
+                                    break;
+                                case "6":
+                                    Administrador administradorSistema = new Administrador();
+                                    administradorSistema.Admin_Screen();
+                                    break;
+                                default:
+                                    JOptionPane.showMessageDialog(null, "Rol no reconocido.", "Error", JOptionPane.ERROR_MESSAGE);
+                                    return;
+                            }
+
+                            SwingUtilities.getWindowAncestor(main).dispose();
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Actualmente te encuentras inactivo.", "Inactivo", JOptionPane.WARNING_MESSAGE);
+                }
             }
+
         });
     }
 
