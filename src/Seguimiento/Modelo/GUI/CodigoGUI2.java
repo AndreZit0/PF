@@ -130,9 +130,15 @@ public class CodigoGUI2 extends JFrame {
             if (subidaHabilitada) subirArchivo();
             else mostrarMensajeEspera();
         });
-        panelSubir.add(btnSubir);
-        panelPrincipal.add(panelSubir, BorderLayout.SOUTH);
+        panelSubir.add(btnSubir); // se agrega de todas formas
 
+        if("4".equals(cofigBotonInicioSegunRol) || "5".equals(cofigBotonInicioSegunRol)) {
+            btnSubir.setVisible(false);
+        } else {
+            btnSubir.setVisible(true);
+        }
+
+        panelPrincipal.add(panelSubir, BorderLayout.SOUTH);
         add(panelPrincipal);
     }
 

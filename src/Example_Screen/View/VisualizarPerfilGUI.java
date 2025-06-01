@@ -42,8 +42,8 @@ public class VisualizarPerfilGUI {
     private JLabel prog;
     private JLabel dato_apren;
     private JLabel esta_apren;
-    public static int userID;
-    public static String emailActual;
+    private int currentUserID;
+    private String currentEmail;
     private DBConnection dbConnection = new DBConnection();
 
     public static String idActualPerfil;
@@ -57,6 +57,13 @@ public class VisualizarPerfilGUI {
 
 
         this.admin = admin;
+
+        if (idUsuario <= 0) {
+            JOptionPane.showMessageDialog(null,
+                    "ID de usuario inválido: " + idUsuario,
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
 
         irAlPerfilButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -76,8 +83,8 @@ public class VisualizarPerfilGUI {
         irAlPerfilButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                idUsuarioActual = Integer.parseInt(String.valueOf(userID));
-                usuarioActual = emailActual;
+                idUsuarioActual = currentUserID;
+                usuarioActual = currentEmail;
                 admin.mostrarPanelGraficoInicio();
                 Window window = SwingUtilities.getWindowAncestor(irAlPerfilButton);
                 if (window != null) {
@@ -149,8 +156,8 @@ public class VisualizarPerfilGUI {
 
 
             if (rs.next()) {
-                // Almacenar ID para futuras actualizaciones
-                userID = rs.getInt("ID_usuarios");
+                this.currentUserID = rs.getInt("ID_usuarios");
+                this.currentEmail = rs.getString("email");
 
                 // Cargar datos a los campos
                 nombre.setText(rs.getString("nombres"));
@@ -163,8 +170,6 @@ public class VisualizarPerfilGUI {
                 tipo_doc.setText(rs.getString("tipo_dc"));
                 rol.setText(rs.getString("rol"));
                 estado.setText(rs.getString("estado"));
-
-                emailActual = rs.getString("email");
 
 
             } else {
@@ -196,8 +201,8 @@ public class VisualizarPerfilGUI {
 
             if (rs.next()) {
                 // Almacenar ID para futuras actualizaciones
-                userID = rs.getInt("ID_usuarios");
-
+                this.currentUserID = rs.getInt("ID_usuarios");
+                this.currentEmail = rs.getString("email");
                 // Cargar datos a los campos
                 nombre.setText(rs.getString("nombres"));
                 apellido.setText(rs.getString("apellidos"));
@@ -216,7 +221,6 @@ public class VisualizarPerfilGUI {
                         "No se encontró información del usuario con documento: " + numeroDoc,
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
-            emailActual = rs.getString("email");
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null,

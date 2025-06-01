@@ -28,6 +28,8 @@ public class LoginGUI {
 
     public static String usuarioActual;
     public static int idUsuarioActual;
+    public static int rolUsuarioActual;  // ← Nueva variable para el rol como entero
+
     String usuario;
 
     public LoginGUI(String usuario) {
@@ -88,6 +90,9 @@ public class LoginGUI {
 
                         // JEFFERSONNN Aquí obtenemos el ID del usuario de la base de datos
                         idUsuarioActual = rs.getInt("ID_usuarios");
+
+                        rolUsuarioActual = rs.getInt("ID_rol");  // ← Nueva línea
+
 
                         Usuario user = new Usuario(
                                 rs.getString("nombres"),

@@ -6,11 +6,13 @@ import Example_Screen.View.Usuarios_Registrados.VerUsuariosRegistrados;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import java.awt.*;
 import java.sql.*;
 
 import static Example_Screen.View.Administrador.Administrador.verUsuarioPorRol;
 
 public class AprendicesContratados {
+    public Container panel1;
 
     // No se crea una nueva instancia de VerUsuariosRegistrados aquí
 

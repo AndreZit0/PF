@@ -555,8 +555,8 @@ public class Administrador {
      */
     public void mostrarPanelEditar() {
 
-        int idUsuario = idUsuarioActual; // o traerIDusuario
-        int idRol = traerIDusuario; // ← CAMBIO AQUÍ: usar el rol real del usuario
+        int idUsuario = LoginGUI.idUsuarioActual; // o traerIDusuario
+        int idRol = LoginGUI.rolUsuarioActual; // ← CAMBIO AQUÍ: usar el rol real del usuario
         // O si no tienes rolUsuarioActual, usa el método que tengas para obtener el rol:
         // int idRol = obtenerRolUsuario(idUsuario);
 
@@ -821,12 +821,24 @@ public class Administrador {
         // Acción del botón Perfil
         botonPerfil.addActionListener(e -> {
             try {
+
+                int idUsuarioActual = LoginGUI.idUsuarioActual;
+
+                // Validar que el ID sea válido
+                if (idUsuarioActual <= 0) {
+                    JOptionPane.showMessageDialog(frame,
+                            "No se pudo identificar el usuario actual",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 // Obtener el rol del usuario actual desde la base de datos
-                int rolUsuario = obtenerRolUsuario(VisualizarPerfilGUI.userID);
+                int rolUsuario = obtenerRolUsuario(idUsuarioActual);
 
                 JDialog perfilDialog = new JDialog(frame, "Ver Información", true);
                 // Usar el ID del usuario actual y su rol correcto
-                VisualizarPerfilGUI perfilGUI = new VisualizarPerfilGUI(VisualizarPerfilGUI.userID, rolUsuario,this);
+                VisualizarPerfilGUI perfilGUI = new VisualizarPerfilGUI(idUsuarioActual, rolUsuario,this);
                 perfilGUI.irAlPerfilButton.setVisible(false);
                 perfilDialog.setContentPane(perfilGUI.panel1);
                 perfilDialog.pack();
@@ -854,6 +866,61 @@ public class Administrador {
                 botonPerfil.setBackground(new Color(0x39A900));
             }
         });
+
+        ///////
+        JButton botonNovedad = new JButton("Novedades");
+        botonNovedad.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        botonNovedad.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botonNovedad.setPreferredSize(new Dimension(200, 40));
+        botonNovedad.setMaximumSize(new Dimension(200, 40));
+        botonNovedad.setBackground(new Color(0x39A900)); // Verde
+        botonNovedad.setForeground(Color.WHITE);
+        botonNovedad.setFont(new Font("Calibri", Font.BOLD, 20));
+        botonNovedad.setFocusPainted(false);
+
+        // Acción del botón Perfil
+//        botonNovedad.addActionListener(e -> {
+//            try {
+//
+//                int idUsuarioActual = LoginGUI.idUsuarioActual;
+//
+//                // Validar que el ID sea válido
+//                if (idUsuarioActual <= 0) {
+//                    JOptionPane.showMessageDialog(frame,
+//                            "No se pudo identificar el usuario actual",
+//                            "Error",
+//                            JOptionPane.ERROR_MESSAGE);
+//                    return;
+//                }
+//
+//                // Obtener el rol del usuario actual desde la base de datos
+//                int rolUsuario = obtenerRolUsuario(idUsuarioActual);
+//
+//                JDialog perfilDialog = new JDialog(frame, "Ver Información", true);
+//                // Usar el ID del usuario actual y su rol correcto
+//                AprendicesContratados aprendicesContratados = new AprendicesContratados();
+//                perfilDialog.setContentPane(aprendicesContratados.panel1);
+//                perfilDialog.pack();
+//                perfilDialog.setLocationRelativeTo(frame);
+//                perfilDialog.setVisible(true);
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//                JOptionPane.showMessageDialog(frame,
+//                        "Error al cargar el perfil: " + ex.getMessage(),
+//                        "Error",
+//                        JOptionPane.ERROR_MESSAGE);
+//            }
+//        });
+
+        ///////
+
+
+
+
+
+
+
+
 
         // CÓDIGO COMENTADO - Botón Bitácoras
 
@@ -933,6 +1000,8 @@ public class Administrador {
         panelDerecho.add(botonBitacoras);
         panelDerecho.add(Box.createRigidArea(new Dimension(0, 10)));
         panelDerecho.add(botonSeguimiento);
+//        panelDerecho.add(Box.createRigidArea(new Dimension(0, 10)));
+//        panelDerecho.add(botonNovedad);
         panelDerecho.add(Box.createVerticalGlue());
 
 
@@ -961,11 +1030,19 @@ public class Administrador {
 
             if (rs.next()) {
                 return rs.getInt("ID_rol");
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "No se encontró el rol para el usuario con ID: " + idUsuario,
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return -1;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Error al obtener el rol del usuario: " + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
-        return 1; // Valor por defecto (Aprendiz) si no se encuentra
     }
 
 
