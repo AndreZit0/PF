@@ -845,22 +845,73 @@ public class Administrador {
         contenidoPanel.setBackground(new Color(246, 246, 246)); // Color verde #39A900
 
         contenidoPanel.removeAll();
-        contenidoPanel.setLayout(new BorderLayout(20, 0));
-        contenidoPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+        panelSuperior.setBackground(new Color(57, 169, 0));
+        panelSuperior.setPreferredSize(new Dimension(100, 40));
+
+        if(!"1".equals(cofigBotonInicioSegunRol)) { // Solo para rol Evaluador
+            ImageIcon iconoRegresar = new ImageIcon(getClass().getResource("/img/previous (3).png"));
+            JButton btnRegresar = new JButton(iconoRegresar);
+            btnRegresar.setBorderPainted(false);
+            btnRegresar.setContentAreaFilled(false);
+            btnRegresar.setFocusPainted(false);
+            btnRegresar.setBackground(new Color(57, 169, 0));
+            btnRegresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            switch(cofigBotonInicioSegunRol) {
+                case "2": // Evaluador
+                    btnRegresar.addActionListener(e -> mostrarTablaAprendicesAsignados());
+                    break;
+                case "3": // Coevaluador
+                    btnRegresar.addActionListener(e -> mostrarTablaAprendicesContratados());
+                    break;
+                case "4": // Auxiliar
+                case "5": // Funcionario
+                case "6": // Admin Sistema
+                    btnRegresar.addActionListener(e -> {
+                        // Para estos roles, regresar a la vista de usuarios según corresponda
+                        verUsuarioPorRol = 1; // Mostrar aprendices
+                        mostrarPanelUsuarios();
+                    });
+                    break;
+            }
+            JPanel panelBtnRegresar = new JPanel(new GridBagLayout());
+            panelBtnRegresar.setBackground(new Color(57, 169, 0));
+            panelBtnRegresar.setPreferredSize(new Dimension(60, 60));
+            panelBtnRegresar.add(btnRegresar);
+            panelSuperior.add(panelBtnRegresar, BorderLayout.WEST);
+        } else {
+            // Espacio vacío para aprendiz
+            JPanel panelEspacio = new JPanel();
+            panelEspacio.setBackground(new Color(57, 169, 0));
+            panelEspacio.setPreferredSize(new Dimension(60, 60));
+            panelSuperior.add(panelEspacio, BorderLayout.WEST);
+        }
+        String titulo = "Progreso del Aprendiz";
+        if("1".equals(cofigBotonInicioSegunRol)) {
+            titulo = "Mi Progreso";
+        }
+        JLabel lblTitulo = new JLabel(titulo, SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Calibri", Font.BOLD, 25));
+        lblTitulo.setForeground(Color.WHITE);
+        panelSuperior.add(lblTitulo, BorderLayout.CENTER);
 
         AprendizDAO dao = new AprendizDAO();
         Aprendiz aprendiz = dao.obtenerAprendiz(LoginGUI.idUsuarioActual);
         int progreso = aprendiz != null ? aprendiz.calcularProgreso() : 0;
+
+        JPanel panelContenido = new JPanel(new BorderLayout(20, 0));
+        panelContenido.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
         JPanel panelIzquierdo = new JPanel();
         panelIzquierdo.setLayout(new BoxLayout(panelIzquierdo, BoxLayout.Y_AXIS));
         panelIzquierdo.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 
 
-        JLabel titulo = new JLabel("Progreso de "+aprendiz.getNombre());
-        titulo.setFont(new Font("Calibri", Font.BOLD, 25));
-        titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        JLabel tituloAprendiz = new JLabel("Progreso de "+aprendiz.getNombre());
+        tituloAprendiz.setFont(new Font("Calibri", Font.BOLD, 25));
+        tituloAprendiz.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tituloAprendiz.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
 
         GraficoCircular grafico = new GraficoCircular(progreso);
         grafico.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -873,7 +924,7 @@ public class Administrador {
         fechaFin.setFont(new Font("Arial", Font.BOLD, 17));
         fechaFin.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        panelIzquierdo.add(titulo);
+        panelIzquierdo.add(tituloAprendiz);
         panelIzquierdo.add(grafico);
         panelIzquierdo.add(Box.createRigidArea(new Dimension(0, 5)));
         panelIzquierdo.add(fechaInicio);
@@ -1083,9 +1134,15 @@ public class Administrador {
 
 
 
-        contenidoPanel.add(panelIzquierdo, BorderLayout.CENTER);
-        contenidoPanel.add(panelDerecho, BorderLayout.EAST);
+        panelContenido.add(panelIzquierdo, BorderLayout.CENTER);
+        panelContenido.add(panelDerecho, BorderLayout.EAST);
 
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        panelPrincipal.add(panelSuperior, BorderLayout.NORTH);
+        panelPrincipal.add(panelContenido, BorderLayout.CENTER);
+
+        contenidoPanel.setLayout(new BorderLayout());
+        contenidoPanel.add(panelPrincipal, BorderLayout.CENTER);
         contenidoPanel.revalidate();
         contenidoPanel.repaint();
     }
