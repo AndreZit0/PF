@@ -43,110 +43,89 @@ public class AdminFichasGUI {
         generarPDFButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String timestamp = new java.text.SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new java.util.Date());
-                String ruta = System.getProperty("user.home") + "/Downloads/fichas_" + timestamp + ".xlsx";
+                BaseColor verdeSena = new BaseColor(57, 169, 0);
+                Document documento = new Document(PageSize.A4.rotate()); // Orientación horizontal
 
+                try {
+                    String ruta = System.getProperty("user.home") + "/Downloads/fichas.pdf";
+                    PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(ruta));
+                    documento.open();
 
-                try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "");
-                     PreparedStatement pst = cn.prepareStatement(
-                             "SELECT f.codigo, f.modalidad, f.jornada, f.nivel_formacion, " +
-                                     "f.fecha_inicio, f.fecha_fin_lec, f.fecha_final, f.estado, " +
-                                     "p.nombre_programa, s.nombre_sede " +
-                                     "FROM fichas f " +
-                                     "JOIN programas p ON f.ID_programas = p.ID_programas " +
-                                     "JOIN sede s ON f.ID_sede = s.ID_sede");
-                     ResultSet rs = pst.executeQuery();
-                     XSSFWorkbook workbook = new XSSFWorkbook()) {
+                    // Fondo
+                    String imagePath = "src/Empresas/img/fondo.png";
+                    File imgFile = new File(imagePath);
+                    if (imgFile.exists()) {
+                        com.itextpdf.text.Image background = com.itextpdf.text.Image.getInstance(imagePath);
+                        background.scaleToFit(PageSize.A4.getHeight(), PageSize.A4.getWidth());
+                        background.setAbsolutePosition(0, 0);
+                        PdfContentByte canvas = writer.getDirectContentUnder();
+                        canvas.addImage(background);
+                    }
 
-                    XSSFSheet sheet = workbook.createSheet("Listado de Fichas");
+                    documento.add(new Paragraph("\n\n\n\n"));
+                    Paragraph titulo = new Paragraph("Listado de Fichas",
+                            FontFactory.getFont("Tahoma", 22, Font.BOLD, verdeSena));
+                    titulo.setAlignment(Element.ALIGN_CENTER);
+                    documento.add(titulo);
+                    documento.add(new Paragraph("\n\n"));
 
+                    // Encabezados como en la imagen 1
                     String[] headers = {
                             "Programa", "Sede", "Código", "Modalidad", "Jornada",
                             "Nivel Formación", "Fecha Inicio", "Fecha Fin Lectiva", "Fecha Final", "Estado"
                     };
 
-                    // 🎨 Estilo para encabezado
-                    XSSFCellStyle headerStyle = workbook.createCellStyle();
-                    headerStyle.setFillForegroundColor(new XSSFColor(new Color(57, 169, 0), null));
-                    headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+                    PdfPTable tabla = new PdfPTable(headers.length);
+                    tabla.setWidthPercentage(100);
+                    tabla.setSpacingBefore(10f);
+                    tabla.setSpacingAfter(10f);
 
-                    XSSFFont headerFont = workbook.createFont();
-                    headerFont.setColor(IndexedColors.WHITE.getIndex());
-                    headerFont.setBold(true);
-                    headerStyle.setFont(headerFont);
-                    headerStyle.setAlignment(HorizontalAlignment.CENTER);
-                    headerStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-
-                    // Bordes al encabezado
-                    headerStyle.setBorderTop(BorderStyle.THIN);
-                    headerStyle.setBorderBottom(BorderStyle.THIN);
-                    headerStyle.setBorderLeft(BorderStyle.THIN);
-                    headerStyle.setBorderRight(BorderStyle.THIN);
-
-                    // 🧱 Crear fila de encabezado
-                    Row headerRow = sheet.createRow(0);
-                    for (int i = 0; i < headers.length; i++) {
-                        Cell cell = headerRow.createCell(i);
-                        cell.setCellValue(headers[i]);
-                        cell.setCellStyle(headerStyle);
+                    for (String header : headers) {
+                        PdfPCell cell = new PdfPCell(new Phrase(header,
+                                FontFactory.getFont("Calibri", 12, Font.BOLD, BaseColor.WHITE)));
+                        cell.setBackgroundColor(verdeSena);
+                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        tabla.addCell(cell);
                     }
 
-                    // 📅 Estilo para celdas de fecha
-                    CellStyle dateStyle = workbook.createCellStyle();
-                    CreationHelper createHelper = workbook.getCreationHelper();
-                    dateStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
+                    // Consultar la base de datos con JOIN para traer nombres de programa y sede
+                    try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "");
+                         PreparedStatement pst = cn.prepareStatement(
+                                 "SELECT f.codigo, f.modalidad, f.jornada, f.nivel_formacion, " +
+                                         "f.fecha_inicio, f.fecha_fin_lec, f.fecha_final, f.estado, " +
+                                         "p.nombre_programa, s.nombre_sede " +
+                                         "FROM fichas f " +
+                                         "JOIN programas p ON f.ID_programas = p.ID_programas " +
+                                         "JOIN sede s ON f.ID_sede = s.ID_sede");
+                         ResultSet rs = pst.executeQuery()) {
 
-                    int rowIndex = 1;
-                    while (rs.next()) {
-                        Row row = sheet.createRow(rowIndex++);
-
-                        row.createCell(0).setCellValue(rs.getString("nombre_programa"));
-                        row.createCell(1).setCellValue(rs.getString("nombre_sede"));
-                        row.createCell(2).setCellValue(rs.getString("codigo"));
-                        row.createCell(3).setCellValue(rs.getString("modalidad"));
-                        row.createCell(4).setCellValue(rs.getString("jornada"));
-                        row.createCell(5).setCellValue(rs.getString("nivel_formacion"));
-
-                        // Formatear fechas
-                        for (int i = 0; i < 3; i++) {
-                            String campo = switch (i) {
-                                case 0 -> "fecha_inicio";
-                                case 1 -> "fecha_fin_lec";
-                                default -> "fecha_final";
-                            };
-                            java.sql.Date fecha = rs.getDate(campo);
-                            Cell fechaCell = row.createCell(6 + i);
-                            if (fecha != null) {
-                                fechaCell.setCellValue(fecha);
-                                fechaCell.setCellStyle(dateStyle);
-                            } else {
-                                fechaCell.setCellValue("");
-                            }
+                        while (rs.next()) {
+                            tabla.addCell(rs.getString("nombre_programa"));
+                            tabla.addCell(rs.getString("nombre_sede"));
+                            tabla.addCell(rs.getString("codigo"));
+                            tabla.addCell(rs.getString("modalidad"));
+                            tabla.addCell(rs.getString("jornada"));
+                            tabla.addCell(rs.getString("nivel_formacion"));
+                            tabla.addCell(rs.getString("fecha_inicio"));
+                            tabla.addCell(rs.getString("fecha_fin_lec"));
+                            tabla.addCell(rs.getString("fecha_final"));
+                            tabla.addCell(rs.getString("estado"));
                         }
 
-                        row.createCell(9).setCellValue(rs.getString("estado"));
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Error al consultar la base de datos: " + ex.getMessage());
                     }
 
-                    // Ajustar ancho de columnas
-                    for (int i = 0; i < headers.length; i++) {
-                        sheet.autoSizeColumn(i);
+                    documento.add(tabla);
+                    documento.close();
+                    JOptionPane.showMessageDialog(null, "PDF generado correctamente como se ve en pantalla.");
+
+                    File pdfFile = new File(ruta);
+                    if (pdfFile.exists()) {
+                        Desktop.getDesktop().open(pdfFile);
                     }
-
-                    // Guardar archivo
-                    try (FileOutputStream out = new FileOutputStream(ruta)) {
-                        workbook.write(out);
-                    }
-
-                    JOptionPane.showMessageDialog(null, "Excel generado correctamente con estilos en la carpeta de descargas.");
-
-                    File file = new File(ruta);
-                    if (file.exists()) {
-                        Desktop.getDesktop().open(file);
-                    }
-
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Error al generar el Excel: " + ex.getMessage());
-                    ex.printStackTrace();
+                } catch (DocumentException | IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al generar el PDF: " + ex.getMessage());
                 }
             }
         });

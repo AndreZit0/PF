@@ -105,6 +105,10 @@ public class AdminSedesGUI {
 
                     JOptionPane.showMessageDialog(null, "PDF generado correctamente en la carpeta de descargas.");
 
+                    File pdfFile = new File(ruta);
+                    if (pdfFile.exists()) {
+                        Desktop.getDesktop().open(pdfFile);
+                    }
                 } catch (DocumentException | IOException ex) {
                     JOptionPane.showMessageDialog(null, "Error al generar el PDF: " + ex.getMessage());
                 }
