@@ -20,6 +20,7 @@ import Usuarios.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -84,6 +85,7 @@ public class Administrador {
     private JButton verFichasButton;
     private JButton verProgramasButton;
     private JButton verSedesButton;
+    private JScrollPane scrollMenu;
 
     private JTable table1;
     private JFrame frame;
@@ -120,6 +122,7 @@ public class Administrador {
         configurarFlechasBotones();
         cambiarTituloSegunRol();
         tamañoCompletoMenu();
+        estilizarScrollMenu(scrollMenu);
         pnlBtonPermiso.setVisible(false);
         botonCrearModalidad.setVisible(false);
 
@@ -515,6 +518,80 @@ public class Administrador {
             }
         });
     }
+
+    public static void estilizarScrollMenu(JScrollPane scrollMenu) {
+        // Ocultar bordes
+        scrollMenu.setBorder(BorderFactory.createEmptyBorder());
+        scrollMenu.getViewport().setBorder(null);
+
+        // Estilo del ScrollBar vertical
+        JScrollBar verticalBar = scrollMenu.getVerticalScrollBar();
+        verticalBar.setPreferredSize(new Dimension(5, Integer.MAX_VALUE));
+        verticalBar.setUI(crearScrollBarEstetico());
+
+        // Estilo del ScrollBar horizontal
+        JScrollBar horizontalBar = scrollMenu.getHorizontalScrollBar();
+        horizontalBar.setPreferredSize(new Dimension(Integer.MAX_VALUE, 5));
+        horizontalBar.setUI(crearScrollBarEstetico());
+    }
+
+    private static BasicScrollBarUI crearScrollBarEstetico() {
+        return new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(57, 169, 0, 180); // Thumb verde semitransparente
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return crearBotonInvisible();
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return crearBotonInvisible();
+            }
+
+            @Override
+            protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Línea central gris clara, más integrada al diseño
+                int x = trackBounds.x + trackBounds.width / 2 - 1;
+                int y = trackBounds.y;
+                int width = 2;
+                int height = trackBounds.height;
+
+                g2.setColor(new Color(200, 200, 200, 100)); // Gris claro con transparencia
+                g2.fillRoundRect(x, y, width, height, 5, 5);
+                g2.dispose();
+            }
+
+            @Override
+            protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                g2.setPaint(new Color(57, 169, 0, 180)); // Thumb blanco
+                g2.fillRoundRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height, 10, 10);
+                g2.dispose();
+            }
+
+            private JButton crearBotonInvisible() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setVisible(false);
+                button.setOpaque(false);
+                button.setBorderPainted(false);
+                button.setContentAreaFilled(false);
+                return button;
+            }
+        };
+    }
+
+
+
 
 
     /**
