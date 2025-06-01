@@ -102,13 +102,13 @@ public class AdministrarGUI {
         pdfButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Verificar si hay una fila seleccionada
-                int selectedRow = table1.getSelectedRow();
-                if (selectedRow == -1) {
-                    // mostrar mensaje
-                    JOptionPane.showMessageDialog(null, "Seleccione una empresa primero.");
-                    return; // Salir
-                }
+//                // Verificar si hay una fila seleccionada
+//                int selectedRow = table1.getSelectedRow();
+//                if (selectedRow == -1) {
+//                    // mostrar mensaje
+//                    JOptionPane.showMessageDialog(null, "Seleccione una empresa primero.");
+//                    return; // Salir
+//                }
 
                 //colores
                 BaseColor verdeSena = new BaseColor(57, 169, 0);

@@ -245,11 +245,10 @@ public class UsuariosDAO {
             return false;
         }
 
-        if (!usuario.getDocumento().matches("\\d{10}")) {
-            JOptionPane.showMessageDialog(null, "El número de documento debe tener exactamente 10 dígitos numéricos.");
+        if (!usuario.getDocumento().matches("\\d{6,10}")) {
+            JOptionPane.showMessageDialog(null, "El número de documento debe tener entre 6 y 10 dígitos numéricos.");
             return false;
         }
-
         if (!usuario.getContacto1().matches("\\d+") || (!usuario.getContacto2().isEmpty() && !usuario.getContacto2().matches("\\d+"))) {
             JOptionPane.showMessageDialog(null, "Los contactos deben contener solo números.");
             return false;
