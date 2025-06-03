@@ -2,10 +2,7 @@ package Example_Screen.View.Usuarios_Registrados;
 
 import Example_Screen.Connection.DBConnection;
 import Example_Screen.View.Administrador.Administrador;
-import Example_Screen.View.Login.LoginGUI;
 import Example_Screen.View.VisualizarPerfilGUI;
-import Seguimiento.Modelo.GUI.CodigoGUI;
-import Seguimiento.Modelo.GUI.CodigoGUI2;
 import Usuarios.EditarUsuario;
 import Usuarios.UsuariosDAO;
 import Usuarios.Usuarios_getset;
@@ -14,6 +11,11 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -21,26 +23,23 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.table.*;
 
 import static Example_Screen.View.Administrador.Administrador.datosAprendices;
 import static Example_Screen.View.Administrador.Administrador.verUsuarioPorRol;
 import static Example_Screen.View.Login.LoginGUI.*;
 
-public class VerUsuariosRegistrados {
+public class VerUsuariosRegistrados extends Component {
     private JTable table1;
     private JPanel panelVerUsuario;
     private JPanel panelFiltro;
@@ -49,6 +48,8 @@ public class VerUsuariosRegistrados {
     private JPanel panelTable;
     private JScrollPane scroll;
     private JButton pdfButton;
+    private JButton generarExcel;
+    private JButton addnovedad;
 
     public JTable getTable() {
         return table1;
@@ -79,12 +80,24 @@ public class VerUsuariosRegistrados {
 
     public VerUsuariosRegistrados(Administrador admin) {
         this.admin = admin;
+
+        if(verUsuarioPorRol==1) {
+            generarExcel.setVisible(true);
+        } else {
+            generarExcel.setVisible(false);
+        }
+
+        if("2".equals(cofigBotonInicioSegunRol)){
+            generarExcel.setVisible(false);
+        }
+
+
         pdfButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nombreArchivo = "";  // Este será el prefijo del nombre del archivo
 
-// colores
+                String nombreArchivo = "";  // Este será el prefijo del nombre del archivo
+                // colores
                 BaseColor verdeSena = new BaseColor(57, 169, 0);
                 Document documento = new Document(PageSize.A4);
 
@@ -96,7 +109,9 @@ public class VerUsuariosRegistrados {
                         nombreArchivo = "aprendices_asignados_";
                     } else if (datosAprendices == 8) {
                         nombreArchivo = "aprendices_contratados_";
-                    } else {
+                    } else if (datosAprendices == 9) {
+                        nombreArchivo = "novedades_aprendices_";
+                    }else {
                         nombreArchivo = "reporte_"; // nombre por defecto si no coincide nada
                     }
 
@@ -180,7 +195,7 @@ public class VerUsuariosRegistrados {
                     }
 
                     // 5. Aprendices asignados
-                    if (datosAprendices == 7) {
+                    else if (datosAprendices == 7) {
                         Paragraph titulo = new Paragraph("Aprendices Asignados",
                                 FontFactory.getFont("Tahoma", 22, com.itextpdf.text.Font.BOLD, verdeSena));
                         titulo.setAlignment(Element.ALIGN_CENTER);
@@ -205,7 +220,7 @@ public class VerUsuariosRegistrados {
                         try (Connection con = DBConnection.getConnection()) {
                             String sqlAprendices = "SELECT ID_usuarios FROM aprendices WHERE ID_instructor = ?";
                             PreparedStatement psAprendices = con.prepareStatement(sqlAprendices);
-                            psAprendices.setInt(1, traerIDusuario);
+                            psAprendices.setInt(1, traerIDusuario );
                             ResultSet rsAprendices = psAprendices.executeQuery();
 
                             boolean hayDatos = false;
@@ -241,7 +256,7 @@ public class VerUsuariosRegistrados {
                     }
 
                     // 6. Aprendices contratados
-                    if (datosAprendices == 8) {
+                    else if (datosAprendices == 8) {
                         Paragraph titulo = new Paragraph("Aprendices Contratados",
                                 FontFactory.getFont("Tahoma", 22, com.itextpdf.text.Font.BOLD, verdeSena));
                         titulo.setAlignment(Element.ALIGN_CENTER);
@@ -265,12 +280,12 @@ public class VerUsuariosRegistrados {
 
                         try (Connection con = DBConnection.getConnection();
                              PreparedStatement psAprendices = con.prepareStatement("""
-             SELECT u.tipo_dc, u.numero, u.nombres, u.apellidos, u.email, e.nombre_empresa
-             FROM aprendices a
-             INNER JOIN usuarios u ON a.ID_usuarios = u.ID_usuarios
-             INNER JOIN empresas e ON a.ID_empresas = e.ID_empresas
-             WHERE a.ID_empresas = ?
-         """)) {
+                             SELECT u.tipo_dc, u.numero, u.nombres, u.apellidos, u.email, e.nombre_empresa
+                             FROM aprendices a
+                             INNER JOIN usuarios u ON a.ID_usuarios = u.ID_usuarios
+                             INNER JOIN empresas e ON a.ID_empresas = e.ID_empresas
+                             WHERE a.ID_empresas = ?
+                         """)) {
 
                             psAprendices.setInt(1, traerIDusuario);
 
@@ -296,6 +311,67 @@ public class VerUsuariosRegistrados {
                         documento.add(tabla);
                     }
 
+
+                    else if (datosAprendices == 9) {
+                        Paragraph titulo = new Paragraph("Novedades del Aprendiz",
+                                FontFactory.getFont("Tahoma", 22, com.itextpdf.text.Font.BOLD, verdeSena));
+                        titulo.setAlignment(Element.ALIGN_CENTER);
+                        documento.add(titulo);
+                        documento.add(new Paragraph("\n\n"));
+
+                        PdfPTable tabla = new PdfPTable(4);
+                        tabla.setWidthPercentage(110);
+                        tabla.setSpacingBefore(10f);
+                        tabla.setSpacingAfter(10f);
+
+                        // Configurar anchos de columnas: Aprendiz más ancho, Novedad más ancho
+                        float[] columnWidths = {3f, 2f, 4f, 2f}; // Aprendiz, Documento, Novedad, Fecha
+                        tabla.setWidths(columnWidths);
+
+                        String[] headers = {"Nombres", "Apellidos", "Novedad", "Fecha"};
+
+                        for (String header : headers) {
+                            PdfPCell cell = new PdfPCell(new Phrase(header,
+                                    FontFactory.getFont("Calibri", 12, com.itextpdf.text.Font.BOLD, BaseColor.WHITE)));
+                            cell.setBackgroundColor(verdeSena);
+                            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                            cell.setPadding(8);
+                            tabla.addCell(cell);
+                        }
+
+                        try (Connection con = DBConnection.getConnection();
+                             // Consulta para obtener novedades del aprendiz específico
+                             PreparedStatement psNovedades = con.prepareStatement("""            
+                                SELECT u.nombres, u.apellidos, u.numero, n.novedad, n.fecha
+                                FROM novedades n
+                                INNER JOIN usuarios u ON n.ID_aprendiz = u.ID_usuarios
+                                WHERE n.ID_aprendiz = ?
+                                ORDER BY n.fecha DESC
+                            """)) {
+
+                            psNovedades.setInt(1, idUsuarioActual);
+
+                            ResultSet rsNovedades = psNovedades.executeQuery();
+
+                            if (!rsNovedades.isBeforeFirst()) {
+                                JOptionPane.showMessageDialog(null, "No se han encontrado novedades.");
+                            } else {
+                                while (rsNovedades.next()) {
+                                    tabla.addCell(rsNovedades.getString("nombres"));
+                                    tabla.addCell(rsNovedades.getString("apellidos"));
+                                    tabla.addCell(rsNovedades.getString("novedad"));
+                                    tabla.addCell(rsNovedades.getString("fecha"));
+                                }
+                            }
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(null, "Error en la base de datos: " + ex.getMessage());
+
+                        }
+
+                        documento.add(tabla);
+                    }
+
+
                     // 7. Cerrar documento
                     documento.close();
 
@@ -312,7 +388,143 @@ public class VerUsuariosRegistrados {
 
             }
         });
+
+        generarExcel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String ruta = System.getProperty("user.home") + "/Downloads/aprendices.xlsx";
+
+                try (Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/saep", "root", "");
+                     PreparedStatement pst = cn.prepareStatement(
+                             "SELECT \n" +
+                                     "    u.numero AS documento,\n" +
+                                     "    u.nombres,\n" +
+                                     "    u.apellidos,\n" +
+                                     "    a.estado,\n" +
+                                     "    f.codigo AS ficha,\n" +
+                                     "    p.nombre_programa,\n" +
+                                     "    e.nombre_empresa,\n" +
+                                     "    CONCAT(ui.nombres, ' ', ui.apellidos) AS instructor,\n" +
+                                     "    m.modalidad AS tipo_modalidad\n" +
+                                     "FROM aprendices a\n" +
+                                     "LEFT JOIN usuarios u ON a.ID_usuarios = u.ID_usuarios\n" +
+                                     "LEFT JOIN fichas f ON a.ID_Fichas = f.ID_Fichas\n" +
+                                     "LEFT JOIN programas p ON f.ID_programas = p.ID_programas\n" +
+                                     "LEFT JOIN empresas e ON a.ID_empresas = e.ID_empresas\n" +
+                                     "LEFT JOIN usuarios ui ON a.ID_instructor = ui.ID_usuarios\n" +
+                                     "LEFT JOIN modalidad m ON a.ID_modalidad = m.ID_modalidad;\n");
+                     ResultSet rs = pst.executeQuery();
+                     XSSFWorkbook workbook = new XSSFWorkbook()) {
+
+                    XSSFSheet sheet = workbook.createSheet("Listado de Fichas");
+
+                    String[] headers = {
+                            "Documento", "Nombres", "Apellidos", "Estado",
+                            "Ficha", "Programa", "Empresa", "Instructor", "Modalidad"
+                    };
+
+
+
+                    // Crear estilo para el encabezado
+                    XSSFCellStyle headerStyle = workbook.createCellStyle();
+                    headerStyle.setFillForegroundColor(new XSSFColor(new java.awt.Color(0, 128, 0), new DefaultIndexedColorMap())); // verde oscuro
+                    headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+                    // Crear fuente blanca y negrita
+                    XSSFFont font = workbook.createFont();
+                    font.setColor(IndexedColors.WHITE.getIndex());
+                    font.setBold(true);
+                    headerStyle.setFont(font);
+
+                    // Crear fila de encabezados con estilo
+                    Row headerRow = sheet.createRow(0);
+                    for (int i = 0; i < headers.length; i++) {
+                        Cell cell = headerRow.createCell(i);
+                        cell.setCellValue(headers[i]);
+                        cell.setCellStyle(headerStyle);
+                    }
+
+                    // Llenar las filas con datos
+                    int rowIndex = 1;
+                    while (rs.next()) {
+                        Row row = sheet.createRow(rowIndex++);
+                        row.createCell(0).setCellValue(rs.getString("documento"));
+                        row.createCell(1).setCellValue(rs.getString("nombres"));
+                        row.createCell(2).setCellValue(rs.getString("apellidos"));
+                        row.createCell(3).setCellValue(rs.getString("estado"));
+                        row.createCell(4).setCellValue(rs.getString("ficha"));
+                        row.createCell(5).setCellValue(rs.getString("nombre_programa"));
+                        row.createCell(6).setCellValue(rs.getString("nombre_empresa"));
+                        row.createCell(7).setCellValue(rs.getString("instructor"));
+                        row.createCell(8).setCellValue(rs.getString("tipo_modalidad"));
+
+
+                    }
+
+                    // Autoajustar columnas
+                    for (int i = 0; i < headers.length; i++) {
+                        sheet.autoSizeColumn(i);
+                    }
+
+                    // Guardar archivo
+                    try (FileOutputStream out = new FileOutputStream(ruta)) {
+                        workbook.write(out);
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Excel generado correctamente en la carpeta de descargas.");
+
+                    // Abrir automáticamente
+                    File excelFile = new File(ruta);
+                    if (excelFile.exists()) {
+                        Desktop.getDesktop().open(excelFile);
+                    }
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error al generar el Excel: " + ex.getMessage());
+                    ex.printStackTrace();
+                }
+            }
+        });
+
     }
+
+
+    public void cargarNovedadesEnTabla() {
+        DefaultTableModel model = (DefaultTableModel) table1.getModel();
+        model.setRowCount(0); // Limpia la tabla
+
+        String sql = """
+        SELECT 
+            CONCAT(u.nombres, ' ', u.apellidos) AS aprendiz,
+            u.numero AS documento,
+            n.novedad,
+            n.fecha
+        FROM novedades n
+        INNER JOIN usuarios u ON n.ID_aprendiz = u.ID_usuarios
+        WHERE n.ID_aprendiz = ?
+        ORDER BY n.fecha DESC
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idUsuarioActual); // o el ID del aprendiz seleccionado
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String aprendiz = rs.getString("aprendiz");
+                String documento = rs.getString("documento");
+                String novedad = rs.getString("novedad");
+                Timestamp fecha = rs.getTimestamp("fecha");
+
+                model.addRow(new Object[]{aprendiz, documento, novedad, fecha});
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     // Declarar sorter como atributo de clase

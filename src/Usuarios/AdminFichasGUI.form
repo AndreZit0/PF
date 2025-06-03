@@ -108,6 +108,7 @@
             <properties>
               <background color="-146688"/>
               <enabled value="true"/>
+              <font name="Calibri" size="14" style="1"/>
               <foreground color="-1"/>
               <hideActionText value="false"/>
               <text value="Generar PDF"/>
@@ -122,6 +123,7 @@
             <properties>
               <background color="-13850553"/>
               <enabled value="true"/>
+              <font name="Calibri" size="14" style="1"/>
               <foreground color="-1"/>
               <hideActionText value="false"/>
               <text value="Generar EXCEL"/>

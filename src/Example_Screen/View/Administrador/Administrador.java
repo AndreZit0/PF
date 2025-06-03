@@ -6,13 +6,10 @@ import AsignacionInstructor.AsignacionGUI;
 import Example_Screen.Connection.DBConnection;
 import Example_Screen.Model.Aprendiz;
 import Example_Screen.Model.AprendizDAO;
-import Example_Screen.View.AprendicesAsignados;
-import Example_Screen.View.AprendicesContratados;
-import Example_Screen.View.GraficoCircular;
+import Example_Screen.View.*;
 import Example_Screen.View.Login.LoginGUI;
 import Example_Screen.View.Usuarios_Registrados.VerUsuariosRegistrados;
 
-import Example_Screen.View.VisualizarPerfilGUI;
 import Seguimiento.Modelo.GUI.CodigoGUI;
 import Seguimiento.Modelo.GUI.CodigoGUI2;
 import Usuarios.*;
@@ -814,6 +811,52 @@ public class Administrador {
 
     // ------------­ LLAMADAS ESPECÍFICAS --------------
     /**
+     * Método para mostrar las novedades del aprendiz específico
+     */
+//    private void mostrarNovedadesAprendiz() {
+//        try {
+//            // Obtener el ID del aprendiz cuyo perfil estamos visualizando
+//            // Este ID debería estar disponible en la clase, probablemente como una variable de instancia
+//            // Por ejemplo: int idAprendizActual
+//
+//            if (idUsuarioActual <= 0) {
+//                JOptionPane.showMessageDialog(frame,
+//                        "No se pudo identificar el aprendiz actual",
+//                        "Error",
+//                        JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+//
+//            // Crear instancia de VerUsuariosRegistrados para mostrar la tabla
+//            VerUsuariosRegistrados vistaNovedades = new VerUsuariosRegistrados();
+//
+//            // Crear instancia de NovedadesAprendices y cargar las novedades específicas
+//            NovedadesAprendices novedadesController = new NovedadesAprendices();
+//            novedadesController.obtenerNovedadesAprendizEspecifico(idUsuarioActual, vistaNovedades);
+//
+//            // Reemplazar el contenido actual con la tabla de novedades
+//            // Limpiar el panel principal
+//            getContentPane().removeAll();
+//
+//            // Agregar la nueva vista de novedades
+//            getContentPane().add(vistaNovedades.()); // o el método que retorne el panel principal
+//
+//            // Refrescar la interfaz
+//            revalidate();
+//            repaint();
+//
+//            // Opcional: Cambiar el título de la ventana para indicar que estamos viendo novedades
+//            setTitle("Novedades del Aprendiz");
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            JOptionPane.showMessageDialog(frame,
+//                    "Error al cargar las novedades: " + ex.getMessage(),
+//                    "Error",
+//                    JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
+    /**
      * Muestra en pantalla el panel correspondiente al Formato 147 - Bitácoras.
      * Este metodo obtiene el usuario que ha iniciado sesión, crea una instancia
      * del panel de seguimiento 147 usando ese usuario, y lo muestra con el título adecuado.
@@ -823,6 +866,29 @@ public class Administrador {
         CodigoGUI2 codigoGUI = new CodigoGUI2(usuario);
 
         mostrarPanel("Formato 147 - Bitácoras", codigoGUI.getPanel());
+    }
+
+
+
+    public void mostrarNovedadesAprendiz() {
+
+        Administrador.datosAprendices = 9;
+
+        VerUsuariosRegistrados vista = new VerUsuariosRegistrados(this);
+        vista.mostrarRol("");
+
+        // 2. Obtener y mostrar los datos de aprendices contratados
+        NovedadesAprendices novedadesAprendices = new NovedadesAprendices(vista);
+        novedadesAprendices.obtenerNovedadesAprendices(traerIDusuario, vista);
+
+        // 3. Limpiar y configurar el panel principal
+        contenidoPanel.removeAll();
+        contenidoPanel.setLayout(new BorderLayout());
+        mostrarPanel("Novedades del Aprendiz", vista.getPanel());
+
+        // 4. Actualizar la interfaz
+        contenidoPanel.revalidate();
+        contenidoPanel.repaint();
     }
     /**
      * Muestra en pantalla el panel correspondiente al Formato 023 - Seguimiento.
@@ -995,59 +1061,36 @@ public class Administrador {
             }
         });
 
-        ///////
-        JButton botonNovedad = new JButton("Novedades");
-        botonNovedad.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        botonNovedad.setAlignmentX(Component.CENTER_ALIGNMENT);
-        botonNovedad.setPreferredSize(new Dimension(200, 40));
-        botonNovedad.setMaximumSize(new Dimension(200, 40));
-        botonNovedad.setBackground(new Color(0x39A900)); // Verde
-        botonNovedad.setForeground(Color.WHITE);
-        botonNovedad.setFont(new Font("Calibri", Font.BOLD, 20));
-        botonNovedad.setFocusPainted(false);
 
-        // Acción del botón Perfil
-//        botonNovedad.addActionListener(e -> {
-//            try {
-//
-//                int idUsuarioActual = LoginGUI.idUsuarioActual;
-//
-//                // Validar que el ID sea válido
-//                if (idUsuarioActual <= 0) {
-//                    JOptionPane.showMessageDialog(frame,
-//                            "No se pudo identificar el usuario actual",
-//                            "Error",
-//                            JOptionPane.ERROR_MESSAGE);
-//                    return;
-//                }
-//
-//                // Obtener el rol del usuario actual desde la base de datos
-//                int rolUsuario = obtenerRolUsuario(idUsuarioActual);
-//
-//                JDialog perfilDialog = new JDialog(frame, "Ver Información", true);
-//                // Usar el ID del usuario actual y su rol correcto
-//                AprendicesContratados aprendicesContratados = new AprendicesContratados();
-//                perfilDialog.setContentPane(aprendicesContratados.panel1);
-//                perfilDialog.pack();
-//                perfilDialog.setLocationRelativeTo(frame);
-//                perfilDialog.setVisible(true);
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//                JOptionPane.showMessageDialog(frame,
-//                        "Error al cargar el perfil: " + ex.getMessage(),
-//                        "Error",
-//                        JOptionPane.ERROR_MESSAGE);
-//            }
-//        });
+        JButton botonNovedades = new JButton("Novedades");
+        botonNovedades.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        botonNovedades.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botonNovedades.setPreferredSize(new Dimension(200, 40));
+        botonNovedades.setMaximumSize(new Dimension(200, 40));
+        botonNovedades.setBackground(new Color(243,156,18)); // Verde (mismo color que en la imagen)
+        botonNovedades.setForeground(Color.WHITE);
+        botonNovedades.setFont(new Font("Calibri", Font.BOLD, 20));
+        botonNovedades.setFocusPainted(false);
 
-        ///////
+// Hover efecto
+        botonNovedades.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                botonNovedades.setBackground(new Color(252, 191, 73)); // Verde más claro en hover
+            }
 
+            @Override
+            public void mouseExited(MouseEvent e) {
+                botonNovedades.setBackground(new Color(243,156,18)); // Verde original
+            }
+        });
 
-
-
-
-
-
+        botonNovedades.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarNovedadesAprendiz();
+            }
+        });
 
 
         // CÓDIGO COMENTADO - Botón Bitácoras
@@ -1121,6 +1164,10 @@ public class Administrador {
 
         if("3".equals(cofigBotonInicioSegunRol)){
             botonBitacoras.setVisible(false);
+            botonNovedades.setVisible(false);
+        }
+        if("4".equals(cofigBotonInicioSegunRol) || "5".equals(cofigBotonInicioSegunRol) || "1".equals(cofigBotonInicioSegunRol)){
+            botonNovedades.setVisible(false);
         }
         panelDerecho.add(Box.createVerticalGlue());
         panelDerecho.add(botonPerfil);
@@ -1128,10 +1175,9 @@ public class Administrador {
         panelDerecho.add(botonBitacoras);
         panelDerecho.add(Box.createRigidArea(new Dimension(0, 10)));
         panelDerecho.add(botonSeguimiento);
-//        panelDerecho.add(Box.createRigidArea(new Dimension(0, 10)));
-//        panelDerecho.add(botonNovedad);
+        panelDerecho.add(Box.createRigidArea(new Dimension(0, 10)));
+        panelDerecho.add(botonNovedades);
         panelDerecho.add(Box.createVerticalGlue());
-
 
 
         panelContenido.add(panelIzquierdo, BorderLayout.CENTER);
