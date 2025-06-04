@@ -514,6 +514,12 @@ public class CodigoGUI4 extends JFrame {
     }
 
     private void validarArchivo(Codigo archivo, JButton btnValidar) {
+
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de validar este archivo?", "Confirmar Validacion",
+                JOptionPane.YES_NO_OPTION);
+        if (confirmacion != JOptionPane.YES_OPTION) return;
+
         String rolActual = obtenerRolUsuario();
         String campoAValidar = "";
 
