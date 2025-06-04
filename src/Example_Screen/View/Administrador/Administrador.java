@@ -479,8 +479,10 @@ public class Administrador {
         asignaBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarTablaAprendicesAsignados();
+                verUsuarioPorRol = 0;
                 datosAprendices = 7;
+                mostrarTablaAprendicesAsignados();
+
 
             }
         });
@@ -488,8 +490,10 @@ public class Administrador {
         botonAprendizContratado.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarTablaAprendicesContratados();
+                verUsuarioPorRol = 0;
                 datosAprendices = 8;
+                mostrarTablaAprendicesContratados();
+
 
             }
         });
@@ -1088,6 +1092,8 @@ public class Administrador {
         botonNovedades.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                datosAprendices = 9;
+                verUsuarioPorRol = 0;
                 mostrarNovedadesAprendiz();
             }
         });
