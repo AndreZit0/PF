@@ -942,7 +942,7 @@ public class VerUsuariosRegistrados extends Component {
             rol = "Evaluadores Registrados";
         }
         if (verUsuarioPorRol == 3){
-            rol = "Empresas Registradas";
+            rol = "Coevaluadores Registrados";
         }
         else if (verUsuarioPorRol == 4) {
             rol = "Auxiliares Registrados";

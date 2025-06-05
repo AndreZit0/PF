@@ -116,7 +116,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <grid id="a06c8" layout-manager="GridLayoutManager" row-count="31" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="ab788" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints/>
                     <properties>
@@ -124,697 +124,709 @@
                     </properties>
                     <border type="none"/>
                     <children>
-                      <grid id="9d934" binding="pnlBtonCrearUsua" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                      <grid id="d43b7" layout-manager="GridLayoutManager" row-count="31" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                         <margin top="0" left="0" bottom="0" right="0"/>
                         <constraints>
-                          <grid row="9" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <background color="-12998400"/>
                         </properties>
                         <border type="none"/>
                         <children>
-                          <component id="c7486" class="javax.swing.JButton" binding="crearUsuariosButton" default-binding="true">
+                          <grid id="cbfd0" binding="pnlBtonCrearUsua" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="12" right="0"/>
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="9" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <background color="-12998400"/>
-                              <borderPainted value="false"/>
-                              <enabled value="true"/>
-                              <focusPainted value="false"/>
-                              <font name="Calibri" size="25" style="1"/>
-                              <foreground color="-1"/>
-                              <horizontalAlignment value="2"/>
-                              <horizontalTextPosition value="11"/>
-                              <icon value="img/ecuador (5) (1).png"/>
-                              <iconTextGap value="14"/>
-                              <margin top="0" left="0" bottom="0" right="0"/>
-                              <requestFocusEnabled value="false"/>
-                              <text value="Administrar"/>
                             </properties>
-                          </component>
-                        </children>
-                      </grid>
-                      <grid id="a84f5" binding="pnlBtonRegisEmpr" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="17" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="1700d" class="javax.swing.JButton" binding="registrarEmpresa">
+                            <border type="none"/>
+                            <children>
+                              <component id="8cb1a" class="javax.swing.JButton" binding="crearUsuariosButton" default-binding="true">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-12998400"/>
+                                  <borderPainted value="false"/>
+                                  <enabled value="true"/>
+                                  <focusPainted value="false"/>
+                                  <font name="Calibri" size="25" style="1"/>
+                                  <foreground color="-1"/>
+                                  <horizontalAlignment value="2"/>
+                                  <horizontalTextPosition value="11"/>
+                                  <icon value="img/ecuador (5) (1).png"/>
+                                  <iconTextGap value="14"/>
+                                  <margin top="0" left="0" bottom="0" right="0"/>
+                                  <requestFocusEnabled value="false"/>
+                                  <text value="Administrar"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <grid id="d19a8" binding="pnlBtonRegisEmpr" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="12" right="0"/>
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="17" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <background color="-12998400"/>
-                              <borderPainted value="false"/>
-                              <focusPainted value="false"/>
-                              <font name="Calibri" size="25" style="1"/>
-                              <foreground color="-1"/>
-                              <horizontalAlignment value="2"/>
-                              <horizontalTextPosition value="11"/>
-                              <icon value="img/Diseño sin título((.png"/>
-                              <iconTextGap value="14"/>
-                              <margin top="0" left="0" bottom="0" right="0"/>
-                              <requestFocusEnabled value="false"/>
-                              <text value="Empresas"/>
                             </properties>
-                          </component>
-                        </children>
-                      </grid>
-                      <grid id="48d8e" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children/>
-                      </grid>
-                      <grid id="f370d" binding="pnlBtonInicio" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="b95fc" class="javax.swing.JButton" binding="inicio">
+                            <border type="none"/>
+                            <children>
+                              <component id="1fde" class="javax.swing.JButton" binding="registrarEmpresa">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-12998400"/>
+                                  <borderPainted value="false"/>
+                                  <focusPainted value="false"/>
+                                  <font name="Calibri" size="25" style="1"/>
+                                  <foreground color="-1"/>
+                                  <horizontalAlignment value="2"/>
+                                  <horizontalTextPosition value="11"/>
+                                  <icon value="img/Diseño sin título((.png"/>
+                                  <iconTextGap value="14"/>
+                                  <margin top="0" left="0" bottom="0" right="0"/>
+                                  <requestFocusEnabled value="false"/>
+                                  <text value="Empresas"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <grid id="2089f" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <background color="-12998400"/>
-                              <borderPainted value="false"/>
-                              <enabled value="true"/>
-                              <focusPainted value="false"/>
-                              <font name="Calibri" size="25" style="1"/>
-                              <foreground color="-1"/>
-                              <horizontalAlignment value="2"/>
-                              <horizontalTextPosition value="11"/>
-                              <icon value="img/Diseño sin título ().png"/>
-                              <iconTextGap value="14"/>
-                              <margin top="0" left="0" bottom="0" right="0"/>
-                              <requestFocusEnabled value="false"/>
-                              <text value="Inicio"/>
                             </properties>
-                          </component>
-                        </children>
-                      </grid>
-                      <component id="982c2" class="javax.swing.JButton" binding="aprendices">
-                        <constraints>
-                          <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Ver Aprendices"/>
-                        </properties>
-                      </component>
-                      <component id="82906" class="javax.swing.JButton" binding="evaluadores">
-                        <constraints>
-                          <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Ver Evaluadores"/>
-                        </properties>
-                      </component>
-                      <component id="2a91e" class="javax.swing.JButton" binding="coevaluadores">
-                        <constraints>
-                          <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Ver Coevaluadores"/>
-                        </properties>
-                      </component>
-                      <component id="143eb" class="javax.swing.JButton" binding="auxiliares">
-                        <constraints>
-                          <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Ver Auxiliares"/>
-                        </properties>
-                      </component>
-                      <grid id="39edc" binding="pnlBtonPermiso" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="12" right="0"/>
-                        <constraints>
-                          <grid row="20" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="db513" class="javax.swing.JButton" binding="permisosButton">
+                            <border type="none"/>
+                            <children/>
+                          </grid>
+                          <grid id="c7fbb" binding="pnlBtonInicio" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="45" left="0" bottom="12" right="0"/>
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="4f201" class="javax.swing.JButton" binding="inicio">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-12998400"/>
+                                  <borderPainted value="false"/>
+                                  <enabled value="true"/>
+                                  <focusPainted value="false"/>
+                                  <font name="Calibri" size="25" style="1"/>
+                                  <foreground color="-1"/>
+                                  <horizontalAlignment value="2"/>
+                                  <horizontalTextPosition value="11"/>
+                                  <icon value="img/Diseño sin título ().png"/>
+                                  <iconTextGap value="14"/>
+                                  <margin top="0" left="0" bottom="0" right="0"/>
+                                  <requestFocusEnabled value="false"/>
+                                  <text value="Inicio"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <component id="4e999" class="javax.swing.JButton" binding="aprendices">
+                            <constraints>
+                              <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <background color="-12998400"/>
                               <borderPainted value="false"/>
                               <focusPainted value="false"/>
-                              <font name="Calibri" size="25" style="1"/>
+                              <font name="Calibri" size="18" style="1"/>
                               <foreground color="-1"/>
                               <horizontalAlignment value="2"/>
                               <horizontalTextPosition value="11"/>
-                              <icon value="img/Diseño sin título...png"/>
-                              <iconTextGap value="14"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
                               <margin top="0" left="0" bottom="0" right="0"/>
                               <requestFocusEnabled value="false"/>
-                              <text value="Permisos"/>
+                              <text value=" Ver Aprendices"/>
                             </properties>
                           </component>
-                        </children>
-                      </grid>
-                      <grid id="65001" binding="pnlBtonVerUsua" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="68bf8" class="javax.swing.JButton" binding="verUsuariosButton" default-binding="true">
+                          <component id="63c1a" class="javax.swing.JButton" binding="evaluadores">
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <background color="-12998400"/>
                               <borderPainted value="false"/>
                               <focusPainted value="false"/>
-                              <font name="Calibri" size="24" style="1"/>
+                              <font name="Calibri" size="18" style="1"/>
                               <foreground color="-1"/>
                               <horizontalAlignment value="2"/>
                               <horizontalTextPosition value="11"/>
-                              <icon value="img/Diseño sin título__.png"/>
-                              <iconTextGap value="14"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
                               <margin top="0" left="0" bottom="0" right="0"/>
                               <requestFocusEnabled value="false"/>
-                              <text value="Usuarios"/>
+                              <text value=" Ver Evaluadores"/>
                             </properties>
                           </component>
-                        </children>
-                      </grid>
-                      <grid id="27af7" binding="pnlBtonAsigInstru" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="21" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="89104" class="javax.swing.JButton" binding="AsignarIntructorButton">
+                          <component id="face7" class="javax.swing.JButton" binding="coevaluadores">
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <alignmentY value="0.5"/>
                               <background color="-12998400"/>
                               <borderPainted value="false"/>
                               <focusPainted value="false"/>
-                              <font name="Calibri" size="25" style="1"/>
+                              <font name="Calibri" size="18" style="1"/>
                               <foreground color="-1"/>
                               <horizontalAlignment value="2"/>
                               <horizontalTextPosition value="11"/>
-                              <icon value="img/Diseño sin título zzz.png"/>
-                              <iconTextGap value="14"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
                               <margin top="0" left="0" bottom="0" right="0"/>
                               <requestFocusEnabled value="false"/>
-                              <text value="Asignar Evaluador"/>
+                              <text value=" Ver Coevaluadores"/>
                             </properties>
                           </component>
-                        </children>
-                      </grid>
-                      <component id="10e0a" class="javax.swing.JLabel" binding="menu_burguer">
-                        <constraints>
-                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <icon value="img/manu_burguer - copia.png"/>
-                          <text value=""/>
-                        </properties>
-                      </component>
-                      <grid id="a816e" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="8ddcd" class="javax.swing.JLabel" binding="logo">
+                          <component id="7af56" class="javax.swing.JButton" binding="auxiliares">
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="2" use-parent-layout="false"/>
+                              <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <icon value="img/logo-sena-blanco - copia.png"/>
+                              <background color="-12998400"/>
+                              <borderPainted value="false"/>
+                              <focusPainted value="false"/>
+                              <font name="Calibri" size="18" style="1"/>
+                              <foreground color="-1"/>
+                              <horizontalAlignment value="2"/>
+                              <horizontalTextPosition value="11"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
+                              <margin top="0" left="0" bottom="0" right="0"/>
+                              <requestFocusEnabled value="false"/>
+                              <text value=" Ver Auxiliares"/>
+                            </properties>
+                          </component>
+                          <grid id="6213a" binding="pnlBtonPermiso" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="12" right="0"/>
+                            <constraints>
+                              <grid row="20" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="c5c2b" class="javax.swing.JButton" binding="permisosButton">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-12998400"/>
+                                  <borderPainted value="false"/>
+                                  <focusPainted value="false"/>
+                                  <font name="Calibri" size="25" style="1"/>
+                                  <foreground color="-1"/>
+                                  <horizontalAlignment value="2"/>
+                                  <horizontalTextPosition value="11"/>
+                                  <icon value="img/Diseño sin título...png"/>
+                                  <iconTextGap value="14"/>
+                                  <margin top="0" left="0" bottom="0" right="0"/>
+                                  <requestFocusEnabled value="false"/>
+                                  <text value="Permisos"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <grid id="67290" binding="pnlBtonVerUsua" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="12" right="0"/>
+                            <constraints>
+                              <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="425a5" class="javax.swing.JButton" binding="verUsuariosButton" default-binding="true">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-12998400"/>
+                                  <borderPainted value="false"/>
+                                  <focusPainted value="false"/>
+                                  <font name="Calibri" size="24" style="1"/>
+                                  <foreground color="-1"/>
+                                  <horizontalAlignment value="2"/>
+                                  <horizontalTextPosition value="11"/>
+                                  <icon value="img/Diseño sin título__.png"/>
+                                  <iconTextGap value="14"/>
+                                  <margin top="0" left="0" bottom="0" right="0"/>
+                                  <requestFocusEnabled value="false"/>
+                                  <text value="Usuarios"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <grid id="e70a7" binding="pnlBtonAsigInstru" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="16" right="0"/>
+                            <constraints>
+                              <grid row="21" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="84d22" class="javax.swing.JButton" binding="AsignarIntructorButton">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <alignmentY value="0.5"/>
+                                  <background color="-12998400"/>
+                                  <borderPainted value="false"/>
+                                  <focusPainted value="false"/>
+                                  <font name="Calibri" size="25" style="1"/>
+                                  <foreground color="-1"/>
+                                  <horizontalAlignment value="2"/>
+                                  <horizontalTextPosition value="11"/>
+                                  <icon value="img/Diseño sin título zzz.png"/>
+                                  <iconTextGap value="14"/>
+                                  <margin top="0" left="0" bottom="0" right="0"/>
+                                  <requestFocusEnabled value="false"/>
+                                  <text value="Asignar Evaluador"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <component id="6a399" class="javax.swing.JLabel" binding="menu_burguer">
+                            <constraints>
+                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <icon value="img/manu_burguer - copia.png"/>
                               <text value=""/>
                             </properties>
                           </component>
-                        </children>
-                      </grid>
-                      <grid id="b88ff" binding="pnlBtonAprenContrat" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="22" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="dff80" class="javax.swing.JButton" binding="botonAprendizContratado">
+                          <grid id="6b45" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <background color="-12998400"/>
-                              <borderPainted value="false"/>
-                              <focusPainted value="false"/>
-                              <font name="Calibri" size="25" style="1"/>
-                              <foreground color="-1"/>
-                              <horizontalAlignment value="2"/>
-                              <horizontalTextPosition value="4"/>
-                              <icon value="img/ecuador (5) (1).png"/>
-                              <iconTextGap value="14"/>
-                              <margin top="0" left="0" bottom="0" right="0"/>
-                              <requestFocusEnabled value="true"/>
-                              <text value="Apr. Contratados"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="a60aa" class="javax.swing.JLabel" binding="logo">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="2" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <icon value="img/logo-sena-blanco - copia.png"/>
+                                  <text value=""/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <grid id="e1950" binding="pnlBtonAprenContrat" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="12" right="0"/>
+                            <constraints>
+                              <grid row="22" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="d4c5d" class="javax.swing.JButton" binding="botonAprendizContratado">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-12998400"/>
+                                  <borderPainted value="false"/>
+                                  <focusPainted value="false"/>
+                                  <font name="Calibri" size="25" style="1"/>
+                                  <foreground color="-1"/>
+                                  <horizontalAlignment value="2"/>
+                                  <horizontalTextPosition value="4"/>
+                                  <icon value="img/ecuador (5) (1).png"/>
+                                  <iconTextGap value="14"/>
+                                  <margin top="0" left="0" bottom="0" right="0"/>
+                                  <requestFocusEnabled value="true"/>
+                                  <text value="Apr. Contratados"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <grid id="6601d" binding="pnlBtonPerfil" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="12" right="0"/>
+                            <constraints>
+                              <grid row="27" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="2f61a" class="javax.swing.JButton" binding="miPerfil">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <alignmentY value="0.5"/>
+                                  <background color="-12998400"/>
+                                  <borderPainted value="false"/>
+                                  <focusPainted value="false"/>
+                                  <font name="Calibri" size="25" style="1"/>
+                                  <foreground color="-1"/>
+                                  <horizontalAlignment value="2"/>
+                                  <horizontalTextPosition value="11"/>
+                                  <icon value="img/ecuador (6) (1).png"/>
+                                  <iconTextGap value="14"/>
+                                  <margin top="0" left="0" bottom="0" right="0"/>
+                                  <requestFocusEnabled value="false"/>
+                                  <text value="Mi Perfil"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <component id="74384" class="javax.swing.JLabel" binding="separadorInvisible">
+                            <constraints>
+                              <grid row="28" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <font size="20"/>
+                              <foreground color="-12998400"/>
+                              <text value="Labelghjkgkhkhgklhlkjlgjle"/>
                             </properties>
                           </component>
-                        </children>
-                      </grid>
-                      <grid id="660a" binding="pnlBtonPerfil" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="27" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="7cb49" class="javax.swing.JButton" binding="miPerfil">
+                          <grid id="59a6f" binding="PanelFormato" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="12" right="0"/>
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="24" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <alignmentY value="0.5"/>
+                              <background color="-12998400"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="d2597" class="javax.swing.JButton" binding="FormatoBoton">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <alignmentY value="0.5"/>
+                                  <background color="-12998400"/>
+                                  <borderPainted value="false"/>
+                                  <focusPainted value="false"/>
+                                  <font name="Calibri" size="25" style="1"/>
+                                  <foreground color="-1"/>
+                                  <horizontalAlignment value="2"/>
+                                  <horizontalTextPosition value="11"/>
+                                  <icon value="img/Diseño sin título zzz.png"/>
+                                  <iconTextGap value="14"/>
+                                  <margin top="0" left="0" bottom="0" right="0"/>
+                                  <requestFocusEnabled value="false"/>
+                                  <text value="Formatos"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <component id="e6e95" class="javax.swing.JButton" binding="f147">
+                            <constraints>
+                              <grid row="25" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
                               <background color="-12998400"/>
                               <borderPainted value="false"/>
                               <focusPainted value="false"/>
-                              <font name="Calibri" size="25" style="1"/>
+                              <font name="Calibri" size="18" style="1"/>
                               <foreground color="-1"/>
                               <horizontalAlignment value="2"/>
                               <horizontalTextPosition value="11"/>
-                              <icon value="img/ecuador (6) (1).png"/>
-                              <iconTextGap value="14"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
                               <margin top="0" left="0" bottom="0" right="0"/>
                               <requestFocusEnabled value="false"/>
-                              <text value="Mi Perfil"/>
+                              <text value=" Formato 147"/>
                             </properties>
                           </component>
-                        </children>
-                      </grid>
-                      <component id="3140c" class="javax.swing.JLabel" binding="separadorInvisible">
-                        <constraints>
-                          <grid row="28" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <font size="20"/>
-                          <foreground color="-12998400"/>
-                          <text value="Labelghjkgkhkhgklhlkjlgjle"/>
-                        </properties>
-                      </component>
-                      <grid id="88b15" binding="PanelFormato" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="24" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="26c31" class="javax.swing.JButton" binding="FormatoBoton">
+                          <component id="6391c" class="javax.swing.JButton" binding="f023">
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="26" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <alignmentY value="0.5"/>
                               <background color="-12998400"/>
                               <borderPainted value="false"/>
                               <focusPainted value="false"/>
-                              <font name="Calibri" size="25" style="1"/>
+                              <font name="Calibri" size="18" style="1"/>
                               <foreground color="-1"/>
                               <horizontalAlignment value="2"/>
                               <horizontalTextPosition value="11"/>
-                              <icon value="img/Diseño sin título zzz.png"/>
-                              <iconTextGap value="14"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
                               <margin top="0" left="0" bottom="0" right="0"/>
                               <requestFocusEnabled value="false"/>
-                              <text value="Formatos"/>
+                              <text value=" Formato 023"/>
                             </properties>
                           </component>
-                        </children>
-                      </grid>
-                      <component id="9683e" class="javax.swing.JButton" binding="f147">
-                        <constraints>
-                          <grid row="25" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Formato 147"/>
-                        </properties>
-                      </component>
-                      <component id="cc3d8" class="javax.swing.JButton" binding="f023">
-                        <constraints>
-                          <grid row="26" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Formato 023"/>
-                        </properties>
-                      </component>
-                      <grid id="9c79d" binding="panelAsigna" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="23" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="45442" class="javax.swing.JButton" binding="asignaBoton">
+                          <grid id="6372d" binding="panelAsigna" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="12" right="0"/>
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="23" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="401f0" class="javax.swing.JButton" binding="asignaBoton">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-12998400"/>
+                                  <borderPainted value="false"/>
+                                  <focusPainted value="false"/>
+                                  <font name="Calibri" size="25" style="1"/>
+                                  <foreground color="-1"/>
+                                  <horizontalAlignment value="2"/>
+                                  <horizontalTextPosition value="4"/>
+                                  <icon value="img/ecuador (5) (1).png"/>
+                                  <iconTextGap value="14"/>
+                                  <margin top="0" left="0" bottom="0" right="0"/>
+                                  <requestFocusEnabled value="true"/>
+                                  <text value="Apr. Asignados"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <component id="7a852" class="javax.swing.JButton" binding="botonCrearFicha">
+                            <constraints>
+                              <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <background color="-12998400"/>
                               <borderPainted value="false"/>
                               <focusPainted value="false"/>
-                              <font name="Calibri" size="25" style="1"/>
+                              <font name="Calibri" size="18" style="1"/>
                               <foreground color="-1"/>
                               <horizontalAlignment value="2"/>
-                              <horizontalTextPosition value="4"/>
-                              <icon value="img/ecuador (5) (1).png"/>
-                              <iconTextGap value="14"/>
+                              <horizontalTextPosition value="11"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
                               <margin top="0" left="0" bottom="0" right="0"/>
-                              <requestFocusEnabled value="true"/>
-                              <text value="Apr. Asignados"/>
+                              <requestFocusEnabled value="false"/>
+                              <text value=" Fichas"/>
                             </properties>
                           </component>
+                          <component id="56840" class="javax.swing.JButton" binding="botonCrearPrograma">
+                            <constraints>
+                              <grid row="11" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                              <borderPainted value="false"/>
+                              <focusPainted value="false"/>
+                              <font name="Calibri" size="18" style="1"/>
+                              <foreground color="-1"/>
+                              <horizontalAlignment value="2"/>
+                              <horizontalTextPosition value="11"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
+                              <margin top="0" left="0" bottom="0" right="0"/>
+                              <requestFocusEnabled value="false"/>
+                              <text value=" Programas"/>
+                            </properties>
+                          </component>
+                          <component id="ebac6" class="javax.swing.JButton" binding="botonCrearSede">
+                            <constraints>
+                              <grid row="12" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                              <borderPainted value="false"/>
+                              <focusPainted value="false"/>
+                              <font name="Calibri" size="18" style="1"/>
+                              <foreground color="-1"/>
+                              <horizontalAlignment value="2"/>
+                              <horizontalTextPosition value="11"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
+                              <margin top="0" left="0" bottom="0" right="0"/>
+                              <requestFocusEnabled value="false"/>
+                              <text value=" Sedes"/>
+                            </properties>
+                          </component>
+                          <component id="bdd89" class="javax.swing.JButton" binding="verFichasButton" default-binding="true">
+                            <constraints>
+                              <grid row="13" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                              <borderPainted value="false"/>
+                              <focusPainted value="false"/>
+                              <font name="Calibri" size="18" style="1"/>
+                              <foreground color="-1"/>
+                              <horizontalAlignment value="2"/>
+                              <horizontalTextPosition value="11"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
+                              <margin top="0" left="0" bottom="0" right="0"/>
+                              <requestFocusEnabled value="false"/>
+                              <text value=" Ver fichas"/>
+                            </properties>
+                          </component>
+                          <component id="694c9" class="javax.swing.JButton" binding="verProgramasButton" default-binding="true">
+                            <constraints>
+                              <grid row="14" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                              <borderPainted value="false"/>
+                              <focusPainted value="false"/>
+                              <font name="Calibri" size="18" style="1"/>
+                              <foreground color="-1"/>
+                              <horizontalAlignment value="2"/>
+                              <horizontalTextPosition value="11"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
+                              <margin top="0" left="0" bottom="0" right="0"/>
+                              <requestFocusEnabled value="false"/>
+                              <text value=" Ver programas"/>
+                            </properties>
+                          </component>
+                          <component id="f72ea" class="javax.swing.JButton" binding="verSedesButton" default-binding="true">
+                            <constraints>
+                              <grid row="15" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                              <borderPainted value="false"/>
+                              <focusPainted value="false"/>
+                              <font name="Calibri" size="18" style="1"/>
+                              <foreground color="-1"/>
+                              <horizontalAlignment value="2"/>
+                              <horizontalTextPosition value="11"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
+                              <margin top="0" left="0" bottom="0" right="0"/>
+                              <requestFocusEnabled value="false"/>
+                              <text value=" Ver sedes"/>
+                            </properties>
+                          </component>
+                          <component id="1f158" class="javax.swing.JButton" binding="botonCrearModalidad">
+                            <constraints>
+                              <grid row="16" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                              <borderPainted value="false"/>
+                              <focusPainted value="false"/>
+                              <font name="Calibri" size="18" style="1"/>
+                              <foreground color="-1"/>
+                              <horizontalAlignment value="2"/>
+                              <horizontalTextPosition value="11"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
+                              <margin top="0" left="0" bottom="0" right="0"/>
+                              <requestFocusEnabled value="false"/>
+                              <text value=" Modalidad"/>
+                            </properties>
+                          </component>
+                          <component id="7bcd3" class="javax.swing.JButton" binding="botonCrearEmpresa">
+                            <constraints>
+                              <grid row="18" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                              <borderPainted value="false"/>
+                              <focusPainted value="false"/>
+                              <font name="Calibri" size="18" style="1"/>
+                              <foreground color="-1"/>
+                              <horizontalAlignment value="2"/>
+                              <horizontalTextPosition value="11"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
+                              <margin top="0" left="0" bottom="0" right="0"/>
+                              <requestFocusEnabled value="false"/>
+                              <text value=" Crear"/>
+                            </properties>
+                          </component>
+                          <component id="469af" class="javax.swing.JButton" binding="botonAdministrarEmpresa">
+                            <constraints>
+                              <grid row="19" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                              <borderPainted value="false"/>
+                              <focusPainted value="false"/>
+                              <font name="Calibri" size="18" style="1"/>
+                              <foreground color="-1"/>
+                              <horizontalAlignment value="2"/>
+                              <horizontalTextPosition value="11"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
+                              <margin top="0" left="0" bottom="0" right="0"/>
+                              <requestFocusEnabled value="false"/>
+                              <text value=" Administrar"/>
+                            </properties>
+                          </component>
+                          <component id="86b5e" class="javax.swing.JButton" binding="botonCrearUsuario">
+                            <constraints>
+                              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                              <borderPainted value="false"/>
+                              <focusPainted value="false"/>
+                              <font name="Calibri" size="18" style="1"/>
+                              <foreground color="-1"/>
+                              <horizontalAlignment value="2"/>
+                              <horizontalTextPosition value="11"/>
+                              <icon value="img/Aprendices.png"/>
+                              <iconTextGap value="4"/>
+                              <margin top="0" left="0" bottom="0" right="0"/>
+                              <requestFocusEnabled value="false"/>
+                              <text value=" Crear Usuarios"/>
+                            </properties>
+                          </component>
+                          <grid id="b3fc4" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints>
+                              <grid row="29" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                            </properties>
+                            <border type="none"/>
+                            <children/>
+                          </grid>
+                          <grid id="a4d71" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints>
+                              <grid row="30" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-12998400"/>
+                            </properties>
+                            <border type="none"/>
+                            <children/>
+                          </grid>
                         </children>
-                      </grid>
-                      <component id="bb55c" class="javax.swing.JButton" binding="botonCrearFicha">
-                        <constraints>
-                          <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Fichas"/>
-                        </properties>
-                      </component>
-                      <component id="6881e" class="javax.swing.JButton" binding="botonCrearPrograma">
-                        <constraints>
-                          <grid row="11" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Programas"/>
-                        </properties>
-                      </component>
-                      <component id="4c0b" class="javax.swing.JButton" binding="botonCrearSede">
-                        <constraints>
-                          <grid row="12" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Sedes"/>
-                        </properties>
-                      </component>
-                      <component id="2cf20" class="javax.swing.JButton" binding="verFichasButton" default-binding="true">
-                        <constraints>
-                          <grid row="13" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Ver fichas"/>
-                        </properties>
-                      </component>
-                      <component id="c6883" class="javax.swing.JButton" binding="verProgramasButton" default-binding="true">
-                        <constraints>
-                          <grid row="14" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Ver programas"/>
-                        </properties>
-                      </component>
-                      <component id="331db" class="javax.swing.JButton" binding="verSedesButton" default-binding="true">
-                        <constraints>
-                          <grid row="15" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Ver sedes"/>
-                        </properties>
-                      </component>
-                      <component id="d02e7" class="javax.swing.JButton" binding="botonCrearModalidad">
-                        <constraints>
-                          <grid row="16" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Modalidad"/>
-                        </properties>
-                      </component>
-                      <component id="3b41a" class="javax.swing.JButton" binding="botonCrearEmpresa">
-                        <constraints>
-                          <grid row="18" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Crear"/>
-                        </properties>
-                      </component>
-                      <component id="cef9f" class="javax.swing.JButton" binding="botonAdministrarEmpresa">
-                        <constraints>
-                          <grid row="19" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Administrar"/>
-                        </properties>
-                      </component>
-                      <component id="7066e" class="javax.swing.JButton" binding="botonCrearUsuario">
-                        <constraints>
-                          <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                          <borderPainted value="false"/>
-                          <focusPainted value="false"/>
-                          <font name="Calibri" size="18" style="1"/>
-                          <foreground color="-1"/>
-                          <horizontalAlignment value="2"/>
-                          <horizontalTextPosition value="11"/>
-                          <icon value="img/Aprendices.png"/>
-                          <iconTextGap value="4"/>
-                          <margin top="0" left="0" bottom="0" right="0"/>
-                          <requestFocusEnabled value="false"/>
-                          <text value=" Crear Usuarios"/>
-                        </properties>
-                      </component>
-                      <grid id="2bc44" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="29" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children/>
-                      </grid>
-                      <grid id="d16b6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="30" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-12998400"/>
-                        </properties>
-                        <border type="none"/>
-                        <children/>
                       </grid>
                     </children>
                   </grid>
