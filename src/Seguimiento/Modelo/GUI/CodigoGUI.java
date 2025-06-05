@@ -559,6 +559,12 @@ public class CodigoGUI extends JFrame {
     }
 
     private void validarArchivo(Codigo archivo, JButton btnValidar, JButton btnEliminar) {
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de validar este archivo?", "Confirmar Validacion",
+                JOptionPane.YES_NO_OPTION);
+        if (confirmacion != JOptionPane.YES_OPTION) return;
+
+
         String rolActual = obtenerRolUsuario();
         String campoAValidar = "";
 
@@ -596,7 +602,7 @@ public class CodigoGUI extends JFrame {
                     break;
                 case "3":
                     archivo.setVal3("Aprobado");
-                    btnEliminar.setEnabled(false); // Inhabilitar eliminar si es coevaluador
+
                     break;
             }
 
