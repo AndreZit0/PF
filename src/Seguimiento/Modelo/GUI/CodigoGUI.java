@@ -24,6 +24,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import static Example_Screen.View.Login.LoginGUI.cofigBotonInicioSegunRol;
+import static Example_Screen.View.Login.LoginGUI.idUsuarioActual;
 
 /**
  * Interfaz gráfica para la gestión de archivos PDF con formato 023.
@@ -338,9 +339,12 @@ public class CodigoGUI extends JFrame {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                subidaHabilitada = true;
-                btnSubir.setEnabled(true);
-                timer.cancel();
+                // Asegurarse de que las actualizaciones de la GUI se hagan en el Event Dispatch Thread (EDT)
+                SwingUtilities.invokeLater(() -> {
+                    subidaHabilitada = true;
+                    btnSubir.setEnabled(true);
+                    timer.cancel();
+                });
             }
         }, 20000);
     }
@@ -400,13 +404,13 @@ public class CodigoGUI extends JFrame {
 
         if ("1".equals(cofigBotonInicioSegunRol)) {
             btnEliminar.setVisible(false);
-            btnSubir.setVisible(false);
+            // btnSubir.setVisible(false); // La visibilidad de btnSubir ya se controla en configurarComponentes
         }
 
         if("3".equals(cofigBotonInicioSegunRol))
         {
             btnEliminar.setVisible(false);
-            btnSubir.setVisible(true);
+            // btnSubir.setVisible(true); // La visibilidad de btnSubir ya se controla en configurarComponentes
         }
 
         // Botón de validación
@@ -414,58 +418,30 @@ public class CodigoGUI extends JFrame {
         estilizarBoton(btnValidar, Color.BLUE);
         btnValidar.addActionListener(e -> validarArchivo(archivo, btnValidar, btnEliminar));
 
+        // Lógica de visibilidad general de los botones de acción para ciertos roles
         if("4".equals(cofigBotonInicioSegunRol) || "5".equals(cofigBotonInicioSegunRol))
         {
             btnValidar.setVisible(false);
             btnEliminar.setVisible(false);
-            btnSubir.setVisible(false);
+            // btnSubir.setVisible(false); // La visibilidad de btnSubir ya se controla en configurarComponentes
         }
 
+        // ***** INICIO DE LA LÓGICA DE VALIDACIÓN DEL BOTÓN *****
+        // Aquí se llama al método para aplicar la lógica de habilitación/deshabilitación
+        // de los botones al cargar cada archivo en la GUI.
+        actualizarEstadoBotones(archivo, btnValidar, btnEliminar);
+        // ***** FIN DE LA LÓGICA DE VALIDACIÓN DEL BOTÓN *****
 
-        // Verificar si ya está validado por los 3 roles
-        boolean validadoCompletamente = archivo.getVal1().equals("Aprobado") ||
-                archivo.getVal3().equals("Aprobado");
-
-        // Deshabilitar botones si está completamente validado
-        if (validadoCompletamente) {
-            btnEliminar.setEnabled(false);
-            btnValidar.setEnabled(false);
-            btnValidar.setText("Validado");
-        } else {
-            // Verificar si el rol actual ya validó
-            String rolActual = obtenerRolUsuario();
-
-            // Deshabilitar validación si ya fue validado por este rol
-            boolean yaValidado = (rolActual.equals("1") && archivo.getVal1().equals("Aprobado")) ||
-                    (rolActual.equals("2") && archivo.getVal2().equals("Aprobado")) ||
-                    (rolActual.equals("3") && archivo.getVal3().equals("Aprobado"));
-
-            if (yaValidado) {
-                btnValidar.setEnabled(false);
-                btnValidar.setText("Validado");
-
-                // Inhabilitar eliminar si fue validado por aprendiz o coevaluador
-                if ((archivo.getVal1().equals("Aprobado") && rolActual.equals("1")) ||
-                        (archivo.getVal3().equals("Aprobado") && rolActual.equals("3"))) {
-                    btnEliminar.setEnabled(false);
-                }
-            }
-        }
 
         JPanel panelBotones = new JPanel(new GridLayout(3, 1, 0, 8)); // 8px de espacio vertical
         panelBotones.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Márgenes interno: arriba, izquierda, abajo, derecha
 
-        if ("1".equals(cofigBotonInicioSegunRol)) {
-            panelBotones.add(btnVer);
-            panelBotones.add(btnValidar);
-        }else {
-            panelBotones.add(btnVer);
-            panelBotones.add(btnEliminar);
-            panelBotones.add(btnValidar);
-        }
+        // Se añaden los botones al panel de botones, eliminando duplicidades si las había en tu original.
+        // La visibilidad y habilitación ya están manejadas por la lógica superior.
         panelBotones.add(btnVer);
-        panelBotones.add(btnEliminar);
         panelBotones.add(btnValidar);
+        panelBotones.add(btnEliminar);
+
 
         panelArchivo.add(panelInfo, BorderLayout.CENTER);
         panelArchivo.add(panelBotones, BorderLayout.EAST);
@@ -474,9 +450,62 @@ public class CodigoGUI extends JFrame {
         btnVer.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnValidar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
 
+    /**
+     * Nuevo método para centralizar la lógica de actualización del estado de los botones.
+     * Esto se llamará tanto al cargar la GUI como después de una validación exitosa.
+     * @param archivo El objeto Codigo con el estado actual del archivo.
+     * @param btnValidar El botón de validar para ese archivo.
+     * @param btnEliminar El botón de eliminar para ese archivo.
+     */
+    private void actualizarEstadoBotones(Codigo archivo, JButton btnValidar, JButton btnEliminar) {
+        String rolActual = obtenerRolUsuario();
 
+        // 1. Verificar si ya está validado por el rol actual
+        boolean yaValidadoPorEsteRol = false;
+        switch (rolActual) {
+            case "1": // Aprendiz
+                yaValidadoPorEsteRol = archivo.getVal1().equals("Aprobado");
+                break;
+            case "2": // Evaluador
+                yaValidadoPorEsteRol = archivo.getVal2().equals("Aprobado");
+                break;
+            case "3": // Coevaluador
+                yaValidadoPorEsteRol = archivo.getVal3().equals("Aprobado");
+                break;
+            // Para roles 4 y 5, los botones son invisibles, no se necesita lógica de habilitación aquí
+        }
 
+        // 2. Lógica para el botón de Validar
+        if (yaValidadoPorEsteRol) {
+            btnValidar.setEnabled(false);
+            btnValidar.setText("Validado");
+        } else {
+            btnValidar.setEnabled(true);
+            btnValidar.setText("Validar");
+        }
+
+        // 3. Lógica para el botón de Eliminar
+        boolean validadoPorAprendiz = archivo.getVal1().equals("Aprobado");
+        boolean validadoPorCoevaluador = archivo.getVal3().equals("Aprobado");
+
+        if (rolActual.equals("2")) { // Es Evaluador
+            // El botón eliminar del evaluador se mantiene activo a menos que
+            // Aprendiz O Coevaluador hayan aprobado.
+            if (validadoPorAprendiz || validadoPorCoevaluador) {
+                btnEliminar.setEnabled(false);
+            } else {
+                btnEliminar.setEnabled(true); // El evaluador puede eliminar si nadie más aprobó
+            }
+        } else { // Es Aprendiz o Coevaluador
+            // Si su propia validación está en "Aprobado", deshabilita eliminar.
+            if (yaValidadoPorEsteRol) { // Usamos yaValidadoPorEsteRol que ya calculamos
+                btnEliminar.setEnabled(false);
+            } else {
+                btnEliminar.setEnabled(true);
+            }
+        }
     }
 
     /**
@@ -558,17 +587,17 @@ public class CodigoGUI extends JFrame {
         }
     }
 
+    // --- Listener del botón de validación ---
     private void validarArchivo(Codigo archivo, JButton btnValidar, JButton btnEliminar) {
         int confirmacion = JOptionPane.showConfirmDialog(this,
-                "¿Está seguro de validar este archivo?", "Confirmar Validacion",
+                "¿Está seguro de validar este archivo?", "Confirmar Validación",
                 JOptionPane.YES_NO_OPTION);
         if (confirmacion != JOptionPane.YES_OPTION) return;
-
 
         String rolActual = obtenerRolUsuario();
         String campoAValidar = "";
 
-        switch(rolActual) {
+        switch (rolActual) {
             case "1": // Aprendiz
                 campoAValidar = "val1";
                 break;
@@ -585,29 +614,31 @@ public class CodigoGUI extends JFrame {
                 return;
         }
 
+        // Intentar actualizar la base de datos (marcar como 'Aprobado')
         if (archivoDAO.validarArchivo(archivo.getIdSeguimiento(), campoAValidar)) {
             JOptionPane.showMessageDialog(this,
                     "Documento validado exitosamente",
                     "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-            // Actualizar estado local
-            switch(rolActual) {
+            // Actualizar el objeto 'archivo' localmente después de una validación exitosa
+            switch (rolActual) {
                 case "1":
                     archivo.setVal1("Aprobado");
-                    btnEliminar.setEnabled(false); // Inhabilitar eliminar si es aprendiz
                     break;
                 case "2":
                     archivo.setVal2("Aprobado");
-                    // Evaluador puede seguir eliminando (no se deshabilita)
                     break;
                 case "3":
                     archivo.setVal3("Aprobado");
-
                     break;
             }
 
-            btnValidar.setEnabled(false);
-            btnValidar.setText("Validado");
+            // ***** INICIO DE LA LÓGICA DE VALIDACIÓN DEL BOTÓN *****
+            // Después de la validación exitosa y la actualización local,
+            // volvemos a llamar a la lógica centralizada para actualizar los botones
+            actualizarEstadoBotones(archivo, btnValidar, btnEliminar);
+            // ***** FIN DE LA LÓGICA DE VALIDACIÓN DEL BOTÓN *****
+
         } else {
             JOptionPane.showMessageDialog(this,
                     "Error al validar el documento",
