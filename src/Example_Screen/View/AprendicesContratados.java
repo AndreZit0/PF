@@ -42,7 +42,8 @@ public class AprendicesContratados {
                 FROM aprendices a
                 INNER JOIN usuarios u ON a.ID_usuarios = u.ID_usuarios
                 INNER JOIN empresas e ON a.ID_empresas = e.ID_empresas
-                WHERE a.ID_empresas = ?
+                INNER JOIN usuarios coevaluador ON e.ID_usuarios = coevaluador.ID_usuarios
+                WHERE coevaluador.ID_usuarios = ?
             """;
 
             PreparedStatement psAprendices = con.prepareStatement(sqlAprendices);
