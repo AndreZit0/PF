@@ -280,11 +280,12 @@ public class VerUsuariosRegistrados extends Component {
 
                         try (Connection con = DBConnection.getConnection();
                              PreparedStatement psAprendices = con.prepareStatement("""
-                             SELECT u.tipo_dc, u.numero, u.nombres, u.apellidos, u.email, e.nombre_empresa
-                             FROM aprendices a
-                             INNER JOIN usuarios u ON a.ID_usuarios = u.ID_usuarios
-                             INNER JOIN empresas e ON a.ID_empresas = e.ID_empresas
-                             WHERE a.ID_empresas = ?
+                             SELECT u.tipo_dc, u.numero, u.nombres, u.apellidos, u.email, e.nombre_empresa, a.ID_usuarios
+                            FROM aprendices a
+                            INNER JOIN usuarios u ON a.ID_usuarios = u.ID_usuarios
+                            INNER JOIN empresas e ON a.ID_empresas = e.ID_empresas
+                            INNER JOIN usuarios coevaluador ON e.ID_usuarios = coevaluador.ID_usuarios
+                            WHERE coevaluador.ID_usuarios = ?
                          """)) {
 
                             psAprendices.setInt(1, traerIDusuario);
