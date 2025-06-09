@@ -1,6 +1,7 @@
 package Usuarios;
 
 import Example_Screen.Connection.DBConnection;
+import utils.EmailSender;
 
 import javax.swing.*;
 import java.sql.*;
@@ -32,6 +33,8 @@ public class UsuariosDAO {
             pst.setString(12, usuario.getEstado());
 
             pst.executeUpdate();
+            EmailSender.sendEmail(usuario.getEmail_insti(), usuario.getNombres());
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
