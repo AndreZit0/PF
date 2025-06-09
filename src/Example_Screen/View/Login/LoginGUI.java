@@ -84,10 +84,11 @@ public class LoginGUI {
 
                 try (Connection conn = DBConnection.getConnection()) {
 
-                    String sqlEst = "SELECT estado FROM usuarios WHERE email = ?";
+                    String sqlEst = "SELECT estado FROM usuarios WHERE email = ? OR email_insti = ?";
                     PreparedStatement stmtEst = conn.prepareStatement(sqlEst);
 
                     stmtEst.setString(1,usuario);
+                    stmtEst.setString(2, usuario);
                     ResultSet rsEst = stmtEst.executeQuery();
 
                     if (rsEst.next()) {
@@ -106,11 +107,12 @@ public class LoginGUI {
                 if("Activo".equals(estado)){
 
                     try (Connection conn = DBConnection.getConnection()) {
-                        String sql = "SELECT * FROM usuarios WHERE email = ? AND clave = ? AND estado = ?";
+                        String sql = "SELECT * FROM usuarios WHERE (email = ? OR email_insti = ?) AND clave = ? AND estado = ?";
                         PreparedStatement stmt = conn.prepareStatement(sql);
                         stmt.setString(1, usuario);
-                        stmt.setString(2, contraseña);
-                        stmt.setString(3, estado);
+                        stmt.setString(2, usuario);       // o el email institucional
+                        stmt.setString(3, contraseña);
+                        stmt.setString(4, estado);
                         ResultSet rs = stmt.executeQuery();
 
                         if (rs.next()) {

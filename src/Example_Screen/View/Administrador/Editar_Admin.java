@@ -510,9 +510,10 @@ public class Editar_Admin{
         }
 
         try (Connection conn = DBConnection.getConnection()) {
-            String sql = "SELECT * FROM usuarios WHERE email = ?";
+            String sql = "SELECT * FROM usuarios WHERE email = ? OR email_insti = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, usuarioEmail);
+            stmt.setString(2, usuarioEmail);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {

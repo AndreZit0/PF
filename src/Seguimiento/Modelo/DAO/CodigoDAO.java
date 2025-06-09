@@ -185,10 +185,11 @@ public class CodigoDAO {
     // Modificar el método obtenerInfoCompletaAprendiz para devolver también el ID
     public Map<String, String> obtenerInfoCompletaAprendiz(String email) {
         Map<String, String> info = new HashMap<>();
-        String sql = "SELECT ID_usuarios, nombres, apellidos, numero FROM usuarios WHERE email = ?";
+        String sql = "SELECT ID_usuarios, nombres, apellidos, numero FROM usuarios WHERE email = ? OR email_insti = ?";
         try (Connection con = Conexion.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, email);
+            stmt.setString(2, email);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 info.put("id", String.valueOf(rs.getInt("ID_usuarios")));

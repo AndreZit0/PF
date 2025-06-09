@@ -61,7 +61,7 @@ public class AsignacionGUI {
         JTableHeader header = table1.getTableHeader();
         header.setBackground(Color.decode("#39A900"));
         header.setForeground(Color.WHITE);
-        header.setFont(new Font("Calibri", Font.BOLD, 15));
+        header.setFont(new Font("Calibri", Font.BOLD, 17));
 
         table1.setRowHeight(28);
         generarPDFButton.setPreferredSize(new Dimension(8, 20));
@@ -131,12 +131,12 @@ public class AsignacionGUI {
                     documento.add(titulo);
                     documento.add(new Paragraph("\n\n"));
 
-                    PdfPTable tabla = new PdfPTable(6);
+                    PdfPTable tabla = new PdfPTable(5);
                     tabla.setWidthPercentage(100);
                     tabla.setSpacingBefore(10f);
                     tabla.setSpacingAfter(10f);
 
-                    String[] headers = {"ID", "Nombre", "Documento", "Ficha", "Programa", "Evaluador"};
+                    String[] headers = {"Nombre", "Documento", "Ficha", "Programa", "Evaluador"};
 
                     for (String header : headers) {
                         PdfPCell cell = new PdfPCell(new Phrase(header,
@@ -163,9 +163,6 @@ public class AsignacionGUI {
                             JOptionPane.showMessageDialog(null, "No se han encontrado empresas.");
                         } else {
                                 while (rs.next()) {
-                                    // ID
-                                    tabla.addCell(new PdfPCell(new Phrase(rs.getString("ID_numeroAprendices"),
-                                            FontFactory.getFont("Calibri", 12, com.itextpdf.text.Font.NORMAL, BaseColor.BLACK))));
 
                                     // Nombre
                                     tabla.addCell(new PdfPCell(new Phrase(rs.getString("nombre_aprendiz"),
