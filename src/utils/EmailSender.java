@@ -51,7 +51,7 @@ public class EmailSender {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
-            message.setSubject("Bienvenido a SAEP");
+            message.setSubject("Bienvenido al aplicativo SAEP");
             //message.setText("Hello " + customerName + ",\n\nYour pharmacy registration has been successful, thank you for joining!\n\n\nRegards,\nML Pharmacy");
 
             // Cuerpo del correo en formato HTML
