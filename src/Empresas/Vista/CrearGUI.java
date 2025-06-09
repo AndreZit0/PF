@@ -87,10 +87,10 @@ public class CrearGUI {
             return;
         }
         // Validar formato de correo electrónico
-        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-            JOptionPane.showMessageDialog(pnlCrearEmpresa, "Por favor, ingresa un correo electrónico válido (@gmail.com).", "Correo inválido", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+//        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+//            JOptionPane.showMessageDialog(pnlCrearEmpresa, "Por favor, ingresa un correo electrónico válido (@gmail.com).", "Correo inválido", JOptionPane.WARNING_MESSAGE);
+//            return;
+//        }
 
         // Confirmación antes de agregar la empresa
         int confirmacion = JOptionPane.showConfirmDialog(pnlCrearEmpresa, "¿Estás seguro de que deseas agregar esta empresa?", "Confirmación", JOptionPane.YES_NO_OPTION);

@@ -87,7 +87,7 @@
         <properties>
           <font name="Calibri" size="18" style="1"/>
           <foreground color="-16777216"/>
-          <text value="Email:"/>
+          <text value="Correo:"/>
         </properties>
       </component>
       <component id="87c23" class="javax.swing.JLabel">

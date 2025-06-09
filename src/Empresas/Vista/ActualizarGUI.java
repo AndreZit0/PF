@@ -80,10 +80,10 @@ public class ActualizarGUI extends JDialog {
      */
     public boolean guardarCambios() {
         String email = textField6.getText();
-        if (!email.endsWith("@gmail.com")) {
-            JOptionPane.showMessageDialog(this, "El correo electrónico debe terminar en '@gmail.com'.", "Correo no válido", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+//        if (!email.endsWith("@gmail.com")) {
+//            JOptionPane.showMessageDialog(this, "El correo electrónico debe terminar en '@gmail.com'.", "Correo no válido", JOptionPane.ERROR_MESSAGE);
+//            return false;
+//        }
 
         empresa.setNit(textField1.getText());
         empresa.setNombre_empresa(textField2.getText());
